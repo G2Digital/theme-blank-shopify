@@ -1,7 +1,7 @@
 # Hydrogen Theme
 
-[![Build status](https://github.com/montalvomiguelo/hydrogen-theme/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/montalvomiguelo/hydrogen-theme/actions/workflows/ci.yml?query=branch%3Amain)
-[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://github.com/montalvomiguelo/hydrogen-theme/blob/main/LICENSE.md)
+[![Build status](https://github.com/G2Digital/theme-blank-shopify/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/montalvomiguelo/hydrogen-theme/actions/workflows/ci.yml?query=branch%3Amain)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://github.com/G2Digital/theme-blank-shopify/blob/main/LICENSE.md)
 
 A port of Hydrogen's default template to Shopify OS 2.0.
 
