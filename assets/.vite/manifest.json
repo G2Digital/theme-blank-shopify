@@ -1,0 +1,201 @@
+{
+  "_modulepreload-polyfill.ylYzXbQE.min.js": {
+    "file": "modulepreload-polyfill.ylYzXbQE.min.js",
+    "name": "modulepreload-polyfill"
+  },
+  "_utils.yhNUuzph.min.js": {
+    "file": "utils.yhNUuzph.min.js",
+    "name": "utils"
+  },
+  "frontend/entrypoints/customers.js": {
+    "file": "customers.CyaMyI5G.min.js",
+    "name": "customers",
+    "src": "frontend/entrypoints/customers.js",
+    "isEntry": true,
+    "imports": [
+      "_modulepreload-polyfill.ylYzXbQE.min.js"
+    ],
+    "dynamicImports": [
+      "frontend/lib/shopify_common.js",
+      "frontend/lib/customer-address.js"
+    ]
+  },
+  "frontend/entrypoints/theme.css": {
+    "file": "theme.Db0eVlgc.min.css",
+    "src": "frontend/entrypoints/theme.css",
+    "isEntry": true
+  },
+  "frontend/entrypoints/theme.js": {
+    "file": "theme.BYs8zMjZ.min.js",
+    "name": "theme",
+    "src": "frontend/entrypoints/theme.js",
+    "isEntry": true,
+    "imports": [
+      "_modulepreload-polyfill.ylYzXbQE.min.js"
+    ],
+    "dynamicImports": [
+      "frontend/islands/cart-drawer-items.js",
+      "frontend/islands/cart-drawer.js",
+      "frontend/islands/cart-items.js",
+      "frontend/islands/cart-note.js",
+      "frontend/islands/cart-remove-button.js",
+      "frontend/islands/details-disclosure.js",
+      "frontend/islands/details-modal.js",
+      "frontend/islands/header-drawer.js",
+      "frontend/islands/localization-form.js",
+      "frontend/islands/password-modal.js",
+      "frontend/islands/product-form.js",
+      "frontend/islands/product-recommendations.js",
+      "frontend/islands/quantity-input.js",
+      "frontend/islands/sticky-header.js",
+      "frontend/islands/variant-radios.js",
+      "frontend/islands/variant-selects.js"
+    ]
+  },
+  "frontend/islands/cart-drawer-items.js": {
+    "file": "cart-drawer-items.CUzDuF-B.min.js",
+    "name": "cart-drawer-items",
+    "src": "frontend/islands/cart-drawer-items.js",
+    "isDynamicEntry": true,
+    "imports": [
+      "frontend/islands/cart-items.js",
+      "_utils.yhNUuzph.min.js",
+      "frontend/entrypoints/theme.js",
+      "_modulepreload-polyfill.ylYzXbQE.min.js"
+    ]
+  },
+  "frontend/islands/cart-drawer.js": {
+    "file": "cart-drawer.CKJDG5nr.min.js",
+    "name": "cart-drawer",
+    "src": "frontend/islands/cart-drawer.js",
+    "isDynamicEntry": true,
+    "imports": [
+      "frontend/entrypoints/theme.js",
+      "_modulepreload-polyfill.ylYzXbQE.min.js"
+    ]
+  },
+  "frontend/islands/cart-items.js": {
+    "file": "cart-items.DKG8V12Y.min.js",
+    "name": "cart-items",
+    "src": "frontend/islands/cart-items.js",
+    "isDynamicEntry": true,
+    "imports": [
+      "_utils.yhNUuzph.min.js",
+      "frontend/entrypoints/theme.js",
+      "_modulepreload-polyfill.ylYzXbQE.min.js"
+    ]
+  },
+  "frontend/islands/cart-note.js": {
+    "file": "cart-note.BG0f4xD6.min.js",
+    "name": "cart-note",
+    "src": "frontend/islands/cart-note.js",
+    "isDynamicEntry": true,
+    "imports": [
+      "_utils.yhNUuzph.min.js"
+    ]
+  },
+  "frontend/islands/cart-remove-button.js": {
+    "file": "cart-remove-button.DAtlsxCk.min.js",
+    "name": "cart-remove-button",
+    "src": "frontend/islands/cart-remove-button.js",
+    "isDynamicEntry": true
+  },
+  "frontend/islands/details-disclosure.js": {
+    "file": "details-disclosure.sZgowH2s.min.js",
+    "name": "details-disclosure",
+    "src": "frontend/islands/details-disclosure.js",
+    "isDynamicEntry": true
+  },
+  "frontend/islands/details-modal.js": {
+    "file": "details-modal.wXciiWKc.min.js",
+    "name": "details-modal",
+    "src": "frontend/islands/details-modal.js",
+    "isDynamicEntry": true,
+    "imports": [
+      "frontend/entrypoints/theme.js",
+      "_modulepreload-polyfill.ylYzXbQE.min.js"
+    ]
+  },
+  "frontend/islands/header-drawer.js": {
+    "file": "header-drawer.CDYjaqhF.min.js",
+    "name": "header-drawer",
+    "src": "frontend/islands/header-drawer.js",
+    "isDynamicEntry": true,
+    "imports": [
+      "frontend/entrypoints/theme.js",
+      "frontend/islands/details-modal.js",
+      "_modulepreload-polyfill.ylYzXbQE.min.js"
+    ]
+  },
+  "frontend/islands/localization-form.js": {
+    "file": "localization-form.o14ATtSW.min.js",
+    "name": "localization-form",
+    "src": "frontend/islands/localization-form.js",
+    "isDynamicEntry": true
+  },
+  "frontend/islands/password-modal.js": {
+    "file": "password-modal.DcvXg-OJ.min.js",
+    "name": "password-modal",
+    "src": "frontend/islands/password-modal.js",
+    "isDynamicEntry": true,
+    "imports": [
+      "frontend/islands/details-modal.js",
+      "frontend/entrypoints/theme.js",
+      "_modulepreload-polyfill.ylYzXbQE.min.js"
+    ]
+  },
+  "frontend/islands/product-form.js": {
+    "file": "product-form.Dbh4tsUD.min.js",
+    "name": "product-form",
+    "src": "frontend/islands/product-form.js",
+    "isDynamicEntry": true,
+    "imports": [
+      "_utils.yhNUuzph.min.js"
+    ]
+  },
+  "frontend/islands/product-recommendations.js": {
+    "file": "product-recommendations.gYpId3uX.min.js",
+    "name": "product-recommendations",
+    "src": "frontend/islands/product-recommendations.js",
+    "isDynamicEntry": true
+  },
+  "frontend/islands/quantity-input.js": {
+    "file": "quantity-input.DV6Kq7Ne.min.js",
+    "name": "quantity-input",
+    "src": "frontend/islands/quantity-input.js",
+    "isDynamicEntry": true
+  },
+  "frontend/islands/sticky-header.js": {
+    "file": "sticky-header.BYa7q10A.min.js",
+    "name": "sticky-header",
+    "src": "frontend/islands/sticky-header.js",
+    "isDynamicEntry": true
+  },
+  "frontend/islands/variant-radios.js": {
+    "file": "variant-radios.BZ-ZX7YK.min.js",
+    "name": "variant-radios",
+    "src": "frontend/islands/variant-radios.js",
+    "isDynamicEntry": true,
+    "imports": [
+      "frontend/islands/variant-selects.js"
+    ]
+  },
+  "frontend/islands/variant-selects.js": {
+    "file": "variant-selects.g108j7-b.min.js",
+    "name": "variant-selects",
+    "src": "frontend/islands/variant-selects.js",
+    "isDynamicEntry": true
+  },
+  "frontend/lib/customer-address.js": {
+    "file": "customer-address.DDozh_KX.min.js",
+    "name": "customer-address",
+    "src": "frontend/lib/customer-address.js",
+    "isDynamicEntry": true
+  },
+  "frontend/lib/shopify_common.js": {
+    "file": "shopify_common.CHs6LLJE.min.js",
+    "name": "shopify_common",
+    "src": "frontend/lib/shopify_common.js",
+    "isDynamicEntry": true
+  }
+}
