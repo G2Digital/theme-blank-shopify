@@ -5,6 +5,18 @@ import tailwindcss from '@tailwindcss/vite'
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [shopify(), tailwindcss()],
+
+  // Configurar Tunnel para mapeamento de CSS em ambiente de personalização Shopify.
+  // server: {
+  //   tunnel: true,
+  //   cors: {
+  //     origin: [
+  //       /^https?:\/\/(?:(?:[^:]+\.)?localhost|127\.0\.0\.1|\[::1\])(?::\d+)?$/,
+  //       'https://dominio.myshopify.com'
+  //     ]
+  //   }
+  // },
+  
   build: {
     rollupOptions: {
       output: {
