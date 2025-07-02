@@ -2,6 +2,9 @@ import { defineConfig } from 'vite'
 import shopify from 'vite-plugin-shopify'
 import tailwindcss from '@tailwindcss/vite'
 
+import dotenv from 'dotenv'
+dotenv.config()
+
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [shopify(), tailwindcss()],
@@ -12,7 +15,7 @@ export default defineConfig({
     cors: {
       origin: [
         /^https?:\/\/(?:(?:[^:]+\.)?localhost|127\.0\.0\.1|\[::1\])(?::\d+)?$/,
-        'https://cecbra-com.myshopify.com'
+        process.env.VITE_SHOPIFY_URL
       ]
     }
   },
