@@ -7,6 +7,7 @@
   @param {string} [variant]
   @param {string} [size]
   @param {string} [shopify_attributes]
+  @param {string} [custom_classes]
 {%- enddoc -%}
 
 {%- liquid
@@ -18,7 +19,7 @@
 
 {%- if content != blank -%}
   <{{ button_tag }}
-    class="button data-[size=lg]:text-lead bg-primary text-contrast flex items-center gap-2 data-[variant=link]:bg-transparent data-[variant=link]:p-0 data-[variant=link]:text-inherit"
+    class="button {{ custom_classes }} bg-primary text-contrast flex items-center gap-2 data-[variant=link]:rounded-full data-[variant=link]:bg-white/20 data-[variant=link]:p-3.5 data-[size=lg]:text-base data-[variant=link]:text-white"
     data-slot="button"
     {% if size != blank -%}
       data-size="{{ size }}"
