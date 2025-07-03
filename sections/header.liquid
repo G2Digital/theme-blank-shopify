@@ -11,38 +11,29 @@
 <{{ header_tag }} client:idle>
   <header
     role="banner"
-    class="{{ container_class }} h-nav flex w-full items-center justify-between gap-4 px-4 leading-none backdrop-blur-lg md:px-8 lg:gap-8 lg:px-12 lg:py-8"
+    class="{{ container_class }} h-nav flex w-full items-center justify-between gap-4 px-4 leading-none backdrop-blur-lg md:px-8 lg:gap-8 lg:px-12 lg:py-4"
   >
-    <!-- Esquerda: Menu mobile sempre ativo + pesquisa -->
     <div class="flex flex-1 items-center gap-2 lg:gap-4">
       {%- content_for 'block', type: '_header-menu-mobile', id: 'header-menu-mobile' -%}
       <form
         action="{{ routes.search_url }}"
         method="get"
         role="search"
-        class="hidden w-full max-w-[335px] items-center gap-2 sm:flex"
+        class="hidden w-full items-center gap-2 sm:flex"
       >
         <input type="hidden" name="type" value="product">
-        <button type="submit" class="flex h-8 w-8 items-center justify-center">
+        <button type="submit" class="w-30 flex cursor-pointer items-center justify-center gap-3">
           {% render 'icon-search' %}
-          <span class="sr-only">{{ 'general.search.search' | t }}</span>
+          <span>{{ 'general.search.search' | t }}</span>
         </button>
-        <input
-          class="{{ input_class }} -mb-px hidden appearance-none border-x-0 border-b border-t-0 border-transparent bg-transparent px-0 py-1 text-left transition placeholder:text-inherit placeholder:opacity-20 focus:ring-transparent md:inline-block lg:text-right"
-          type="search"
-          name="q"
-          placeholder="{{ 'general.search.search' | t }}"
-        >
       </form>
       {% comment %} {%- content_for 'block', type: '_header-menu', id: 'header-menu' -%} {% endcomment %}
     </div>
 
-    <!-- Centro: Logo -->
     <div class="flex flex-1 items-center justify-center">
       {%- content_for 'block', type: '_header-logo', id: 'header-logo' -%}
     </div>
 
-    <!-- Direita: Botão, carrinho e usuário -->
     <div class="flex flex-1 items-center justify-end gap-2 lg:gap-4">
       {% render 'button', content: 'Visite nosso bloco', href: '/bloco', variant: 'link' %}
       {%- if shop.customer_accounts_enabled -%}
