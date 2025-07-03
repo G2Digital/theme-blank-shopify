@@ -48,13 +48,18 @@ class CartDrawer extends window.HTMLElement {
       { once: true }
     )
 
+    // Calculate scrollbar width and apply padding-right
+    const scrollbarWidth =
+      window.innerWidth - document.documentElement.clientWidth
     document.body.classList.add('overflow-hidden')
+    document.body.style.paddingRight = `${scrollbarWidth}px`
   }
 
   close() {
     this.classList.remove('active')
     removeTrapFocus(this.activeElement)
     document.body.classList.remove('overflow-hidden')
+    document.body.style.paddingRight = ''
   }
 
   renderContents(parsedState) {
