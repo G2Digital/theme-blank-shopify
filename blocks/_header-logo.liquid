@@ -2,31 +2,27 @@
   Displays a logo in the header.
 {%- enddoc -%}
 
-{%- if request.page_type == 'index' -%}
-  <h1 class="w-full lg:w-auto">
-{%- endif %}
-<a
-  href="{{ routes.root_url }}"
-  class="font-heading font-heading-weight flex h-full w-full flex-grow items-center justify-center self-stretch leading-[3rem] md:leading-[4rem] lg:inline lg:h-auto lg:w-auto lg:leading-none"
-  {{ block.shopify_attributes }}
->
-  {%- if block.settings.logo != blank -%}
-    <img
-      src="{{ block.settings.logo | image_url: width: block.settings.logo_width }}"
-      alt="{{ block.settings.logo.alt | default: shop.name }}"
-      width="{{ block.settings.logo_width }}"
-      height="{{ block.settings.logo_width | divided_by: block.settings.logo.aspect_ratio | round }}"
-      loading="lazy"
-      class="h-auto max-w-full"
-      style="max-width: {{ block.settings.logo_width }}px;"
-    >
-  {%- else -%}
-    {{ shop.name }}
-  {%- endif -%}
-</a>
-{%- if request.page_type == 'index' -%}
-  </h1>
-{%- endif %}
+<div class="w-full lg:w-auto">
+  <a
+    href="{{ routes.root_url }}"
+    class="font-heading font-heading-weight flex h-full w-full flex-grow items-center justify-center self-stretch leading-[3rem] md:leading-[4rem] lg:inline lg:h-auto lg:w-auto lg:leading-none"
+    {{ block.shopify_attributes }}
+  >
+    {%- if block.settings.logo != blank -%}
+      <img
+        src="{{ block.settings.logo | image_url: width: block.settings.logo_width }}"
+        alt="{{ block.settings.logo.alt | default: shop.name }}"
+        width="{{ block.settings.logo_width }}"
+        height="{{ block.settings.logo_width | divided_by: block.settings.logo.aspect_ratio | round }}"
+        loading="lazy"
+        class="h-auto max-w-full"
+        style="max-width: {{ block.settings.logo_width }}px;"
+      >
+    {%- else -%}
+      {{ shop.name }}
+    {%- endif -%}
+  </a>
+</div>
 
 {% schema %}
 {
