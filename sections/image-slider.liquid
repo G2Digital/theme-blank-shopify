@@ -8,13 +8,21 @@
       <div class="slider__slide">
         <a href="{{ block.settings.link }}">
           <picture>
-            <source media="(max-width: 767px)" srcset="{{ block.settings.image_mobile | image_url: 'master' }}">
-            <img
-              src="{{ block.settings.image_desktop | image_url: 'master' }}"
-              width="{{ block.settings.image_desktop.width }}"
-              height="{{ block.settings.image_desktop.height }}"
-              alt="Slide {{ forloop.index }}"
+            <source
+              media="(max-width: 767px)"
+              srcset="{% if block.settings.image_mobile != blank %}{{ block.settings.image_mobile | image_url: width: 800 }}{% endif %}"
             >
+            {% if block.settings.image_desktop != blank %}
+              <img
+                src="{{ block.settings.image_desktop | image_url: width: 1600 }}"
+                alt="Slide {{ forloop.index }}"
+                width="{{ block.settings.image_desktop.width }}"
+                height="{{ block.settings.image_desktop.height }}"
+                loading="lazy"
+              >
+            {% else %}
+              {{ 'image' | placeholder_svg_tag: 'w-full object-cover fill-primary/20' }}
+            {% endif %}
           </picture>
         </a>
       </div>
@@ -33,6 +41,7 @@
 
 <style>
   .image-slider {
+    position: relative;
     overflow: hidden;
   }
 
