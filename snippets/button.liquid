@@ -8,6 +8,7 @@
   @param {string} [size]
   @param {string} [shopify_attributes]
   @param {string} [custom_classes]
+  @param {string} [icon]
 {%- enddoc -%}
 
 {%- liquid
@@ -19,7 +20,7 @@
 
 {%- if content != blank -%}
   <{{ button_tag }}
-    class="button {{ custom_classes }} bg-primary text-contrast flex items-center gap-2 data-[variant=link]:rounded-full data-[variant=link]:bg-white/20 data-[variant=link]:p-3.5 data-[size=lg]:text-base data-[variant=link]:text-white"
+    class="button {{ custom_classes }} flex items-center gap-2 data-[variant=link]:rounded-full data-[variant=link]:bg-white/20 data-[variant=link]:p-3.5 data-[size=lg]:text-base data-[variant=link]:text-white"
     data-slot="button"
     {% if size != blank -%}
       data-size="{{ size }}"
@@ -37,6 +38,12 @@
       {{ shopify_attributes }}
     {%- endif %}
   >
+    {%- if icon != blank -%}
+      {%- case icon -%}
+        {%- when 'icon-chat' -%}
+          {% render 'icon-chat' %}
+      {%- endcase -%}
+    {%- endif %}
     {{- content -}}
   </{{ button_tag }}>
 {%- endif -%}

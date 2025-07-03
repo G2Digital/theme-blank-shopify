@@ -35,7 +35,13 @@
     </div>
 
     <div class="flex flex-1 items-center justify-end gap-2 lg:gap-4">
-      {% render 'button', content: 'Visite nosso bloco', href: '/bloco', variant: 'link', custom_classes: 'py-2' %}
+      {% render 'button',
+        content: 'Visite nosso bloco',
+        href: '/bloco',
+        variant: 'link',
+        custom_classes: 'font-normal',
+        icon: 'icon-chat'
+      %}
       {%- if shop.customer_accounts_enabled -%}
         <a
           href="{%- if customer -%}{{ routes.account_url }}{%- else -%}{{ routes.account_login_url }}{%- endif -%}"
