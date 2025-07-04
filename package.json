@@ -37,6 +37,7 @@
   "dependencies": {
     "dotenv": "^17.0.1",
     "embla-carousel": "^8.6.0",
-    "embla-carousel-autoplay": "^8.6.0"
+    "embla-carousel-autoplay": "^8.6.0",
+    "embla-carousel-fade": "^8.6.0"
   }
 }

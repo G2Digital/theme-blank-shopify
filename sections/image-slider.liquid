@@ -2,6 +2,9 @@
   class="image-slider"
   data-delay="{{ section.settings.slide_delay }}"
   data-show-navigation="{{ section.settings.show_navigation }}"
+  data-show-dots="{{ section.settings.show_dots }}"
+  data-effect="{{ section.settings.slide_effect }}"
+  style="{% if section.settings.height_type == 'custom' %}--slider-height: {{ section.settings.custom_height }}px;{% endif %}"
 >
   <div class="slider__container">
     {% for block in section.blocks %}
@@ -21,90 +24,41 @@
                 loading="lazy"
               >
             {% else %}
-              {{ 'image' | placeholder_svg_tag: 'w-full object-cover fill-primary/20' }}
+              <div class="slider__placeholder">
+                {{ 'image' | placeholder_svg_tag: 'w-full object-cover fill-primary/20' }}
+              </div>
             {% endif %}
           </picture>
         </a>
       </div>
     {% endfor %}
   </div>
+
   {% if section.settings.show_navigation %}
-    <button class="slider__voltar">Voltar</button>
-    <button class="slider__avancar">Avançar</button>
+    <button class="slider__nav slider__nav--prev" aria-label="Slide anterior">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </button>
+    <button class="slider__nav slider__nav--next" aria-label="Próximo slide">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </button>
   {% endif %}
-  <div class="slider__dots">
-    {% for block in section.blocks %}
-      <button class="slider__dot" data-index="{{ forloop.index0 }}"></button>
-    {% endfor %}
-  </div>
+
+  {% if section.settings.show_dots %}
+    <div class="slider__dots">
+      {% for block in section.blocks %}
+        <button
+          class="slider__dot"
+          data-index="{{ forloop.index0 }}"
+          aria-label="Ir para slide {{ forloop.index }}"
+        ></button>
+      {% endfor %}
+    </div>
+  {% endif %}
 </div>
-
-<style>
-  .image-slider {
-    position: relative;
-    overflow: hidden;
-  }
-
-  .slider__container {
-    display: flex;
-  }
-
-  .slider__slide {
-    flex: 0 0 100%;
-    min-width: 0;
-  }
-
-  .slider__slide img {
-    width: 100%;
-    height: auto;
-  }
-
-  .slider__voltar,
-  .slider__avancar {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background: rgba(0, 0, 0, 0.5);
-    color: white;
-    border: none;
-    padding: 10px;
-    cursor: pointer;
-  }
-
-  .slider__voltar {
-    left: 10px;
-  }
-
-  .slider__avancar {
-    right: 10px;
-  }
-
-  @media (max-width: 767px) {
-    .slider__voltar,
-    .slider__avancar {
-      display: none;
-    }
-  }
-
-  .slider__dots {
-    display: flex;
-    justify-content: center;
-    margin-top: 10px;
-  }
-
-  .slider__dot {
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    background: #ccc;
-    margin: 0 5px;
-    cursor: pointer;
-  }
-
-  .slider__dot.is-selected {
-    background: #000;
-  }
-</style>
 
 {% schema %}
 {
@@ -119,8 +73,41 @@
     {
       "type": "checkbox",
       "id": "show_navigation",
-      "label": "Mostrar controles de navegação no desktop",
+      "label": "Mostrar setas de navegação",
       "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_dots",
+      "label": "Mostrar pontos de navegação",
+      "default": true
+    },
+    {
+      "type": "select",
+      "id": "slide_effect",
+      "label": "Efeito de transição",
+      "options": [
+        { "value": "slide", "label": "Slide" },
+        { "value": "fade", "label": "Fade" }
+      ],
+      "default": "slide"
+    },
+    {
+      "type": "select",
+      "id": "height_type",
+      "label": "Tipo de altura",
+      "options": [
+        { "value": "auto", "label": "Automática (baseada na primeira imagem)" },
+        { "value": "custom", "label": "Personalizada" }
+      ],
+      "default": "auto"
+    },
+    {
+      "type": "number",
+      "id": "custom_height",
+      "label": "Altura personalizada (em pixels)",
+      "default": 500,
+      "info": "Usado apenas quando 'Tipo de altura' for 'Personalizada'"
     }
   ],
   "blocks": [
@@ -128,35 +115,17 @@
       "type": "slide",
       "name": "Slide",
       "settings": [
-        {
-          "type": "image_picker",
-          "id": "image_desktop",
-          "label": "Imagem Desktop"
-        },
-        {
-          "type": "image_picker",
-          "id": "image_mobile",
-          "label": "Imagem Mobile"
-        },
-        {
-          "type": "url",
-          "id": "link",
-          "label": "Link do Slide"
-        }
+        { "type": "image_picker", "id": "image_desktop", "label": "Imagem Desktop" },
+        { "type": "image_picker", "id": "image_mobile", "label": "Imagem Mobile" },
+        { "type": "url", "id": "link", "label": "Link do Slide" }
       ]
     }
   ],
   "presets": [
     {
       "name": "Image Slider",
-      "blocks": [
-        {
-          "type": "slide"
-        },
-        {
-          "type": "slide"
-        }
-      ]
+      "category": "Banners",
+      "blocks": [{ "type": "slide" }, { "type": "slide" }]
     }
   ]
 }
