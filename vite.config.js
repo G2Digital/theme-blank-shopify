@@ -1,6 +1,7 @@
 import { defineConfig } from 'vite'
 import shopify from 'vite-plugin-shopify'
 import tailwindcss from '@tailwindcss/vite'
+import cleanup from '@by-association-only/vite-plugin-shopify-clean' // Adicione esta importação
 import dotenv from 'dotenv'
 
 dotenv.config()
@@ -11,7 +12,11 @@ const shopifyUrls = process.env.VITE_SHOPIFY_URL
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [shopify(), tailwindcss()],
+  plugins: [
+    cleanup(), // Adicione o plugin antes do shopify
+    shopify(),
+    tailwindcss()
+  ],
 
   server: {
     tunnel: true,
@@ -24,6 +29,7 @@ export default defineConfig({
   },
 
   build: {
+    emptyOutDir: false, // Desative o comportamento padrão de limpar a pasta
     rollupOptions: {
       output: {
         entryFileNames: '[name].[hash].min.js',

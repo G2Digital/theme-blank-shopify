@@ -8,6 +8,10 @@
 ehthumbs.db
 Thumbs.db
 
+# Build directories
+/assets/*.min.js
+/assets/*.min.css
+
 # Logs
 logs
 *.log
