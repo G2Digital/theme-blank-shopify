@@ -9,7 +9,7 @@
   class="invisible absolute transition-[visibility] duration-300 [.active&]:visible{% if cart == empty %} is-empty{% endif %}"
   client:idle
 >
-  <div id="CartDrawer" class="fixed inset-0 z-20 flex h-full w-screen justify-end">
+  <div id="CartDrawer" class="fixed inset-0 z-30 flex h-full w-screen justify-end">
     <div id="CartDrawer-Overlay" class="fixed inset-0 hidden bg-black/25 [.active_&]:block"></div>
     <div
       class="bg-contrast relative flex h-full w-full max-w-lg translate-x-full flex-col overflow-y-auto transition-transform duration-300 [.active_&]:translate-x-0"
@@ -166,7 +166,7 @@
                     </div>
                   </div>
                   <div class="text-copy relative">
-                    <div class="loading-overlay absolute top-0 right-0 hidden">
+                    <div class="loading-overlay absolute right-0 top-0 hidden">
                       <svg
                         aria-hidden="true"
                         focusable="false"

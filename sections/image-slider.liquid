@@ -64,7 +64,7 @@
 
 {% schema %}
 {
-  "name": "Image Slider",
+  "name": "Slider Principal",
   "settings": [
     {
       "type": "number",
@@ -76,7 +76,7 @@
       "type": "checkbox",
       "id": "show_navigation",
       "label": "Mostrar setas de navegação",
-      "default": false
+      "default": true
     },
     {
       "type": "checkbox",
@@ -122,6 +122,7 @@
     {
       "type": "slide",
       "name": "Slide",
+      "limit": 5,
       "settings": [
         { "type": "image_picker", "id": "image_desktop", "label": "Imagem Desktop" },
         { "type": "image_picker", "id": "image_mobile", "label": "Imagem Mobile" },
@@ -131,7 +132,7 @@
   ],
   "presets": [
     {
-      "name": "Image Slider",
+      "name": "Slider Principal",
       "category": "Banners",
       "blocks": [{ "type": "slide" }, { "type": "slide" }]
     }
