@@ -13,6 +13,23 @@ A port of Hydrogen's default template to Shopify OS 2.0.
 - [pnpm](https://pnpm.io/)
 - [Shopify CLI](https://shopify.dev/themes/tools/cli)
 
+## ⚙️ Environment Setup
+
+Create a `.env` file in your project root to configure your development environment:
+
+```env
+# Shopify Store URLs for CORS (comma-separated for multiple stores)
+VITE_SHOPIFY_URL=https://your-store.myshopify.com,https://your-dev-store.myshopify.com
+```
+
+### Environment Variables
+
+| Variable           | Description                                                                                           | Example                                                            |
+| :----------------- | :---------------------------------------------------------------------------------------------------- | :----------------------------------------------------------------- |
+| `VITE_SHOPIFY_URL` | Your Shopify store URL(s) for CORS configuration. Use comma-separated values for multiple stores.     | `https://johns-apparel.myshopify.com,https://test-store.myshopify.com` |
+
+> **Note**: The CORS configuration allows the theme customizer to work properly in development mode, enabling you to preview `theme.css` and `theme.js` files before building.
+
 ## 🚀 Project Structure
 
 This theme leverages the [default Shopify theme folder structure](https://shopify.dev/themes/tools/github#repository-structure) and introduces the following directories, some of which have special behaviors.
@@ -56,6 +73,18 @@ Usage:
 ```html
 <my-component client:visible>This is an island.</my-component>
 ```
+
+## 🔧 Development Features
+
+### CORS Configuration
+The theme includes automatic CORS configuration for development mode, allowing seamless integration with Shopify's theme customizer. This enables you to:
+
+- Preview your theme assets (`theme.css`, `theme.js`) in real-time
+- Use the Shopify customizer while developing
+- Work with multiple store environments
+
+### Tunnel Support
+Development server includes tunnel support for external access, making it easier to test your theme across different devices and share previews.
 
 ## 🙇‍♂️ Thanks
 
