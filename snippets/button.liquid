@@ -20,7 +20,7 @@
 
 {%- if content != blank -%}
   <{{ button_tag }}
-    class="button {{ custom_classes }} flex items-center gap-2 data-[variant=link]:rounded-full data-[variant=link]:bg-white/20 data-[variant=link]:p-2.5 data-[variant=link]:px-4 data-[size=lg]:text-base data-[variant=link]:text-white"
+    class="button {{ custom_classes }} relative flex items-center gap-2 data-[variant=link]:rounded-full data-[variant=link]:bg-white/20 data-[variant=link]:p-2.5 data-[variant=link]:px-4 data-[size=lg]:text-base data-[variant=link]:text-white"
     data-slot="button"
     {% if size != blank -%}
       data-size="{{ size }}"
