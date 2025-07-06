@@ -37,10 +37,10 @@
 
     <div class="flex flex-1 items-center justify-end gap-2 lg:gap-4">
       {% render 'button',
-        content: 'Visite nosso bloco',
+        content: 'Visite nosso blog',
         href: '/blog',
         variant: 'link',
-        custom_classes: 'font-normal',
+        custom_classes: 'font-normal hidden xl:flex',
         icon: 'icon-chat'
       %}
       {%- if shop.customer_accounts_enabled -%}
@@ -60,8 +60,13 @@
           </span>
         </a>
       {%- endif -%}
-      <a href="{{ routes.cart_url }}" class="relative flex h-8 w-8 items-center justify-center" id="cart-icon-bubble">
+      <a
+        href="{{ routes.cart_url }}"
+        class="lg:h-26 lg:w-26 relative flex h-8 w-8 items-center justify-center gap-2"
+        id="cart-icon-bubble"
+      >
         {%- render 'cart-icon-bubble' -%}
+        <span class="hidden lg:inline">Carrinho</span>
       </a>
     </div>
   </header>
