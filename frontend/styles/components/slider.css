@@ -108,18 +108,18 @@
 }
 
 .slider__dot {
-  width: 12px;
-  height: 12px;
+  width: 10px;
+  height: 10px;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.5);
-  border: 2px solid rgba(255, 255, 255, 0.8);
+  background: rgba(255, 255, 255, 0.2);
+  border: 2px solid rgba(255, 255, 255, 0.9);
   cursor: pointer;
   transition: all 0.3s ease;
 }
 
 .slider__dot:hover {
-  background: rgba(255, 255, 255, 0.8);
-  transform: scale(1.1);
+  background: rgba(255, 255, 255, 0.9);
+  transform: scale(1.15);
 }
 
 .slider__dot.is-selected {

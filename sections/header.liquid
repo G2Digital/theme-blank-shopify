@@ -11,7 +11,8 @@
 <{{ header_tag }} client:idle>
   <header
     role="banner"
-    class="{{ container_class }} h-nav flex w-full items-center justify-between gap-4 px-4 leading-none backdrop-blur-lg md:px-8 lg:gap-8 lg:px-12 lg:py-4"
+    style="{% if section.settings.enable_background_color %}background-color: {{ section.settings.background_color }};{% endif %}"
+    class="{{ container_class }} {% if section.settings.enable_background_color %}fixed{% endif %} {% if section.settings.enable_blur_header %}backdrop-blur-lg{% endif %} h-nav flex w-full items-center justify-between gap-4 px-4 leading-none md:px-8 lg:gap-8 lg:px-12 lg:py-4"
   >
     <div class="flex flex-1 items-center gap-2 lg:gap-4">
       {%- content_for 'block', type: '_header-menu-mobile', id: 'header-menu-mobile' -%}
@@ -115,8 +116,27 @@
       "type": "checkbox",
       "id": "enable_sticky_header",
       "default": true,
-      "label": "Enable sticky header",
-      "info": "Header shows on the screen as customers scroll up."
+      "label": "Ativar cabeçalho fixo",
+      "info": "O cabeçalho é exibido na tela conforme os clientes rolam a página para cima."
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_background_color",
+      "label": "Ativar modo de transparência",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_blur_header",
+      "label": "Efeito de desfoque no cabeçalho",
+      "default": false
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Cor de fundo",
+      "default": "#ffffff",
+      "visible_if": "{{ section.settings.enable_background_color == true }}"
     }
   ]
 }
