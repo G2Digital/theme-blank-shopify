@@ -1,40 +1,14 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
-    "image_banner": {
-      "type": "image-banner",
-      "blocks": {
-        "heading": {
-          "type": "heading",
-          "settings": {
-            "heading": "Image banner",
-            "heading_size": "xl",
-            "heading_level": "h2"
-          }
-        },
-        "text": {
-          "type": "text",
-          "settings": {
-            "text": "<p><strong>Give customers details about the banner image(s) or content on the template.</strong></p>",
-            "text_size": "lg"
-          }
-        },
-        "button": {
-          "type": "button",
-          "settings": {
-            "button_label": "Shop all →",
-            "button_variant": "link",
-            "button_size": "lg",
-            "button_link": "shopify://collections/all"
-          }
-        }
-      },
-      "block_order": ["heading", "text", "button"],
-      "settings": {
-        "full_page_height_enable": true,
-        "lazy_load_enable": false,
-        "preload_first_image_enable": true
-      }
-    },
     "featured_collection": {
       "type": "featured-collection",
       "settings": {
@@ -47,21 +21,69 @@
       "type": "collection-list",
       "blocks": {
         "featured-collection-0": {
-          "type": "featured_collection"
+          "type": "featured_collection",
+          "settings": {
+            "collection": ""
+          }
         },
         "featured-collection-1": {
-          "type": "featured_collection"
+          "type": "featured_collection",
+          "settings": {
+            "collection": ""
+          }
         },
         "featured-collection-2": {
-          "type": "featured_collection"
+          "type": "featured_collection",
+          "settings": {
+            "collection": ""
+          }
         }
       },
       "block_order": [
         "featured-collection-0",
         "featured-collection-1",
         "featured-collection-2"
-      ]
+      ],
+      "settings": {
+        "title": "Collections",
+        "columns_desktop": 3
+      }
+    },
+    "image_slider_PDeXXz": {
+      "type": "image-slider",
+      "blocks": {
+        "slide_rtW7MB": {
+          "type": "slide",
+          "settings": {
+            "link": ""
+          }
+        },
+        "slide_mPUd68": {
+          "type": "slide",
+          "settings": {
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "slide_rtW7MB",
+        "slide_mPUd68"
+      ],
+      "name": "Slider Principal",
+      "settings": {
+        "slide_delay": 5000,
+        "show_navigation": true,
+        "show_dots": true,
+        "border_radius_bottom": true,
+        "slide_effect": "slide",
+        "height_type": "auto",
+        "custom_height": 500
+      }
     }
   },
-  "order": ["image_banner", "featured_collection", "collection_list"]
+  "order": [
+    "image_slider_PDeXXz",
+    "featured_collection",
+    "collection_list"
+  ]
 }
