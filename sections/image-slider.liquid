@@ -4,6 +4,7 @@
   data-show-navigation="{{ section.settings.show_navigation }}"
   data-show-dots="{{ section.settings.show_dots }}"
   data-effect="{{ section.settings.slide_effect }}"
+  data-height-type="{{ section.settings.height_type }}"
   {% if section.settings.height_type == 'custom' %}
     style="--slider-height: {{ section.settings.custom_height }}px;"
   {% endif %}
@@ -13,21 +14,43 @@
       <div class="slider__slide">
         <a href="{{ block.settings.link }}">
           <picture>
-            <source
-              media="(max-width: 767px)"
-              srcset="{% if block.settings.image_mobile != blank %}{{ block.settings.image_mobile | image_url: width: 800 }}{% endif %}"
-            >
+            {% if block.settings.image_mobile != blank %}
+              <source
+                media="(max-width: 767px)"
+                srcset="
+                  {%- if block.settings.image_mobile.width >= 375 -%}{{ block.settings.image_mobile | image_url: width: 375 }} 375w,{%- endif -%}
+                  {%- if block.settings.image_mobile.width >= 550 -%}{{ block.settings.image_mobile | image_url: width: 550 }} 550w,{%- endif -%}
+                  {%- if block.settings.image_mobile.width >= 750 -%}{{ block.settings.image_mobile | image_url: width: 750 }} 750w,{%- endif -%}
+                  {{ block.settings.image_mobile | image_url }} {{ block.settings.image_mobile.width }}w
+                "
+                sizes="100vw"
+              >
+            {% endif %}
+
             {% if block.settings.image_desktop != blank %}
               <img
-                src="{{ block.settings.image_desktop | image_url: width: 1600 }}"
+                srcset="
+                  {%- if block.settings.image_desktop.width >= 375 -%}{{ block.settings.image_desktop | image_url: width: 375 }} 375w,{%- endif -%}
+                  {%- if block.settings.image_desktop.width >= 550 -%}{{ block.settings.image_desktop | image_url: width: 550 }} 550w,{%- endif -%}
+                  {%- if block.settings.image_desktop.width >= 750 -%}{{ block.settings.image_desktop | image_url: width: 750 }} 750w,{%- endif -%}
+                  {%- if block.settings.image_desktop.width >= 1100 -%}{{ block.settings.image_desktop | image_url: width: 1100 }} 1100w,{%- endif -%}
+                  {%- if block.settings.image_desktop.width >= 1500 -%}{{ block.settings.image_desktop | image_url: width: 1500 }} 1500w,{%- endif -%}
+                  {%- if block.settings.image_desktop.width >= 1780 -%}{{ block.settings.image_desktop | image_url: width: 1780 }} 1780w,{%- endif -%}
+                  {%- if block.settings.image_desktop.width >= 2000 -%}{{ block.settings.image_desktop | image_url: width: 2000 }} 2000w,{%- endif -%}
+                  {%- if block.settings.image_desktop.width >= 3000 -%}{{ block.settings.image_desktop | image_url: width: 3000 }} 3000w,{%- endif -%}
+                  {%- if block.settings.image_desktop.width >= 3840 -%}{{ block.settings.image_desktop | image_url: width: 3840 }} 3840w,{%- endif -%}
+                  {{ block.settings.image_desktop | image_url }} {{ block.settings.image_desktop.width }}w
+                "
+                sizes="100vw"
+                src="{{ block.settings.image_desktop | image_url: width: 1500 }}"
                 alt="Slide {{ forloop.index }}"
                 width="{{ block.settings.image_desktop.width }}"
-                height="{{ block.settings.image_desktop.height }}"
-                loading="lazy"
+                height="{{ block.settings.image_desktop.width | divided_by: block.settings.image_desktop.aspect_ratio | round }}"
+                loading="{% if forloop.first %}eager{% else %}lazy{% endif %}"
               >
             {% else %}
               <div class="slider__placeholder">
-                {{ 'hero-apparel-1' | placeholder_svg_tag: 'rio_placeholder' }}
+                {{ 'hero-apparel-1' | placeholder_svg_tag: 'slider_placeholder' }}
               </div>
             {% endif %}
           </picture>

@@ -46,6 +46,15 @@
   --shadow-light-header: inset 0px -1px 0px 0px rgba(21, 21, 21, 0.05);
 }
 
+.sidebar_opened {
+  overflow: hidden;
+  padding-right: var(--padding-right, 0);
+}
+
+.sidebar_opened header {
+  width: calc(100% - var(--padding-right, 0));
+}
+
 .button {
   background: transparent;
   backdrop-filter: blur(10px);

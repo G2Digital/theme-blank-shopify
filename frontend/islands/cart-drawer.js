@@ -33,7 +33,6 @@ class CartDrawer extends window.HTMLElement {
 
   open(triggeredBy) {
     if (triggeredBy) this.setActiveElement(triggeredBy)
-    // here the animation doesn't seem to always get triggered. A timeout seem to help
     setTimeout(() => {
       this.classList.add('active')
     })
@@ -47,19 +46,11 @@ class CartDrawer extends window.HTMLElement {
       },
       { once: true }
     )
-
-    // Calculate scrollbar width and apply padding-right
-    const scrollbarWidth =
-      window.innerWidth - document.documentElement.clientWidth
-    document.body.classList.add('overflow-hidden')
-    document.body.style.paddingRight = `${scrollbarWidth}px`
   }
 
   close() {
     this.classList.remove('active')
     removeTrapFocus(this.activeElement)
-    document.body.classList.remove('overflow-hidden')
-    document.body.style.paddingRight = ''
   }
 
   renderContents(parsedState) {

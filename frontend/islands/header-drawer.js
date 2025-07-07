@@ -10,12 +10,6 @@ class HeaderDrawer extends DetailsModal {
     event.target.closest('details').setAttribute('open', true)
     document.body.addEventListener('click', this.onBodyClickEvent)
 
-    // Calculate scrollbar width and apply padding-right
-    const scrollbarWidth =
-      window.innerWidth - document.documentElement.clientWidth
-    document.body.classList.add('overflow-hidden')
-    document.body.style.paddingRight = `${scrollbarWidth}px`
-
     trapFocus(this.detailsContainer.querySelector('[tabindex="-1"]'))
   }
 
@@ -23,8 +17,6 @@ class HeaderDrawer extends DetailsModal {
     removeTrapFocus(focusToggle ? this.summaryToggle : null)
     document.body.removeEventListener('click', this.onBodyClickEvent)
     this.detailsContainer.classList.remove('menu-opening')
-    document.body.classList.remove('overflow-hidden')
-    document.body.style.paddingRight = ''
     this.closeAnimation()
   }
 

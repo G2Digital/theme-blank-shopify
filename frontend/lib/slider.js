@@ -48,11 +48,20 @@ export function initSliders() {
       })
     }
 
-    emblaApi.on('pointerDown', () => emblaApi.plugins().autoplay.stop())
+    emblaApi.on('pointerDown', () => {
+      if (emblaApi.plugins().autoplay) {
+        emblaApi.plugins().autoplay.stop()
+      }
+    })
     let autoplayTimer
     emblaApi.on('pointerUp', () => {
       clearTimeout(autoplayTimer)
-      autoplayTimer = setTimeout(() => emblaApi.plugins().autoplay.play(), 3000)
+      if (emblaApi.plugins().autoplay) {
+        autoplayTimer = setTimeout(
+          () => emblaApi.plugins().autoplay.play(),
+          3000
+        )
+      }
     })
   })
 }
