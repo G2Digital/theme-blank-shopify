@@ -19,6 +19,13 @@
       },
       {
         "type": "color",
+        "id": "colors_primary_header",
+        "default": "#FAFAFA",
+        "label": "Primary (Header)",
+        "info": "Text, buttons, etc."
+      },
+      {
+        "type": "color",
         "id": "colors_contrast",
         "default": "#202124",
         "label": "Accent",
