@@ -51,6 +51,10 @@ header {
   color: var(--color-primary-header);
 }
 
+/* .menu-drawer {
+  color: var(--color-primary);
+} */
+
 .sidebar_opened {
   overflow: hidden;
   padding-right: var(--padding-right, 0);
