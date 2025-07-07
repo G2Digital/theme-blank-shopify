@@ -4,11 +4,11 @@
   --font-size-lead: 1.125rem; /* text-lg */
   --font-size-heading: 2rem; /* text-2xl */
   --font-size-display: 3rem; /* text-4xl */
-  --height-nav: 3rem;
+  --height-nav: 5rem;
   --screen-height: 100vh;
 
   @media (min-width: 32em) {
-    --height-nav: 4rem;
+    --height-nav: 5rem;
   }
   @media (min-width: 48em) {
     --height-nav: 6rem;
