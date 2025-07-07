@@ -51,7 +51,7 @@
   padding-right: var(--padding-right, 0);
 }
 
-.sidebar_opened header {
+.sidebar_opened header.fixed {
   width: calc(100% - var(--padding-right, 0));
 }
 
