@@ -8,7 +8,28 @@
     "theme_support_url": "https://THEME_SUPPORT_URL.com/"
   },
   {
-    "name": "Colors",
+    "name": "Informações do tema",
+    "settings": [
+      {
+        "type": "paragraph",
+        "content": "As configurações do tema permitem que você personalize a estrutura e o visual da sua loja virtual com facilidade. Com o tema da G2Digital, não é necessário alterar códigos HTML ou CSS. Para saber mais sobre como personalizar seu tema, consulte a [Página de Ajuda](http://docs.shopify.com/themes/theme-templates/settings)."
+      },
+      {
+        "type": "paragraph",
+        "content": "Adquira nosso plano de [Suporte](http://g2digital.com.br/) e conte com a ajuda de profissionais certificados da G2Digital para tirar dúvidas sobre personalização visual, uso de aplicativos, integrações e muito mais. Caso tenha sugestões para melhorar nosso tema, adoraríamos ouvi-las e levá-las em consideração para futuras atualizações."
+      },
+      {
+        "type": "paragraph",
+        "content": "Agradecemos a confiança na [G2Digital](http://www.g2digital.com.br/)."
+      },
+      {
+        "type": "paragraph",
+        "content": "Tema desenvolvido com [Volt](https://shopify-vite.barrelny.com/)."
+      }
+    ]
+  },
+  {
+    "name": "Cores",
     "settings": [
       {
         "type": "color",
@@ -40,7 +61,7 @@
     ]
   },
   {
-    "name": "Typography",
+    "name": "Tipografia",
     "settings": [
       {
         "type": "header",
@@ -67,7 +88,7 @@
     ]
   },
   {
-    "name": "Cart",
+    "name": "Carrrinho",
     "settings": [
       {
         "type": "select",
