@@ -70,10 +70,10 @@
       "taxes_included_and_shipping_policy_html": "Tax included. <a href=\"{{ link }}\">Shipping</a> calculated at checkout.",
       "taxes_and_shipping_at_checkout": "Taxes and shipping calculated at checkout",
       "update": "Update",
-      "checkout": "Finalizar compra",
+      "checkout": "Finalizar Compra",
       "note": "Order special instructions",
       "cart_error": "Ocorreu um erro ao atualizar seu carrinho. Tente novamente.",
-      "cart_quantity_error_html": "Você só pode adicionar {{ quantidade }} deste item ao seu carrinho."
+      "cart_quantity_error_html": "Apenas {{ quantity }} disponíveis."
     },
     "collection_template": {
       "title": "Collection"
