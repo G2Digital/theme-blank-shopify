@@ -18,7 +18,7 @@
       aria-label="{{ 'sections.cart.title' | t }}"
       tabindex="-1"
     >
-      <div class="h-nav flex shrink-0 items-center justify-between px-6 sm:px-8 md:px-12">
+      <div class="h-nav flex shrink-0 items-center justify-between px-6 sm:px-8 md:px-8">
         <h2 class="text-lead font-body-weight-bold max-w-prose whitespace-pre-wrap">{{ 'sections.cart.title' | t }}</h2>
         <button
           type="button"
@@ -30,7 +30,7 @@
         </button>
       </div>
       {%- if cart == empty -%}
-        <div class="px-6 sm:px-8 md:px-12">
+        <div class="px-6 sm:px-8 md:px-8">
           <p class="text-copy">{{ 'sections.cart.empty' | t }}</p>
         </div>
       {%- endif -%}
@@ -43,7 +43,7 @@
         <form action="{{ routes.cart_url }}" id="CartDrawer-Form" method="post">
           <div
             id="CartDrawer-CartItems"
-            class="sm-max:pt-2 grid gap-6 px-6 pb-6 md:gap-10 md:px-12 [.loading&]:pointer-events-none"
+            class="sm-max:pt-2 grid gap-6 px-6 pb-6 md:gap-10 md:px-8 [.loading&]:pointer-events-none"
           >
             {%- for item in cart.items -%}
               <div id="CartDrawer-Item-{{ item.index | plus: 1 }}" class="cart-item grid grid-cols-[auto_1fr] gap-4">
@@ -53,7 +53,7 @@
                     <a href="{{ item.url }}" class="absolute inset-0 h-full w-full" tabindex="-1" aria-hidden="true">
                     </a>
                     <img
-                      class="h-24 w-24 rounded border object-cover object-center md:h-28 md:w-28"
+                      class="h-22 w-22 rounded border object-cover object-center md:h-24 md:w-24"
                       src="{{ item.image | image_url: width: 300 }}"
                       alt="{{ item.image.alt | escape }}"
                       loading="lazy"
@@ -64,7 +64,7 @@
                 </div>
                 <div class="flex flex-grow justify-between">
                   <div class="grid gap-2">
-                    <h3 class="text-copy font-body-weight-bold max-w-prose whitespace-pre-wrap">
+                    <h3 class="text-copy font-body-weight-bold max-w-[220px]">
                       <a class="cart-item-name" href="{{ item.url }}">{{ item.product.title | escape }}</a>
                     </h3>
                     {%- if item.product.has_only_default_variant == false
@@ -166,7 +166,7 @@
                     </div>
                   </div>
                   <div class="text-copy relative">
-                    <div class="loading-overlay absolute right-0 top-0 hidden">
+                    <div class="loading-overlay absolute right-0 top-6 hidden">
                       <svg
                         aria-hidden="true"
                         focusable="false"
@@ -223,11 +223,11 @@
           </p>
         </form>
       </cart-drawer-items>
-      <div class="mt-auto grid gap-6 border-t p-6 md:px-12 [.is-empty_&]:hidden">
+      <div class="mt-auto grid gap-6 border-t p-6 md:px-8 [.is-empty_&]:hidden">
         <div class="grid gap-2">
           <div class="font-body-weight-bold flex items-center justify-between" role="status">
             <h2 class="text-copy">{{ 'sections.cart.subtotal' | t }}</h2>
-            <p class="text-copy">{{ cart.total_price | money_with_currency }}</p>
+            <p class="text-copy">{{ cart.total_price | money }}</p>
           </div>
 
           <div class="empty:hidden">

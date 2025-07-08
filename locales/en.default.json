@@ -30,7 +30,7 @@
       "previous": "Previous page"
     },
     "search": {
-      "search": "Search",
+      "search": "Buscar",
       "submit": "Go",
       "no_results_html": "Your search for \"{{ terms }}\" did not yield any results."
     },
@@ -60,8 +60,8 @@
       }
     },
     "cart": {
-      "title": "Your cart",
-      "empty": "Your cart is currently empty.",
+      "title": "Carrinho",
+      "empty": "Seu carrinho esta vazio.",
       "remove_title": "Remove {{ title }}",
       "subtotal": "Subtotal",
       "new_subtotal": "New subtotal",
@@ -70,10 +70,10 @@
       "taxes_included_and_shipping_policy_html": "Tax included. <a href=\"{{ link }}\">Shipping</a> calculated at checkout.",
       "taxes_and_shipping_at_checkout": "Taxes and shipping calculated at checkout",
       "update": "Update",
-      "checkout": "Check out",
+      "checkout": "Finalizar compra",
       "note": "Order special instructions",
-      "cart_error": "There was an error while updating your cart. Please try again.",
-      "cart_quantity_error_html": "You can only add {{ quantity }} of this item to your cart."
+      "cart_error": "Ocorreu um erro ao atualizar seu carrinho. Tente novamente.",
+      "cart_quantity_error_html": "Você só pode adicionar {{ quantidade }} deste item ao seu carrinho."
     },
     "collection_template": {
       "title": "Collection"

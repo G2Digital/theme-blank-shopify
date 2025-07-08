@@ -7,7 +7,7 @@
 {% render 'icon-bag' %}
 <span class="sr-only">{{ 'templates.cart.cart' | t }}</span>
 {%- if cart != empty -%}
-  <div class="bg-primary-header text-primary absolute left-6 top-0 flex h-3 w-[0.75rem] items-center justify-center rounded-full px-[0.125rem] pb-px text-center text-[0.625rem] leading-none subpixel-antialiased lg:left-6 lg:top-8">
+  <div class="bg-primary-header  text-primary absolute left-6 top-0 flex h-3 w-[0.75rem] items-center justify-center rounded-full px-[0.125rem] pb-px text-center text-[0.625rem] leading-none subpixel-antialiased lg:left-6 lg:top-8">
     {%- if cart.item_count < 100 -%}
       <span aria-hidden="true">{{ cart.item_count }}</span>
     {%- endif -%}
