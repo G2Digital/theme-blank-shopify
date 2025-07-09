@@ -34,28 +34,28 @@
       {
         "type": "color",
         "id": "colors_primary",
-        "default": "#FAFAFA",
+        "default": "#564F6C",
         "label": "Primary",
         "info": "Text, buttons, etc."
       },
       {
         "type": "color",
         "id": "colors_primary_header",
-        "default": "#FAFAFA",
+        "default": "#FFFFFF",
         "label": "Primary (Header)",
         "info": "Text, buttons, etc."
       },
       {
         "type": "color",
         "id": "colors_contrast",
-        "default": "#202124",
+        "default": "#FFFFFF",
         "label": "Accent",
         "info": "Backgrounds, borders, etc."
       },
       {
         "type": "color",
         "id": "colors_accent",
-        "default": "#EB5628",
+        "default": "#000000",
         "label": "Labels like \"On sale\""
       }
     ]

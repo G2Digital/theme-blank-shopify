@@ -76,10 +76,10 @@ header {
   inset: 0;
   background: linear-gradient(
     140deg,
-    rgb(255, 255, 255, 0.05) 40%,
-    rgba(255, 255, 255, 0.5) 100%
+    rgb(255, 255, 255, 0.03) 40%,
+    rgba(255, 255, 255, 0.3) 100%
   );
-  box-shadow: 0.5px 0.5px 1px 1px rgb(255, 255, 255, 0.5);
+  box-shadow: 0.5px 0.5px 1px 1px rgb(255, 255, 255, 0.4);
   z-index: -1;
   border-radius: 100px;
   transition: opacity 0.5s ease;
@@ -92,10 +92,10 @@ header {
   inset: 0;
   background: linear-gradient(
     340deg,
-    rgb(255, 255, 255, 0.05) 40%,
-    rgba(255, 255, 255, 0.5) 100%
+    rgb(255, 255, 255, 0.03) 40%,
+    rgba(255, 255, 255, 0.3) 100%
   );
-  box-shadow: -0.5px -0.5px 0px 1px rgb(255, 255, 255, 0.5);
+  box-shadow: -0.5px -0.5px 0px 1px rgb(255, 255, 255, 0.4);
   z-index: -1;
   border-radius: 100px;
   transition: opacity 0.5s ease;
@@ -116,4 +116,30 @@ header {
 
 .button:active {
   transform: scale(0.95);
+}
+
+.button.hidden__text {
+  transition: all 0.4s ease;
+  border-radius: 25px;
+}
+
+.button.hidden__text span {
+  transition:
+    opacity 0.3s ease,
+    transform 0.3s ease;
+  white-space: nowrap;
+}
+
+.button.hidden__text svg {
+  transition: transform 0.3s ease;
+  flex-shrink: 0;
+}
+
+.button.hidden__text:hover span {
+  opacity: 0;
+  transform: translateX(20px);
+}
+
+.button.hidden__text:hover svg {
+  transform: translateX(40px);
 }
