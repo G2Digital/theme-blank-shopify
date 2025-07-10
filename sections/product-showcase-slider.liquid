@@ -58,7 +58,7 @@
                         >
                       {%- else -%}
                         <div class="no-image-placeholder">
-                          <span class="text-gray-400">{{ 'products.product.no_image' | t }}</span>
+                          <span class="text-gray-400">Sem imagem</span>
                         </div>
                       {%- endif -%}
                     </div>
@@ -84,7 +84,7 @@
                         >
                       {%- else -%}
                         <div class="no-image-placeholder">
-                          <span class="text-gray-400">{{ 'products.product.no_image' | t }}</span>
+                          <span class="text-gray-400">Sem imagem</span>
                         </div>
                       {%- endif -%}
                     </div>
@@ -107,10 +107,12 @@
                           alt="{{ product.featured_image.alt | default: product.title }}"
                           class="product-image"
                           loading="lazy"
+                          width="400"
+                          height="400"
                         >
                       {%- else -%}
                         <div class="no-image-placeholder">
-                          <span class="text-gray-400">{{ 'products.product.no_image' | t }}</span>
+                          <span class="text-gray-400">Sem imagem</span>
                         </div>
                       {%- endif -%}
                     </div>
