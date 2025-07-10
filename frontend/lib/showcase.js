@@ -206,7 +206,7 @@ export function initShowcaseSliders() {
             newSlides.map((s) => (s ? s.dataset.productIndex : 'null'))
           )
 
-          const fadeInPromises = newSlides.map((slide, index) => {
+          const fadeInPromises = newSlides.map((slide) => {
             if (slide) {
               slide.classList.remove('hidden')
               slide.classList.add('active')
