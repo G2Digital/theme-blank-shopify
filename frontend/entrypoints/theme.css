@@ -8,6 +8,7 @@
 @import '@/styles/utilities.css' layer(utilities);
 
 @import '@/styles/components/slider.css' layer(components);
+@import '@/styles/components/showcase.css' layer(components);
 
 @theme {
   --color-primary: rgb(20 20 20);

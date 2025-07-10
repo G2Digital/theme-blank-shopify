@@ -2,6 +2,7 @@ import 'vite/modulepreload-polyfill'
 import { initDisclosureWidgets } from '@/lib/a11y'
 import { revive, islands } from '@/lib/revive.js'
 import { initSliders } from '@/lib/slider.js'
+import { initShowcaseSliders } from '@/lib/showcase.js'
 
 document.addEventListener('DOMContentLoaded', () => {
   const summaries = document.querySelectorAll('[id^="Details-"] summary')
@@ -16,8 +17,8 @@ document.addEventListener('DOMContentLoaded', () => {
   revive(islands)
   initDisclosureWidgets(summaries)
   initSliders()
+  initShowcaseSliders()
 
-  // Function to check drawer states and toggle sidebar_opened class
   const toggleSidebarClass = () => {
     const cartDrawer = document.querySelector('cart-drawer')
     const headerDrawer = document.querySelector('header-drawer')
@@ -35,7 +36,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // Observe cart-drawer state changes
   const cartDrawer = document.querySelector('cart-drawer')
   if (cartDrawer) {
     const observer = new MutationObserver(toggleSidebarClass)
@@ -45,7 +45,6 @@ document.addEventListener('DOMContentLoaded', () => {
     })
   }
 
-  // Observe header-drawer state changes with retry mechanism
   const setupHeaderDrawerObserver = () => {
     const headerDrawer = document.querySelector('header-drawer')
     if (headerDrawer) {
@@ -57,7 +56,6 @@ document.addEventListener('DOMContentLoaded', () => {
           attributeFilter: ['open']
         })
       } else {
-        // Retry after a short delay if details element is not found
         setTimeout(setupHeaderDrawerObserver, 100)
       }
     }

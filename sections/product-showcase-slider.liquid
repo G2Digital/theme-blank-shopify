@@ -1,0 +1,299 @@
+{%- if section.settings.collection != blank -%}
+  {%- assign collection = collections[section.settings.collection] -%}
+  {%- assign products_limit = section.settings.products_limit | default: 6 -%}
+  {%- assign products = collection.products -%}
+  {%- assign products_count = products.size -%}
+  {%- if products_count < products_limit -%}
+    {%- assign real_products_limit = products_count -%}
+  {%- else -%}
+    {%- assign real_products_limit = products_limit -%}
+  {%- endif -%}
+  {%- assign autoplay_delay = section.settings.autoplay_delay | times: 100 -%}
+
+  <section class="product-showcase bg-gray-50 py-16 lg:py-24">
+    <div class="container mx-auto px-4">
+      <!-- Product Title Section (moved to top) -->
+      <div id="product-title-container" class="mb-8 text-center">
+        {%- for product in products -%}
+          {%- if forloop.index <= products_limit -%}
+            <div
+              class="product-title {% if forloop.first %}active{% endif %} {% unless forloop.first %}hidden{% endunless %} transition-all duration-500"
+              data-product-id="{{ product.id }}"
+              data-product-index="{{ forloop.index0 }}"
+            >
+              <h2 class="mb-2 text-4xl font-bold text-blue-600 lg:text-5xl">{{ product.title }}</h2>
+              <p class="text-lg text-gray-600">
+                {{ product.metafields.custom.subtitle | default: product.type }}
+              </p>
+            </div>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+      <div class="relative mb-16">
+        <div
+          class="product-showcase-slider"
+          data-delay="{{ autoplay_delay }}"
+          data-show-navigation="{{ section.settings.show_navigation }}"
+          data-show-dots="{{ section.settings.show_dots }}"
+          data-products-count="{{ real_products_limit }}"
+        >
+          <!-- Fixed 3-image layout -->
+          <div class="three-image-container flex items-center justify-center gap-8 lg:gap-12">
+            <!-- Previous Product (Left) -->
+            <div class="previous-product-container hidden flex-shrink-0 lg:block">
+              <div class="product-image-wrapper previous-image" data-position="previous">
+                {%- for product in products -%}
+                  {%- if forloop.index <= products_limit -%}
+                    <div
+                      class="product-slide {% if forloop.last %}active{% endif %} {% unless forloop.last %}hidden{% endunless %}"
+                      data-product-id="{{ product.id }}"
+                      data-product-index="{{ forloop.index0 }}"
+                    >
+                      {%- if product.featured_image -%}
+                        <img
+                          src="{{ product.featured_image | image_url: width: 400, height: 400 }}"
+                          alt="{{ product.featured_image.alt | default: product.title }}"
+                          class="product-image"
+                          loading="lazy"
+                        >
+                      {%- else -%}
+                        <div class="no-image-placeholder">
+                          <span class="text-gray-400">{{ 'products.product.no_image' | t }}</span>
+                        </div>
+                      {%- endif -%}
+                    </div>
+                  {%- endif -%}
+                {%- endfor -%}
+              </div>
+            </div>
+            <div class="current-product-container flex-shrink-0">
+              <div class="product-image-wrapper current-image" data-position="current">
+                {%- for product in products -%}
+                  {%- if forloop.index <= products_limit -%}
+                    <div
+                      class="product-slide {% if forloop.first %}active{% endif %} {% unless forloop.first %}hidden{% endunless %}"
+                      data-product-id="{{ product.id }}"
+                      data-product-index="{{ forloop.index0 }}"
+                    >
+                      {%- if product.featured_image -%}
+                        <img
+                          src="{{ product.featured_image | image_url: width: 800, height: 600 }}"
+                          alt="{{ product.featured_image.alt | default: product.title }}"
+                          class="product-image"
+                          loading="lazy"
+                        >
+                      {%- else -%}
+                        <div class="no-image-placeholder">
+                          <span class="text-gray-400">{{ 'products.product.no_image' | t }}</span>
+                        </div>
+                      {%- endif -%}
+                    </div>
+                  {%- endif -%}
+                {%- endfor -%}
+              </div>
+            </div>
+            <div class="next-product-container hidden flex-shrink-0 lg:block">
+              <div class="product-image-wrapper next-image" data-position="next">
+                {%- for product in products -%}
+                  {%- if forloop.index <= products_limit -%}
+                    <div
+                      class="product-slide {% if forloop.index == 2 %}active{% endif %} {% unless forloop.index == 2 %}hidden{% endunless %}"
+                      data-product-id="{{ product.id }}"
+                      data-product-index="{{ forloop.index0 }}"
+                    >
+                      {%- if product.featured_image -%}
+                        <img
+                          src="{{ product.featured_image | image_url: width: 400, height: 400 }}"
+                          alt="{{ product.featured_image.alt | default: product.title }}"
+                          class="product-image"
+                          loading="lazy"
+                        >
+                      {%- else -%}
+                        <div class="no-image-placeholder">
+                          <span class="text-gray-400">{{ 'products.product.no_image' | t }}</span>
+                        </div>
+                      {%- endif -%}
+                    </div>
+                  {%- endif -%}
+                {%- endfor -%}
+              </div>
+            </div>
+          </div>
+          {%- if section.settings.show_navigation -%}
+            <button class="slider__nav slider__nav--prev absolute left-6 top-1/2 z-10 -translate-y-1/2 rounded-full bg-white/95 p-4 shadow-lg transition-all duration-300 hover:scale-110 hover:bg-white hover:shadow-xl">
+              <svg class="h-5 w-5 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7"></path>
+              </svg>
+            </button>
+            <button class="slider__nav slider__nav--next absolute right-6 top-1/2 z-10 -translate-y-1/2 rounded-full bg-white/95 p-4 shadow-lg transition-all duration-300 hover:scale-110 hover:bg-white hover:shadow-xl">
+              <svg class="h-5 w-5 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"></path>
+              </svg>
+            </button>
+          {%- endif -%}
+          {%- if section.settings.show_dots -%}
+            <div class="absolute bottom-6 left-1/2 flex -translate-x-1/2 space-x-3">
+              {%- for product in products -%}
+                {%- if forloop.index <= real_products_limit -%}
+                  <button
+                    class="slider__dot h-3 w-3 rounded-full bg-white/60 transition-all duration-300 hover:scale-125 hover:bg-white/90"
+                    data-index="{{ forloop.index0 }}"
+                  ></button>
+                {%- endif -%}
+              {%- endfor -%}
+            </div>
+          {%- endif -%}
+        </div>
+      </div>
+      <div class="grid grid-cols-1 items-start gap-16 lg:grid-cols-2">
+        <div class="space-y-10">
+          {%- if section.settings.results_title != blank -%}
+            <div>
+              <h3 class="text-3xl font-bold leading-tight text-blue-600 lg:text-4xl">
+                {{ section.settings.results_title }}
+              </h3>
+            </div>
+          {%- endif -%}
+        </div>
+
+        <div id="product-info-container" class="space-y-8">
+          {%- for product in products -%}
+            {%- if forloop.index <= real_products_limit -%}
+              <div
+                class="product-info {% if forloop.first %}active{% endif %} {% unless forloop.first %}hidden{% endunless %} transition-all duration-500"
+                data-product-id="{{ product.id }}"
+                data-product-index="{{ forloop.index0 }}"
+              >
+                <!-- Product description in clean layout -->
+                <div class="space-y-8">
+                  <div class="prose prose-lg max-w-none">
+                    <p class="text-lg leading-relaxed text-gray-700">
+                      {{ product.description | strip_html | truncate: 400 }}
+                    </p>
+                  </div>
+
+                  {%- if section.settings.show_product_button -%}
+                    <div class="pt-4">
+                      <a
+                        href="{{ product.url }}"
+                        class="inline-flex items-center rounded-xl bg-blue-600 px-8 py-4 text-lg font-semibold text-white transition-all duration-300 hover:scale-105 hover:bg-blue-700 hover:shadow-lg focus:outline-none focus:ring-4 focus:ring-blue-500/50"
+                      >
+                        {{ section.settings.button_text | default: 'Ver produto' }}
+                        <svg class="ml-3 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                        </svg>
+                      </a>
+                    </div>
+                  {%- endif -%}
+                </div>
+              </div>
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+      </div>
+    </div>
+  </section>
+
+{%- else -%}
+  <div class="py-16 text-center">
+    <p class="text-gray-500">
+      {{ section.settings.empty_state_text | default: 'Selecione uma coleção para exibir os produtos' }}
+    </p>
+  </div>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Produtos Showcase",
+  "tag": "section",
+  "class": "product-showcase-section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Configurações Gerais"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Coleção",
+      "info": "Selecione a coleção de produtos a ser exibida"
+    },
+    {
+      "type": "range",
+      "id": "products_limit",
+      "label": "Número de produtos",
+      "min": 3,
+      "max": 12,
+      "step": 1,
+      "default": 6
+    },
+    {
+      "type": "text",
+      "id": "empty_state_text",
+      "label": "Texto quando vazio",
+      "default": "Selecione uma coleção para exibir os produtos"
+    },
+    {
+      "type": "header",
+      "content": "Configurações do Slider"
+    },
+    {
+      "type": "range",
+      "id": "autoplay_delay",
+      "label": "Velocidade do autoplay (segundos)",
+      "min": 30,
+      "max": 100,
+      "step": 5,
+      "default": 50,
+      "info": "Controle de 3 a 10 segundos (30 = 3s, 50 = 5s, 100 = 10s)"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_navigation",
+      "label": "Mostrar setas de navegação",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_dots",
+      "label": "Mostrar indicadores (dots)",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Configurações do Conteúdo"
+    },
+    {
+      "type": "text",
+      "id": "results_title",
+      "label": "Título da seção de resultados",
+      "default": "Resultados mais rápidos e eficazes"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_product_button",
+      "label": "Mostrar botão do produto",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Texto do botão",
+      "default": "Ver produto"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Produtos Showcase",
+      "category": "Sessões",
+      "settings": {
+        "results_title": "Resultados mais rápidos e eficazes",
+        "show_navigation": true,
+        "show_dots": true,
+        "show_product_button": true,
+        "autoplay_delay": 50
+      }
+    }
+  ]
+}
+{% endschema %}
