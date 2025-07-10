@@ -1,0 +1,227 @@
+<div
+  class="w-full px-4 sm:px-6 lg:px-8"
+  style="padding-top: {{ section.settings.padding_top }}px; padding-bottom: {{ section.settings.padding_bottom }}px;"
+>
+  <div class="mx-auto max-w-[1600px]">
+    <div class="grid grid-cols-1 items-center gap-8 lg:grid-cols-2 lg:gap-0">
+      <div
+        class="{% if section.blocks.size > 1 %}relative{% endif %}"
+        style="{% if section.blocks.size > 1 %}padding-right: {{ section.settings.border_spacing_right }}px;{% endif %}"
+      >
+        {% for block in section.blocks %}
+          {% if block.type == 'heading' %}
+            <div {{ block.shopify_attributes }}>
+              <div
+                class="font-medium"
+                style="font-size: {{ block.settings.heading_size }}px; line-height: {{ block.settings.heading_line_height }}; background: {{ block.settings.heading_color }}; -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;"
+              >
+                {{ block.settings.heading_text }}
+              </div>
+              {% if section.blocks.size > 1 %}
+                <div
+                  class="absolute top-0 hidden h-full w-px lg:block"
+                  style="background: {{ section.settings.border_gradient }}; right: {{ section.settings.border_spacing_left }}px;"
+                ></div>
+              {% endif %}
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+      <div style="{% if section.blocks.size > 1 %}padding-left: {{ section.settings.border_spacing_left }}px;{% endif %}">
+        {% for block in section.blocks %}
+          {% if block.type == 'paragraph' %}
+            <div {{ block.shopify_attributes }}>
+              <div
+                class="leading-relaxed"
+                style="font-size: {{ block.settings.paragraph_size }}px; line-height: {{ block.settings.paragraph_line_height }}; color: {{ block.settings.paragraph_color }};"
+              >
+                {{ block.settings.paragraph_text }}
+              </div>
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Texto Duplo com Blocos",
+  "tag": "section",
+  "class": "dual-text-section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Configurações Gerais"
+    },
+    {
+      "type": "paragraph",
+      "content": "Adicione blocos de título e parágrafo usando os botões abaixo."
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Espaçamento Superior",
+      "min": 0,
+      "max": 200,
+      "step": 8,
+      "default": 128,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Espaçamento Inferior",
+      "min": 0,
+      "max": 200,
+      "step": 8,
+      "default": 128,
+      "unit": "px"
+    },
+    {
+      "type": "header",
+      "content": "Configurações da Borda"
+    },
+    {
+      "type": "color_background",
+      "id": "border_gradient",
+      "label": "Gradiente da Borda",
+      "default": "linear-gradient(to bottom, #e5e7eb 0%, #6b7280 50%, #e5e7eb 100%)"
+    },
+    {
+      "type": "range",
+      "id": "border_spacing_right",
+      "label": "Espaço à Direita da Borda",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "default": 32,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "border_spacing_left",
+      "label": "Espaço à Esquerda da Borda",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "default": 32,
+      "unit": "px"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "heading",
+      "name": "Título",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "richtext",
+          "id": "heading_text",
+          "label": "Título",
+          "default": "<p>Tecnologia funcional com resultados terapêuticos.</p>",
+          "info": "Digite o texto do título principal"
+        },
+        {
+          "type": "range",
+          "id": "heading_size",
+          "label": "Tamanho do Título",
+          "min": 24,
+          "max": 80,
+          "step": 2,
+          "default": 48,
+          "unit": "px"
+        },
+        {
+          "type": "range",
+          "id": "heading_line_height",
+          "label": "Altura da Linha",
+          "min": 1.0,
+          "max": 2.0,
+          "step": 0.1,
+          "default": 1.2
+        },
+        {
+          "type": "color_background",
+          "id": "heading_color",
+          "label": "Cor/Gradiente do Título",
+          "default": "linear-gradient(135deg, #667eea 0%, #764ba2 100%)"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "name": "Parágrafo",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "richtext",
+          "id": "paragraph_text",
+          "label": "Parágrafo",
+          "default": "<p>Dispositivos que asseguram resultados precisos e cientificamente validados, otimizando a aplicação em protocolos estéticos e fisioterapêuticos.</p>",
+          "info": "Digite o texto do parágrafo"
+        },
+        {
+          "type": "range",
+          "id": "paragraph_size",
+          "label": "Tamanho do Parágrafo",
+          "min": 12,
+          "max": 24,
+          "step": 1,
+          "default": 16,
+          "unit": "px"
+        },
+        {
+          "type": "range",
+          "id": "paragraph_line_height",
+          "label": "Altura da Linha",
+          "min": 1.0,
+          "max": 2.5,
+          "step": 0.1,
+          "default": 1.6
+        },
+        {
+          "type": "color",
+          "id": "paragraph_color",
+          "label": "Cor do Parágrafo",
+          "default": "#374151"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Texto Duplo",
+      "category": "Textos",
+      "blocks": [
+        {
+          "type": "heading"
+        },
+        {
+          "type": "paragraph"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+<style>
+  /* Responsividade adicional para telas menores */
+  @media (max-width: 1023px) {
+    .dual-text-section [style*='padding-right'] {
+      padding-right: 0 !important;
+    }
+    .dual-text-section [style*='padding-left'] {
+      padding-left: 0 !important;
+    }
+  }
+
+  /* Suporte para gradientes em texto */
+  .dual-text-section h1,
+  .dual-text-section div[style*='background-clip'] {
+    background-clip: text;
+    -webkit-background-clip: text;
+  }
+</style>
