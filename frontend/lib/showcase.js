@@ -634,7 +634,7 @@ export function initShowcaseSliders() {
       })
 
       // Cancela drag se mouse sair do slider
-      sliderNode.addEventListener('mouseleave', (e) => {
+      sliderNode.addEventListener('mouseleave', () => {
         mouseDown = false
         isDragging = false
       })
