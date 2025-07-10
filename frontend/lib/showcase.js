@@ -152,6 +152,14 @@ export function initShowcaseSliders() {
           nextIdx
         } = getIndices(currentIndex)
 
+        console.log('Updating display:', {
+          currentIndex,
+          prevIdx,
+          currIdx,
+          nextIdx,
+          productsCount
+        })
+
         if (animate) {
           // Fade out all current slides
           const fadeOutPromises = []
@@ -193,7 +201,12 @@ export function initShowcaseSliders() {
             nextSlides[nextIdx]
           ]
 
-          const fadeInPromises = newSlides.map((slide) => {
+          console.log(
+            'New slides:',
+            newSlides.map((s) => (s ? s.dataset.productIndex : 'null'))
+          )
+
+          const fadeInPromises = newSlides.map((slide, index) => {
             if (slide) {
               slide.classList.remove('hidden')
               slide.classList.add('active')
@@ -268,6 +281,13 @@ export function initShowcaseSliders() {
           productTitleContainer.querySelectorAll('.product-title')
         const currentTitle = productTitles[currentIndex]
 
+        console.log(
+          'Syncing title for index:',
+          currentIndex,
+          'Total titles:',
+          productTitles.length
+        )
+
         // Fade out current title
         const activeTitle = productTitleContainer.querySelector(
           '.product-title.active'
@@ -317,6 +337,13 @@ export function initShowcaseSliders() {
         const productInfos =
           productInfoContainer.querySelectorAll('.product-info')
         const currentInfo = productInfos[currentIndex]
+
+        console.log(
+          'Syncing info for index:',
+          currentIndex,
+          'Total infos:',
+          productInfos.length
+        )
 
         // Fade out current info
         const activeInfo = productInfoContainer.querySelector(
@@ -377,6 +404,15 @@ export function initShowcaseSliders() {
 
         // Ensure index is within bounds - CORRIGIDO
         newIndex = ((newIndex % productsCount) + productsCount) % productsCount
+
+        console.log(
+          'Going to index:',
+          newIndex,
+          'from:',
+          currentIndex,
+          'total:',
+          productsCount
+        )
 
         currentIndex = newIndex
 
@@ -598,7 +634,7 @@ export function initShowcaseSliders() {
       })
 
       // Cancela drag se mouse sair do slider
-      sliderNode.addEventListener('mouseleave', () => {
+      sliderNode.addEventListener('mouseleave', (e) => {
         mouseDown = false
         isDragging = false
       })
@@ -664,6 +700,8 @@ export function initShowcaseSliders() {
 
       // CORRIGIDO: Initialize the slider with proper setup
       const init = async () => {
+        console.log('Initializing slider with', productsCount, 'products')
+
         // Ensure we have valid products count
         if (productsCount <= 0) {
           console.error('No products found for slider')

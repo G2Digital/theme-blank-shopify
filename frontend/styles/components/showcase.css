@@ -1,0 +1,5 @@
+.product-image-wrapper.next-image,
+.product-image-wrapper.previous-image {
+  opacity: 0.2 !important;
+  transform: scale(0.8);
+}
