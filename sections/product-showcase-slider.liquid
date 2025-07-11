@@ -38,9 +38,7 @@
           data-show-dots="{{ section.settings.show_dots }}"
           data-products-count="{{ real_products_limit }}"
         >
-          <!-- Fixed 3-image layout -->
           <div class="three-image-container flex items-center justify-center gap-8 lg:gap-12 2xl:gap-32">
-            <!-- Previous Product (Left) -->
             <div class="previous-product-container hidden flex-shrink-0 lg:block">
               <div class="product-image-wrapper previous-image" data-position="previous">
                 {%- for product in products -%}
@@ -171,10 +169,9 @@
                 data-product-id="{{ product.id }}"
                 data-product-index="{{ forloop.index0 }}"
               >
-                <!-- Product description in clean layout -->
                 <div class="space-y-8">
                   <div class="prose prose-lg max-w-none">
-                    <p class="text-lg leading-relaxed text-gray-700">
+                    <p class="text-lg leading-10 text-gray-700">
                       {{ product.description | strip_html | truncate: 400 }}
                     </p>
                   </div>
