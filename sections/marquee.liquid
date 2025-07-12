@@ -1,0 +1,135 @@
+{%- style -%}
+  .collection-featured-rotate{
+    --duration:{{ section.settings.links-time-duration }}s;
+    --space:{{ section.settings.links-spaces }}px;
+    --text-size:{{ section.settings.links-text-size }}px;
+  }
+{%- endstyle -%}
+
+<div class="collection-featured-rotate">
+  <span class="rotate-content">
+    {% for block in section.blocks %}
+      <a
+        href="
+                  {%- if block.settings.collection != blank -%}
+          {{- block.settings.collection -}}
+           {%- else -%}
+            #
+           {%- endif -%}
+        "
+        class="featured-rotate-item featured-rotate-text"
+      >
+        {{ block.settings.heading }}
+      </a>
+    {% endfor %}
+  </span>
+  {% for i in (1..5) %}
+    <span class="rotate-content" aria-hidden="true">
+      {% for block in section.blocks %}
+        <a
+          href="
+            {%- if block.settings.collection != blank -%}
+              {{- block.settings.collection -}}
+            {%- else -%}
+              #
+            {%- endif -%}
+          "
+          class="featured-rotate-item featured-rotate-text"
+        >
+          {{ block.settings.heading }}
+        </a>
+      {% endfor %}
+    </span>
+  {% endfor %}
+</div>
+
+{% schema %}
+{
+  "name": "Marquee",
+  "tag": "section",
+  "disabled_on": {
+    "groups": ["header"]
+  },
+  "settings": [
+    {
+      "type": "range",
+      "id": "links-time-duration",
+      "label": "Velocidade da animação",
+      "default": 15,
+      "min": 5,
+      "max": 30,
+      "unit": "s"
+    },
+    {
+      "type": "select",
+      "id": "links-spaces",
+      "label": "Espaçamento entre links",
+      "options": [
+        {
+          "value": "64",
+          "label": "Pequeno"
+        },
+        {
+          "value": "128",
+          "label": "Médio"
+        },
+        {
+          "value": "256",
+          "label": "Grande"
+        }
+      ],
+      "default": "128"
+    },
+    {
+      "type": "range",
+      "id": "links-text-size",
+      "label": "Tamanho do texto",
+      "default": 60,
+      "step": 2,
+      "min": 16,
+      "max": 60,
+      "unit": "px"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "collection",
+      "name": "Link em destaque",
+      "limit": 10,
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Título",
+          "default": "Teste"
+        },
+        {
+          "type": "url",
+          "id": "collection",
+          "label": "URL do link"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Marquee",
+      "category": "Sessões",
+      "blocks": [
+        {
+          "type": "collection"
+        },
+        {
+          "type": "collection"
+        },
+        {
+          "type": "collection"
+        },
+        {
+          "type": "collection"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

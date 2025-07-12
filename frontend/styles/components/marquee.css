@@ -1,0 +1,46 @@
+.collection-featured-rotate {
+  --scale: 0.7;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  width: 100%;
+  padding: 10px 0;
+  white-space: nowrap;
+  overflow: hidden;
+  background: rgb(var(--color-button))
+    linear-gradient(
+      rgba(var(--color-button), 0.04),
+      rgba(var(--color-button), 0.04)
+    );
+}
+
+.rotate-content {
+  display: flex;
+  align-items: center;
+  width: max-content;
+  animation: rotateAnim var(--duration) linear infinite;
+}
+
+.rotate-content a {
+  color: rgb(var(--color-text));
+  text-decoration: none;
+}
+
+@keyframes rotateAnim {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+.featured-rotate-item {
+  padding-right: calc(var(--space) * var(--scale));
+}
+
+.featured-rotate-text {
+  font-family: var(--font-heading-family);
+  font-size: var(--text-size);
+  color: var(--color, inherit);
+}
