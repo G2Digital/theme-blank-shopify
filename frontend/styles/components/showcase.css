@@ -1,7 +1,3 @@
-.product-showcase {
-  max-height: 1300px;
-}
-
 .product-image-wrapper.next-image,
 .product-image-wrapper.previous-image {
   opacity: 0.2;

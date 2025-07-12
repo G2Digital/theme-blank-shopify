@@ -102,6 +102,32 @@
   border-radius: 40px;
 }
 
+.slider__nav.secondary svg {
+  stroke: #7758b3;
+}
+
+.slider__nav.secondary:hover svg {
+  stroke: #ffffff;
+}
+
+.slider__nav.secondary::before {
+  background: linear-gradient(
+    60deg,
+    rgba(119, 88, 179, 0.1) 10%,
+    rgba(255, 255, 255, 1) 80%
+  );
+  box-shadow: 0.5px 0.5px 1px 1px rgba(86, 79, 108, 0.05);
+}
+
+.slider__nav.secondary::after {
+  background: linear-gradient(
+    220deg,
+    rgba(119, 88, 179, 1) 20%,
+    rgba(255, 255, 255, 1) 100%
+  );
+  box-shadow: -0.8px 0px 1px 1px rgba(119, 88, 179, 0.5);
+}
+
 .slider__nav::after {
   opacity: 0;
 }
