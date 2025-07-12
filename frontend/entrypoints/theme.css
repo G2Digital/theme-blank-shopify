@@ -67,7 +67,6 @@ header {
 }
 
 .button {
-  z-index: -1;
   background: transparent;
   backdrop-filter: blur(10px);
   border-radius: 100px;
