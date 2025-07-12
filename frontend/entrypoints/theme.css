@@ -66,17 +66,88 @@ header {
   width: calc(100% - var(--padding-right, 0));
 }
 
+/* Base button styles */
 .button {
+  position: relative; /* Necessário para pseudo-elementos absolutos */
   background: transparent;
   backdrop-filter: blur(10px);
   border-radius: 100px;
   transition: all 0.5s ease;
 }
 
-.button.secondary::before {
+/* Pseudo-elements for primary button */
+.button::before,
+.button::after {
   content: '';
   position: absolute;
   inset: 0;
+  border-radius: 100px;
+  z-index: -1;
+  transition: opacity 0.5s ease;
+}
+
+.button::before {
+  background: linear-gradient(
+    140deg,
+    rgba(255, 255, 255, 0.03) 40%,
+    rgba(255, 255, 255, 0.3) 100%
+  );
+  box-shadow: 0.5px 0.5px 1px 1px rgba(255, 255, 255, 0.4);
+  opacity: 1;
+}
+
+.button::after {
+  background: linear-gradient(
+    340deg,
+    rgba(255, 255, 255, 0.03) 40%,
+    rgba(255, 255, 255, 0.3) 100%
+  );
+  box-shadow: -0.5px -0.5px 1px 1px rgba(255, 255, 255, 0.4);
+  opacity: 0;
+}
+
+.slider__nav.secondary svg {
+  stroke: #7758b3;
+}
+
+.slider__nav.secondary:hover svg {
+  stroke: #ffffff;
+}
+
+.slider__nav.secondary::before {
+  background: linear-gradient(
+    60deg,
+    rgba(119, 88, 179, 0.1) 10%,
+    rgba(255, 255, 255, 1) 80%
+  );
+  box-shadow: 0.5px 0.5px 1px 1px rgba(86, 79, 108, 0.05);
+}
+
+.slider__nav.secondary::after {
+  background: linear-gradient(
+    220deg,
+    rgba(119, 88, 179, 1) 20%,
+    rgba(255, 255, 255, 1) 100%
+  );
+  box-shadow: -0.8px 0px 1px 1px rgba(119, 88, 179, 0.5);
+}
+
+/* Hover effects for primary button */
+.button:hover::before {
+  opacity: 0;
+}
+
+.button:hover::after {
+  opacity: 1;
+}
+
+/* Active state */
+.button:active {
+  transform: scale(0.95);
+}
+
+/* Secondary button styles */
+.button.secondary::before {
   background: linear-gradient(
     60deg,
     rgba(119, 88, 179, 0.1) 10%,
@@ -94,64 +165,17 @@ header {
   box-shadow: -0.8px 0px 1px 1px rgba(119, 88, 179, 0.5);
 }
 
-.button::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    140deg,
-    rgb(255, 255, 255, 0.03) 40%,
-    rgba(255, 255, 255, 0.3) 100%
-  );
-  box-shadow: 0.5px 0.5px 1px 1px rgb(255, 255, 255, 0.4);
-  z-index: -1;
-  border-radius: 100px;
-  transition: opacity 0.5s ease;
-  opacity: 1;
-}
-
-.button::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    340deg,
-    rgb(255, 255, 255, 0.03) 40%,
-    rgba(255, 255, 255, 0.3) 100%
-  );
-  box-shadow: -0.5px -0.5px 1px 1px rgb(255, 255, 255, 0.4);
-  z-index: -1;
-  border-radius: 100px;
-  transition: opacity 0.5s ease;
-  opacity: 1;
-}
-
-.button::after {
-  opacity: 0;
-}
-
-.button:hover::before {
-  opacity: 0;
-}
-
-.button:hover::after {
-  opacity: 1;
-}
-
-.button:active {
-  transform: scale(0.95);
-}
-
+/* Hidden text effects */
 .button.hidden__text span {
+  white-space: nowrap;
   transition:
     opacity 0.3s ease,
     transform 0.3s ease;
-  white-space: nowrap;
 }
 
 .button.hidden__text svg {
-  transition: transform 0.3s ease;
   flex-shrink: 0;
+  transition: transform 0.3s ease;
 }
 
 .button.hidden__text:hover span {

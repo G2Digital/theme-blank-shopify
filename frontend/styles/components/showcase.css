@@ -2,14 +2,6 @@
   max-height: 1300px;
 }
 
-.product-showcase-slider {
-  -webkit-user-drag: none;
-  user-select: none;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-}
-
 .product-image-wrapper.next-image,
 .product-image-wrapper.previous-image {
   opacity: 0.2;

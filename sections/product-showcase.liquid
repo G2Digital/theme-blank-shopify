@@ -131,14 +131,24 @@
             </div>
           </div>
           {%- if section.settings.show_navigation -%}
-            <button class="slider__nav slider__nav--prev absolute left-60 top-1/2 z-10 -translate-y-1/2 rounded-full bg-white/95 p-4 shadow-lg transition-all duration-300 hover:scale-110 hover:bg-white hover:shadow-xl">
-              <svg class="h-5 w-5 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7"></path>
+            <button class="slider__nav secondary slider__nav--prev absolute left-72 top-1/2 z-10">
+              <svg
+                class="h-5 w-5"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
               </svg>
             </button>
-            <button class="slider__nav slider__nav--next absolute right-60 top-1/2 z-10 -translate-y-1/2 rounded-full bg-white/95 p-4 shadow-lg transition-all duration-300 hover:scale-110 hover:bg-white hover:shadow-xl">
-              <svg class="h-5 w-5 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"></path>
+            <button class="slider__nav secondary slider__nav--next absolute right-72 top-1/2 z-10">
+              <svg
+                class="h-5 w-5"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
               </svg>
             </button>
           {%- endif -%}
@@ -181,7 +191,7 @@
                 <div class="space-y-8">
                   <div class="prose prose-lg max-w-none">
                     <p class="text-justify text-base leading-10 text-gray-700">
-                      {{ product.description | strip_html | truncate: 400 }}
+                      {{ product.description | strip_html | truncate: 500 }}
                     </p>
                   </div>
 
