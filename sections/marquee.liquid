@@ -6,12 +6,12 @@
   }
 {%- endstyle -%}
 
-<div class="collection-featured-rotate">
+<div class="collection-featured-rotate rounded-b-[50px] bg-[#F5F3FA] text-[#7758B3]">
   <span class="rotate-content">
     {% for block in section.blocks %}
       <a
         href="
-                  {%- if block.settings.collection != blank -%}
+          {%- if block.settings.collection != blank -%}
           {{- block.settings.collection -}}
            {%- else -%}
             #

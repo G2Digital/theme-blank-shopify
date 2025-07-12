@@ -73,6 +73,27 @@ header {
   transition: all 0.5s ease;
 }
 
+.button.secondary::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    60deg,
+    rgba(119, 88, 179, 0.1) 10%,
+    rgba(255, 255, 255, 1) 80%
+  );
+  box-shadow: 0.5px 0.5px 1px 1px rgba(86, 79, 108, 0.12);
+}
+
+.button.secondary::after {
+  background: linear-gradient(
+    220deg,
+    rgba(119, 88, 179, 1) 20%,
+    rgba(255, 255, 255, 1) 100%
+  );
+  box-shadow: -0.8px 0px 1px 1px rgba(119, 88, 179, 0.5);
+}
+
 .button::before {
   content: '';
   position: absolute;
