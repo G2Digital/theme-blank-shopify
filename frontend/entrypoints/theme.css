@@ -97,7 +97,7 @@ header {
     rgb(255, 255, 255, 0.03) 40%,
     rgba(255, 255, 255, 0.3) 100%
   );
-  box-shadow: -0.5px -0.5px 0px 1px rgb(255, 255, 255, 0.4);
+  box-shadow: -0.5px -0.5px 1px 1px rgb(255, 255, 255, 0.4);
   z-index: -1;
   border-radius: 100px;
   transition: opacity 0.5s ease;
