@@ -10,7 +10,7 @@
   {%- endif -%}
   {%- assign autoplay_delay = section.settings.autoplay_delay | times: 100 -%}
 
-  <section class="product-showcase bg-[#F5F3FA] py-24 lg:py-32">
+  <section class="product-showcase bg-[#F5F3FA] py-28">
     <div class="mx-auto max-w-[1600px]">
       <div id="product-title-container" class="mb-8 text-center">
         {%- for product in products -%}
@@ -73,7 +73,7 @@
                 {%- endfor -%}
               </div>
             </div>
-            <div class="current-product-container flex-shrink-0">
+            <div class="current-product-container px-8 xl:flex-shrink-0 xl:px-0">
               <div class="product-image-wrapper current-image" data-position="current">
                 {%- for product in products -%}
                   {%- if forloop.index <= products_limit -%}
@@ -131,7 +131,7 @@
             </div>
           </div>
           {%- if section.settings.show_navigation -%}
-            <button class="slider__nav secondary slider__nav--prev absolute left-72 top-1/2 z-10">
+            <button class="slider__nav secondary slider__nav--prev absolute top-1/2 z-10 xl:left-72">
               <svg
                 class="h-5 w-5"
                 fill="none"
@@ -141,7 +141,7 @@
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 19l-7-7 7-7"></path>
               </svg>
             </button>
-            <button class="slider__nav secondary slider__nav--next absolute right-72 top-1/2 z-10">
+            <button class="slider__nav secondary slider__nav--next absolute top-1/2 z-10 xl:right-72">
               <svg
                 class="h-5 w-5"
                 fill="none"

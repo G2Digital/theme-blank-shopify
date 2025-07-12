@@ -4,7 +4,7 @@
   flex-direction: row;
   flex-wrap: nowrap;
   width: 100%;
-  padding: 10px 0;
+  padding: 20px 0;
   white-space: nowrap;
   overflow: hidden;
   background: rgb(var(--color-button))

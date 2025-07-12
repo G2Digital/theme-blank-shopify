@@ -50,6 +50,7 @@
 .slider__nav {
   position: absolute;
   top: 50%;
+  backdrop-filter: blur(10px);
   transform: translateY(-50%);
   background: transparent;
   border: none;
