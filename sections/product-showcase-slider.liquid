@@ -20,10 +20,16 @@
               data-product-id="{{ product.id }}"
               data-product-index="{{ forloop.index0 }}"
             >
-              <h2 class="mb-2 text-2xl font-bold text-black lg:text-3xl">
+              <h2
+                class="mb-2 text-2xl font-bold text-black lg:text-3xl"
+                style="background: {{ section.settings.heading_gradient }}; -webkit-background-clip: text; -webkit-text-fill-color: transparent;"
+              >
                 {{ product.metafields.titulo.sessao_destaque }}
               </h2>
-              <p class="text-lg text-gray-600">
+              <p
+                class="text-lg"
+                style="color: {{ section.settings.subtitle_color }};"
+              >
                 {{ product.metafields.subtitulo.sessao_destaque }}
               </p>
             </div>
@@ -154,7 +160,10 @@
         <div class="space-y-10">
           {%- if section.settings.results_title != blank -%}
             <div>
-              <h3 class="text-3xl font-bold leading-tight text-black lg:text-5xl">
+              <h3
+                class="text-3xl font-bold leading-tight text-black lg:text-5xl"
+                style="background: {{ section.settings.heading_gradient }}; -webkit-background-clip: text; -webkit-text-fill-color: transparent;"
+              >
                 {{ section.settings.results_title }}
               </h3>
             </div>
@@ -200,9 +209,7 @@
 
 {%- else -%}
   <div class="py-16 text-center">
-    <p class="text-gray-500">
-      {{ section.settings.empty_state_text | default: 'Selecione uma coleção para exibir os produtos' }}
-    </p>
+    <p class="text-gray-500">Selecione uma coleção para exibir os produtos</p>
   </div>
 {%- endif -%}
 
@@ -230,12 +237,6 @@
       "max": 12,
       "step": 1,
       "default": 6
-    },
-    {
-      "type": "text",
-      "id": "empty_state_text",
-      "label": "Texto quando vazio",
-      "default": "Selecione uma coleção para exibir os produtos"
     },
     {
       "type": "header",
@@ -266,6 +267,18 @@
     {
       "type": "header",
       "content": "Configurações do Conteúdo"
+    },
+    {
+      "type": "color_background",
+      "id": "heading_gradient",
+      "label": "Gradiente do título",
+      "default": "linear-gradient(135deg, #667eea 0%, #764ba2 100%)"
+    },
+    {
+      "type": "color",
+      "id": "subtitle_color",
+      "label": "Cor do subtítulo",
+      "default": "#6B7280"
     },
     {
       "type": "text",

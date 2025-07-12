@@ -48,6 +48,7 @@ export function initSliders() {
       })
     }
 
+    // CORREÇÃO: Verificação segura para evitar erro
     emblaApi.on('pointerDown', () => {
       const autoplayPlugin = emblaApi.plugins()?.autoplay
       if (autoplayPlugin) {
@@ -59,8 +60,17 @@ export function initSliders() {
     emblaApi.on('pointerUp', () => {
       clearTimeout(autoplayTimer)
       const autoplayPlugin = emblaApi.plugins()?.autoplay
-      if (autoplayPlugin) {
-        autoplayTimer = setTimeout(() => autoplayPlugin.play(), 3000)
+      const slideCount = emblaApi.slideNodes().length
+
+      // Só reativa o autoplay se houver mais de um slide
+      if (autoplayPlugin && slideCount > 1) {
+        autoplayTimer = setTimeout(() => {
+          try {
+            autoplayPlugin.play()
+          } catch (error) {
+            console.warn('Erro ao reiniciar autoplay:', error)
+          }
+        }, 3000)
       }
     })
   })

@@ -16,11 +16,27 @@ export function initShowcaseSliders() {
       const currentContainer = sliderNode.querySelector('.current-image')
       const nextContainer = sliderNode.querySelector('.next-image')
 
+      // Validate containers exist
+      if (!previousContainer || !currentContainer || !nextContainer) {
+        console.error('Required slider containers not found')
+        return
+      }
+
       // Get all product slides for each position
       const previousSlides =
         previousContainer.querySelectorAll('.product-slide')
       const currentSlides = currentContainer.querySelectorAll('.product-slide')
       const nextSlides = nextContainer.querySelectorAll('.product-slide')
+
+      // Validate slides exist
+      if (
+        !previousSlides.length ||
+        !currentSlides.length ||
+        !nextSlides.length
+      ) {
+        console.error('No product slides found')
+        return
+      }
 
       // Calculate indices for previous, current, and next products
       const getIndices = (currentIdx) => {
@@ -62,7 +78,7 @@ export function initShowcaseSliders() {
         })
       }
 
-      // CORRIGIDO: Performance optimization: Preload adjacent images
+      // Performance optimization: Preload adjacent images
       const preloadAdjacentImages = () => {
         try {
           const indices = getIndices(currentIndex)
@@ -141,123 +157,127 @@ export function initShowcaseSliders() {
         })
       }
 
-      // CORRIGIDO: Update the display of products in all three positions with smooth transitions
+      // Update the display of products in all three positions with smooth transitions
       const updateProductDisplay = async (animate = true) => {
         if (isTransitioning) return
         isTransitioning = true
 
-        const {
-          prevIdx,
-          currentIdx: currIdx,
-          nextIdx
-        } = getIndices(currentIndex)
+        try {
+          const {
+            prevIdx,
+            currentIdx: currIdx,
+            nextIdx
+          } = getIndices(currentIndex)
 
-        if (animate) {
-          // Fade out all current slides
-          const fadeOutPromises = []
+          if (animate) {
+            // Fade out all current slides
+            const fadeOutPromises = []
 
-          ;[previousSlides, currentSlides, nextSlides].forEach((slides) => {
-            slides.forEach((slide) => {
-              if (slide.classList.contains('active')) {
-                fadeOutPromises.push(
-                  smoothTransition(
-                    slide,
-                    {},
-                    {
-                      opacity: '0',
-                      transform: 'translateY(15px) scale(0.95)'
-                    }
+            ;[previousSlides, currentSlides, nextSlides].forEach((slides) => {
+              slides.forEach((slide) => {
+                if (slide.classList.contains('active')) {
+                  fadeOutPromises.push(
+                    smoothTransition(
+                      slide,
+                      {},
+                      {
+                        opacity: '0',
+                        transform: 'translateY(15px) scale(0.95)'
+                      }
+                    )
                   )
-                )
-              }
-            })
-          })
-
-          // Wait for fade out to complete
-          await Promise.all(fadeOutPromises)
-
-          // Hide old slides and prepare new ones
-          ;[previousSlides, currentSlides, nextSlides].forEach((slides) => {
-            slides.forEach((slide) => {
-              slide.classList.add('hidden')
-              slide.classList.remove('active')
-              slide.style.opacity = '0'
-              slide.style.transform = 'translateY(15px) scale(0.95)'
-            })
-          })
-
-          // Show and fade in new slides
-          const newSlides = [
-            previousSlides[prevIdx],
-            currentSlides[currIdx],
-            nextSlides[nextIdx]
-          ]
-
-          const fadeInPromises = newSlides.map((slide) => {
-            if (slide) {
-              slide.classList.remove('hidden')
-              slide.classList.add('active')
-
-              // Ensure images are loaded before showing
-              const images = slide.querySelectorAll('img')
-              images.forEach((img) => {
-                if (img.loading === 'lazy') {
-                  img.loading = 'eager'
                 }
               })
-
-              return smoothTransition(
-                slide,
-                {
-                  opacity: '0',
-                  transform: 'translateY(15px) scale(0.95)'
-                },
-                {
-                  opacity: '1',
-                  transform: 'translateY(0) scale(1)'
-                },
-                400
-              )
-            }
-            return Promise.resolve()
-          })
-
-          await Promise.all(fadeInPromises)
-        } else {
-          // Immediate update without animation
-          ;[previousSlides, currentSlides, nextSlides].forEach((slides) => {
-            slides.forEach((slide) => {
-              slide.classList.add('hidden')
-              slide.classList.remove('active')
-              slide.style.opacity = '0'
-              slide.style.transform = 'translateY(0) scale(1)'
             })
-          })
 
-          // Show correct slides immediately
-          if (previousSlides[prevIdx]) {
-            previousSlides[prevIdx].classList.remove('hidden')
-            previousSlides[prevIdx].classList.add('active')
-            previousSlides[prevIdx].style.opacity = '1'
-          }
+            // Wait for fade out to complete
+            await Promise.all(fadeOutPromises)
 
-          if (currentSlides[currIdx]) {
-            currentSlides[currIdx].classList.remove('hidden')
-            currentSlides[currIdx].classList.add('active')
-            currentSlides[currIdx].style.opacity = '1'
-          }
+            // Hide old slides and prepare new ones
+            ;[previousSlides, currentSlides, nextSlides].forEach((slides) => {
+              slides.forEach((slide) => {
+                slide.classList.add('hidden')
+                slide.classList.remove('active')
+                slide.style.opacity = '0'
+                slide.style.transform = 'translateY(15px) scale(0.95)'
+              })
+            })
 
-          if (nextSlides[nextIdx]) {
-            nextSlides[nextIdx].classList.remove('hidden')
-            nextSlides[nextIdx].classList.add('active')
-            nextSlides[nextIdx].style.opacity = '1'
+            // Show and fade in new slides
+            const newSlides = [
+              previousSlides[prevIdx],
+              currentSlides[currIdx],
+              nextSlides[nextIdx]
+            ]
+
+            const fadeInPromises = newSlides.map((slide) => {
+              if (slide) {
+                slide.classList.remove('hidden')
+                slide.classList.add('active')
+
+                // Ensure images are loaded before showing
+                const images = slide.querySelectorAll('img')
+                images.forEach((img) => {
+                  if (img.loading === 'lazy') {
+                    img.loading = 'eager'
+                  }
+                })
+
+                return smoothTransition(
+                  slide,
+                  {
+                    opacity: '0',
+                    transform: 'translateY(15px) scale(0.95)'
+                  },
+                  {
+                    opacity: '1',
+                    transform: 'translateY(0) scale(1)'
+                  },
+                  400
+                )
+              }
+              return Promise.resolve()
+            })
+
+            await Promise.all(fadeInPromises)
+          } else {
+            // Immediate update without animation
+            ;[previousSlides, currentSlides, nextSlides].forEach((slides) => {
+              slides.forEach((slide) => {
+                slide.classList.add('hidden')
+                slide.classList.remove('active')
+                slide.style.opacity = '0'
+                slide.style.transform = 'translateY(0) scale(1)'
+              })
+            })
+
+            // Show correct slides immediately
+            if (previousSlides[prevIdx]) {
+              previousSlides[prevIdx].classList.remove('hidden')
+              previousSlides[prevIdx].classList.add('active')
+              previousSlides[prevIdx].style.opacity = '1'
+            }
+
+            if (currentSlides[currIdx]) {
+              currentSlides[currIdx].classList.remove('hidden')
+              currentSlides[currIdx].classList.add('active')
+              currentSlides[currIdx].style.opacity = '1'
+            }
+
+            if (nextSlides[nextIdx]) {
+              nextSlides[nextIdx].classList.remove('hidden')
+              nextSlides[nextIdx].classList.add('active')
+              nextSlides[nextIdx].style.opacity = '1'
+            }
           }
+        } catch (error) {
+          console.error('Error updating product display:', error)
+        } finally {
+          isTransitioning = false
         }
-
-        isTransitioning = false
       }
 
-      // CORRIGIDO: Product title synchronization with smooth transitions
+      // Product title synchronization with smooth transitions
       const syncProductTitle = async () => {
         const productTitleContainer = document.querySelector(
           '#product-title-container'
@@ -307,7 +327,7 @@ export function initShowcaseSliders() {
         }
       }
 
-      // CORRIGIDO: Product info synchronization with smooth transitions
+      // Product info synchronization with smooth transitions
       const syncProductInfo = async () => {
         const productInfoContainer = document.querySelector(
           '#product-info-container'
@@ -371,11 +391,11 @@ export function initShowcaseSliders() {
         })
       }
 
-      // CORRIGIDO: Navigate to specific index with proper sequencing
+      // Navigate to specific index with proper sequencing
       const goToIndex = async (newIndex) => {
         if (newIndex === currentIndex || isTransitioning) return
 
-        // Ensure index is within bounds - CORRIGIDO
+        // Ensure index is within bounds
         newIndex = ((newIndex % productsCount) + productsCount) % productsCount
 
         currentIndex = newIndex
@@ -439,12 +459,6 @@ export function initShowcaseSliders() {
         })
       }
 
-      // Setup click navigation on adjacent products
-      const setupAdjacentClicks = () => {
-        // Não faz nada: remove navegação por clique nas imagens laterais
-        // Mantém navegação apenas pelas setas
-      }
-
       // Improved autoplay management
       const startAutoplay = () => {
         if (delay > 0 && !autoplayTimer) {
@@ -496,6 +510,11 @@ export function initShowcaseSliders() {
       let mouseStartX = 0
       let mouseStartY = 0
       let mouseStartTime = 0
+
+      // Helper function to check if device is touch-only
+      const isTouchDevice = () => {
+        return 'ontouchstart' in window || navigator.maxTouchPoints > 0
+      }
 
       sliderNode.addEventListener(
         'touchstart',
@@ -556,9 +575,9 @@ export function initShowcaseSliders() {
 
       // Mouse drag events for desktop
       sliderNode.addEventListener('mousedown', (e) => {
-        // Só ativa para botão esquerdo e não em mobile
-        if (e.button !== 0 || window.matchMedia('(pointer: coarse)').matches)
-          return
+        // Only activate for left button and not on touch devices
+        if (e.button !== 0 || isTouchDevice()) return
+
         mouseDown = true
         mouseStartX = e.screenX
         mouseStartY = e.screenY
@@ -569,8 +588,10 @@ export function initShowcaseSliders() {
 
       sliderNode.addEventListener('mousemove', (e) => {
         if (!mouseDown) return
+
         const diffX = Math.abs(e.screenX - mouseStartX)
         const diffY = Math.abs(e.screenY - mouseStartY)
+
         if (!isDragging && diffX > diffY && diffX > 15) {
           isDragging = true
         }
@@ -578,13 +599,16 @@ export function initShowcaseSliders() {
 
       sliderNode.addEventListener('mouseup', (e) => {
         if (!mouseDown) return
+
         mouseDown = false
         const mouseEndTime = Date.now()
         const mouseDuration = mouseEndTime - mouseStartTime
+
         if (isDragging && mouseDuration < 500) {
           const diffX = mouseStartX - e.screenX
           const diffY = Math.abs(mouseStartY - e.screenY)
           const swipeThreshold = 50
+
           if (Math.abs(diffX) > swipeThreshold && Math.abs(diffX) > diffY) {
             if (diffX > 0) {
               goToNext()
@@ -593,11 +617,12 @@ export function initShowcaseSliders() {
             }
           }
         }
+
         isDragging = false
         restartAutoplay()
       })
 
-      // Cancela drag se mouse sair do slider
+      // Cancel drag if mouse leaves slider
       sliderNode.addEventListener('mouseleave', () => {
         mouseDown = false
         isDragging = false
@@ -633,7 +658,6 @@ export function initShowcaseSliders() {
       const handleResize = () => {
         // Re-setup after resize
         setTimeout(() => {
-          setupAdjacentClicks()
           updateProductDisplay(false)
           handleImageLoading()
         }, 100)
@@ -662,31 +686,34 @@ export function initShowcaseSliders() {
         { passive: false }
       )
 
-      // CORRIGIDO: Initialize the slider with proper setup
+      // Initialize the slider with proper setup
       const init = async () => {
-        // Ensure we have valid products count
-        if (productsCount <= 0) {
-          console.error('No products found for slider')
-          return
+        try {
+          // Ensure we have valid products count
+          if (productsCount <= 0) {
+            console.error('No products found for slider')
+            return
+          }
+
+          // Reset currentIndex to 0 for proper initialization
+          currentIndex = 0
+
+          // Set initial state without animation
+          await updateProductDisplay(false)
+          await syncProductTitle()
+          await syncProductInfo()
+          updateDots()
+          handleImageLoading()
+
+          // Preload images after initial setup
+          setTimeout(() => {
+            preloadAdjacentImages()
+            // Start autoplay after everything is loaded
+            setTimeout(startAutoplay, 2000)
+          }, 500)
+        } catch (error) {
+          console.error('Error initializing slider:', error)
         }
-
-        // Reset currentIndex to 0 for proper initialization
-        currentIndex = 0
-
-        // Set initial state without animation
-        await updateProductDisplay(false)
-        await syncProductTitle()
-        await syncProductInfo()
-        updateDots()
-        setupAdjacentClicks()
-        handleImageLoading()
-
-        // Preload images after initial setup
-        setTimeout(() => {
-          preloadAdjacentImages()
-          // Start autoplay after everything is loaded
-          setTimeout(startAutoplay, 2000)
-        }, 500)
       }
 
       // Cleanup function
