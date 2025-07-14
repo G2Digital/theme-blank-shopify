@@ -74,7 +74,7 @@
               </div>
             </div>
             <div class="current-product-container px-8 xl:flex-shrink-0 xl:px-0">
-              <div class="product-image-wrapper current-image" data-position="current">
+              <div class="product-image-wrapper current-image md:min-w-2xl" data-position="current">
                 {%- for product in products -%}
                   {%- if forloop.index <= products_limit -%}
                     <div
@@ -166,7 +166,7 @@
           {%- endif -%}
         </div>
       </div>
-      <div class="grid grid-cols-1 items-start gap-16 lg:grid-cols-2">
+      <div class="grid grid-cols-1 items-start gap-16 px-4 sm:px-6 lg:grid-cols-2 lg:px-8">
         <div class="space-y-10">
           {%- if section.settings.results_title != blank -%}
             <div>
