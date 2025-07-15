@@ -3,6 +3,7 @@ import { initDisclosureWidgets } from '@/lib/a11y'
 import { revive, islands } from '@/lib/revive.js'
 import { initSliders } from '@/lib/slider.js'
 import { initShowcaseSliders } from '@/lib/showcase.js'
+import { initTestimonials } from '@/lib/testimonials.js'
 
 document.addEventListener('DOMContentLoaded', () => {
   const summaries = document.querySelectorAll('[id^="Details-"] summary')
@@ -18,6 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initDisclosureWidgets(summaries)
   initSliders()
   initShowcaseSliders()
+  initTestimonials()
 
   const toggleSidebarClass = () => {
     const cartDrawer = document.querySelector('cart-drawer')
