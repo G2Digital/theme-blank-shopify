@@ -1,9 +1,30 @@
 import EmblaCarousel from 'embla-carousel'
 import Autoplay from 'embla-carousel-autoplay'
 
-const addPrevNextBtnsClickHandlers = (emblaApi, prevBtn, nextBtn) => {
-  const scrollPrev = () => emblaApi.scrollPrev()
-  const scrollNext = () => emblaApi.scrollNext()
+const addPrevNextBtnsClickHandlers = (
+  emblaApi,
+  prevBtn,
+  nextBtn,
+  autoplayPlugin
+) => {
+  const scrollPrev = () => {
+    autoplayPlugin.stop()
+    emblaApi.scrollPrev()
+    setTimeout(() => {
+      autoplayPlugin.reset()
+      autoplayPlugin.play()
+    }, 100)
+  }
+
+  const scrollNext = () => {
+    autoplayPlugin.stop()
+    emblaApi.scrollNext()
+
+    setTimeout(() => {
+      autoplayPlugin.reset()
+      autoplayPlugin.play()
+    }, 100)
+  }
 
   prevBtn.addEventListener('click', scrollPrev, false)
   nextBtn.addEventListener('click', scrollNext, false)
@@ -14,55 +35,76 @@ const addPrevNextBtnsClickHandlers = (emblaApi, prevBtn, nextBtn) => {
   }
 }
 
-const addDotBtnsAndClickHandlers = (emblaApi, dotsNode) => {
-  let dotNodes = []
+const addSlideActiveClasses = (emblaApi) => {
+  const slides = emblaApi.slideNodes()
 
-  const addDotBtnsWithClickHandlers = () => {
-    dotsNode.innerHTML = emblaApi
-      .scrollSnapList()
-      .map(() => '<button class="testimonials__dot" type="button"></button>')
-      .join('')
-
-    const scrollTo = (index) => emblaApi.scrollTo(index)
-
-    dotNodes = Array.from(dotsNode.querySelectorAll('.testimonials__dot'))
-    dotNodes.forEach((dotNode, index) => {
-      dotNode.addEventListener('click', () => scrollTo(index), false)
+  const updateActiveClasses = () => {
+    const selectedIndex = emblaApi.selectedScrollSnap()
+    slides.forEach((slide, index) => {
+      slide.classList.remove('embla__slide--active')
+      if (index === selectedIndex) {
+        slide.classList.add('embla__slide--active')
+      }
     })
   }
 
-  const toggleDotBtnsActive = () => {
-    const previous = emblaApi.previousScrollSnap()
-    const selected = emblaApi.selectedScrollSnap()
+  emblaApi
+    .on('init', updateActiveClasses)
+    .on('reInit', updateActiveClasses)
+    .on('select', updateActiveClasses)
 
-    if (dotNodes[previous]) {
-      dotNodes[previous].classList.remove('testimonials__dot--selected')
-    }
-    if (dotNodes[selected]) {
-      dotNodes[selected].classList.add('testimonials__dot--selected')
+  return () => {
+    slides.forEach((slide) => slide.classList.remove('embla__slide--active'))
+  }
+}
+
+const convertDelayToMs = (schemaValue) => {
+  const seconds = schemaValue / 10
+  return seconds * 1000
+}
+
+const addDragHandlers = (emblaApi, autoplayPlugin) => {
+  let isDragging = false
+
+  const onPointerDown = () => {
+    isDragging = true
+    autoplayPlugin.stop()
+  }
+
+  const onPointerUp = () => {
+    if (isDragging) {
+      isDragging = false
+      setTimeout(() => {
+        autoplayPlugin.reset()
+        autoplayPlugin.play()
+      }, 100)
     }
   }
 
-  emblaApi
-    .on('init', addDotBtnsWithClickHandlers)
-    .on('reInit', addDotBtnsWithClickHandlers)
-    .on('init', toggleDotBtnsActive)
-    .on('reInit', toggleDotBtnsActive)
-    .on('select', toggleDotBtnsActive)
+  const onSelect = () => {
+    if (isDragging) {
+      autoplayPlugin.stop()
+    }
+  }
+
+  emblaApi.on('pointerDown', onPointerDown)
+  emblaApi.on('pointerUp', onPointerUp)
+  emblaApi.on('select', onSelect)
 
   return () => {
-    dotsNode.innerHTML = ''
+    emblaApi.off('pointerDown', onPointerDown)
+    emblaApi.off('pointerUp', onPointerUp)
+    emblaApi.off('select', onSelect)
   }
 }
 
 export function initTestimonials() {
   document.querySelectorAll('.testimonials').forEach((emblaNode) => {
-    const delay = (parseInt(emblaNode.dataset.delay, 10) || 50) * 1000
+    const schemaDelay = parseInt(emblaNode.dataset.delay, 10) || 50
+    const delay = convertDelayToMs(schemaDelay)
     const showNavigation = emblaNode.dataset.navigation === 'true'
-    const showDots = emblaNode.dataset.dots === 'true'
     const startIndex = parseInt(emblaNode.dataset.startIndex, 10) || 0
 
-    // Configurações otimizadas para mostrar exatamente 2 slides completos
     const OPTIONS = {
       loop: true,
       startIndex: startIndex,
@@ -72,38 +114,50 @@ export function initTestimonials() {
     }
 
     const viewportNode = emblaNode.querySelector('.testimonials__viewport')
-    const prevBtn = emblaNode.querySelector('.testimonials__button--prev')
-    const nextBtn = emblaNode.querySelector('.testimonials__button--next')
-    const dotsNode = emblaNode.querySelector('.testimonials__dots')
+    const prevBtn = document.querySelector('.testimonials__button--prev')
+    const nextBtn = document.querySelector('.testimonials__button--next')
 
-    const emblaApi = EmblaCarousel(viewportNode, OPTIONS, [Autoplay({ delay })])
+    const autoplayPlugin = Autoplay({
+      delay,
+      stopOnInteraction: false,
+      stopOnMouseEnter: true,
+      playOnInit: true
+    })
+
+    const emblaApi = EmblaCarousel(viewportNode, OPTIONS, [autoplayPlugin])
 
     let removePrevNextBtnsClickHandlers
-    let removeDotBtnsAndClickHandlers
+    let removeSlideActiveClasses
+    let removeDragHandlers
+
+    removeSlideActiveClasses = addSlideActiveClasses(emblaApi)
+    removeDragHandlers = addDragHandlers(emblaApi, autoplayPlugin)
 
     if (showNavigation && prevBtn && nextBtn) {
       removePrevNextBtnsClickHandlers = addPrevNextBtnsClickHandlers(
         emblaApi,
         prevBtn,
-        nextBtn
+        nextBtn,
+        autoplayPlugin
       )
     }
 
-    if (showDots && dotsNode) {
-      removeDotBtnsAndClickHandlers = addDotBtnsAndClickHandlers(
-        emblaApi,
-        dotsNode
-      )
-    }
-
-    // Garantir que inicia no primeiro slide
     emblaApi.on('init', () => {
       emblaApi.scrollTo(startIndex, true)
     })
 
+    emblaNode.addEventListener('mouseenter', () => {
+      autoplayPlugin.stop()
+    })
+
+    emblaNode.addEventListener('mouseleave', () => {
+      autoplayPlugin.play()
+    })
+
     emblaApi.on('destroy', () => {
       if (removePrevNextBtnsClickHandlers) removePrevNextBtnsClickHandlers()
-      if (removeDotBtnsAndClickHandlers) removeDotBtnsAndClickHandlers()
+      if (removeSlideActiveClasses) removeSlideActiveClasses()
+      if (removeDragHandlers) removeDragHandlers()
     })
   })
 }

@@ -1,93 +1,76 @@
-{% comment %}
-  Testimonials Section
-{% endcomment %}
-
 {% if section.settings.title != blank or section.blocks.size > 0 %}
-  <section class="py-16">
-    <div class="mx-auto max-w-[1600px]">
-      {% if section.settings.title != blank %}
-        <h2 class="mb-12 text-center text-3xl font-bold">{{ section.settings.title }}</h2>
-      {% endif %}
+  <section class="bg-[#F5F3FA] py-16">
+    <div class="testimonials-wrapper">
+      <div class="mx-auto max-w-[1600px]">
+        {% if section.settings.title != blank %}
+          <h2
+            class="mb-12 text-left text-3xl font-bold"
+            style="color: {{ section.settings.title_color | default: '#111827' }};"
+          >
+            {{ section.settings.title }}
+          </h2>
+        {% endif %}
 
-      {% if section.blocks.size > 0 %}
-        <div
-          class="testimonials"
-          data-delay="{{ section.settings.autoplay_delay | default: 50 }}"
-          data-navigation="{{ section.settings.show_navigation | default: true }}"
-          data-dots="{{ section.settings.show_dots | default: true }}"
-          data-start-index="0"
-        >
-          <div class="testimonials__navigation">
-            <div class="testimonials__viewport">
-              <div class="testimonials__container">
-                {% for block in section.blocks %}
-                  <div class="testimonials__slide" {{ block.shopify_attributes }}>
-                    <div class="testimonial">
-                      {% if block.settings.testimonial_text != blank %}
-                        <blockquote>
-                          <p>"{{ block.settings.testimonial_text }}"</p>
-                        </blockquote>
-                      {% endif %}
-
-                      <div class="testimonial__author">
-                        {% if block.settings.author_image != blank %}
-                          <div class="author__image">
-                            {{
-                              block.settings.author_image
-                              | image_url: width: 60
-                              | image_tag: alt: block.settings.author_name
-                            }}
-                          </div>
+        {% if section.blocks.size > 0 %}
+          <div
+            class="testimonials"
+            data-delay="{{ section.settings.autoplay_delay | default: 50 }}"
+            data-navigation="{{ section.settings.show_navigation | default: true }}"
+            data-start-index="0"
+          >
+            <div class="testimonials__navigation">
+              <div class="testimonials__viewport">
+                <div class="testimonials__container">
+                  {% for block in section.blocks %}
+                    <div class="testimonials__slide" {{ block.shopify_attributes }}>
+                      <div class="testimonial">
+                        {% if block.settings.testimonial_text != blank %}
+                          <blockquote>
+                            <p style="color: {{ section.settings.testimonial_text_color | default: '#374151' }};">
+                              "{{ block.settings.testimonial_text }}"
+                            </p>
+                          </blockquote>
                         {% endif %}
 
-                        <div class="author__info">
+                        <div class="testimonial__author">
+                          {% if block.settings.author_image != blank %}
+                            <div class="author__image">
+                              {{
+                                block.settings.author_image
+                                | image_url: width: 60
+                                | image_tag: alt: block.settings.author_name
+                              }}
+                            </div>
+                          {% endif %}
+
                           {% if block.settings.author_name != blank %}
                             <cite class="author__name">{{ block.settings.author_name }}</cite>
                           {% endif %}
-                          {% if block.settings.author_title != blank %}
-                            <span class="author__title">{{ block.settings.author_title }}</span>
-                          {% endif %}
                         </div>
                       </div>
-
-                      {% if block.settings.rating > 0 %}
-                        <div class="testimonial__rating">
-                          {% for i in (1..5) %}
-                            {% if i <= block.settings.rating %}
-                              <span class="star star--filled">★</span>
-                            {% else %}
-                              <span class="star">☆</span>
-                            {% endif %}
-                          {% endfor %}
-                        </div>
-                      {% endif %}
                     </div>
-                  </div>
-                {% endfor %}
+                  {% endfor %}
+                </div>
               </div>
             </div>
-
-            {% if section.settings.show_navigation %}
-              <div class="testimonials__buttons">
-                <button class="testimonials__button testimonials__button--prev" type="button">
-                  <svg viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
-                  </svg>
-                </button>
-                <button class="testimonials__button testimonials__button--next" type="button">
-                  <svg viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/>
-                  </svg>
-                </button>
-              </div>
-            {% endif %}
           </div>
 
-          {% if section.settings.show_dots %}
-            <div class="testimonials__dots"></div>
+          {% if section.settings.show_navigation %}
+            <div class="testimonials__buttons">
+              <button class="button secondary testimonials__button testimonials__button--prev" type="button">
+                <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 19l-7-7 7-7"></path>
+                </svg>
+              </button>
+              <button class="button secondary testimonials__button testimonials__button--next" type="button">
+                <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 5l7 7-7 7"></path>
+                </svg>
+              </button>
+            </div>
           {% endif %}
-        </div>
-      {% endif %}
+        {% endif %}
+      </div>
     </div>
   </section>
 {% endif %}
@@ -103,25 +86,32 @@
       "default": "What Our Customers Say"
     },
     {
+      "type": "color",
+      "id": "title_color",
+      "label": "Title Color",
+      "default": "#111827"
+    },
+    {
+      "type": "color",
+      "id": "testimonial_text_color",
+      "label": "Testimonial Text Color",
+      "default": "#374151"
+    },
+    {
       "type": "range",
       "id": "autoplay_delay",
       "min": 30,
       "max": 100,
       "step": 10,
       "unit": "s",
-      "label": "Autoplay Delay",
-      "default": 50
+      "label": "Autoplay Delay (3-10 seconds)",
+      "default": 50,
+      "info": "Controls the autoplay timing: 30=3s, 40=4s, 50=5s, 60=6s, 70=7s, 80=8s, 90=9s, 100=10s"
     },
     {
       "type": "checkbox",
       "id": "show_navigation",
       "label": "Show Navigation",
-      "default": true
-    },
-    {
-      "type": "checkbox",
-      "id": "show_dots",
-      "label": "Show Dots",
       "default": true
     }
   ],
@@ -141,23 +131,9 @@
           "label": "Name"
         },
         {
-          "type": "text",
-          "id": "author_title",
-          "label": "Title"
-        },
-        {
           "type": "image_picker",
           "id": "author_image",
           "label": "Photo"
-        },
-        {
-          "type": "range",
-          "id": "rating",
-          "min": 0,
-          "max": 5,
-          "step": 1,
-          "label": "Rating",
-          "default": 5
         }
       ]
     }
@@ -170,18 +146,14 @@
           "type": "testimonial",
           "settings": {
             "testimonial_text": "Amazing product! Exceeded all my expectations.",
-            "author_name": "Sarah Johnson",
-            "author_title": "Customer",
-            "rating": 5
+            "author_name": "Sarah Johnson"
           }
         },
         {
           "type": "testimonial",
           "settings": {
             "testimonial_text": "Great quality and excellent service.",
-            "author_name": "Mike Chen",
-            "author_title": "Verified Buyer",
-            "rating": 5
+            "author_name": "Mike Chen"
           }
         }
       ]

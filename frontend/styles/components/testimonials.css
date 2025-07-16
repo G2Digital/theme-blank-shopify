@@ -1,3 +1,7 @@
+.testimonials-wrapper {
+  position: relative;
+}
+
 .testimonials {
   position: relative;
   --slide-spacing: 1rem;
@@ -7,7 +11,6 @@
 @media (min-width: 768px) {
   .testimonials {
     --slide-size: 50%;
-    --slide-spacing: 1rem;
   }
 }
 
@@ -24,17 +27,23 @@
   flex: 0 0 var(--slide-size);
   min-width: 0;
   padding-left: var(--slide-spacing);
+  position: relative;
+}
+
+/* Desfoque em slides inativos */
+.testimonials__slide:not(.embla__slide--active)::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  backdrop-filter: blur(1.2px);
+  z-index: 1;
+  pointer-events: none;
 }
 
 .testimonial {
-  background: white;
-  border: 1px solid #e5e7eb;
-  border-radius: 12px;
-  padding: 2rem;
   height: 100%;
   display: flex;
   flex-direction: column;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
 }
 
 .testimonial blockquote {
@@ -54,7 +63,6 @@
   display: flex;
   align-items: center;
   gap: 1rem;
-  margin-bottom: 1rem;
 }
 
 .author__image {
@@ -71,37 +79,12 @@
   object-fit: cover;
 }
 
-.author__info {
-  flex-grow: 1;
-}
-
 .author__name {
-  display: block;
   font-weight: 600;
   color: #111827;
   font-style: normal;
 }
 
-.author__title {
-  color: #6b7280;
-  font-size: 0.875rem;
-}
-
-.testimonial__rating {
-  display: flex;
-  gap: 2px;
-}
-
-.star {
-  color: #d1d5db;
-  font-size: 1.25rem;
-}
-
-.star--filled {
-  color: #fbbf24;
-}
-
-/* Container para posicionar setas nas laterais */
 .testimonials__navigation {
   position: relative;
 }
@@ -109,8 +92,10 @@
 .testimonials__buttons {
   position: absolute;
   top: 50%;
-  transform: translateY(-50%);
-  width: 100%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  width: 100vw;
+  max-width: 1800px;
   display: flex;
   justify-content: space-between;
   pointer-events: none;
@@ -118,25 +103,12 @@
 }
 
 .testimonials__button {
-  background: white;
-  border: 1px solid #d1d5db;
-  border-radius: 50%;
-  width: 48px;
-  height: 48px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   cursor: pointer;
-  transition: all 0.2s;
-  color: #374151;
   pointer-events: auto;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.testimonials__button:hover {
-  border-color: #9ca3af;
-  background: #f9fafb;
-  transform: scale(1.05);
+.testimonials__button:hover svg {
+  stroke: #ffffff;
 }
 
 .testimonials__button:disabled {
@@ -147,41 +119,6 @@
 .testimonials__button svg {
   width: 20px;
   height: 20px;
-}
-
-/* Posicionamento específico das setas */
-.testimonials__button--prev {
-  left: -60px;
-}
-
-.testimonials__button--next {
-  right: -60px;
-}
-
-.testimonials__dots {
-  display: flex;
-  justify-content: center;
-  gap: 0.5rem;
-  margin-top: 1.5rem;
-}
-
-.testimonials__dot {
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  background: #d1d5db;
-  border: none;
-  cursor: pointer;
-  transition: all 0.2s;
-}
-
-.testimonials__dot:hover {
-  background: #9ca3af;
-  transform: scale(1.2);
-}
-
-.testimonials__dot--selected {
-  background: #3b82f6;
 }
 
 @media (max-width: 767px) {
@@ -203,23 +140,16 @@
     height: 16px;
   }
 
-  /* Em mobile, posicionar setas mais próximas */
-  .testimonials__button--prev {
-    left: -50px;
-  }
-
-  .testimonials__button--next {
-    right: -50px;
-  }
-}
-
-/* Para telas muito pequenas, manter setas visíveis */
-@media (max-width: 480px) {
-  .testimonials__button--prev {
-    left: 10px;
-  }
-
-  .testimonials__button--next {
-    right: 10px;
+  .testimonials__buttons {
+    position: absolute;
+    top: 100%;
+    margin-top: 1rem;
+    width: calc(100% - 2rem);
+    max-width: none;
+    justify-content: center;
+    gap: 1.5rem;
+    transform: none;
+    left: 1rem;
+    right: 1rem;
   }
 }
