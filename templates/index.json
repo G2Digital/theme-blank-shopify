@@ -9,65 +9,27 @@
  */
 {
   "sections": {
-    "featured_collection": {
-      "type": "featured-collection",
-      "settings": {
-        "title": "Featured products",
-        "collection": "all",
-        "products_to_show": 8
-      }
-    },
-    "collection_list": {
-      "type": "collection-list",
-      "blocks": {
-        "featured-collection-0": {
-          "type": "featured_collection",
-          "settings": {
-            "collection": ""
-          }
-        },
-        "featured-collection-1": {
-          "type": "featured_collection",
-          "settings": {
-            "collection": ""
-          }
-        },
-        "featured-collection-2": {
-          "type": "featured_collection",
-          "settings": {
-            "collection": ""
-          }
-        }
-      },
-      "block_order": [
-        "featured-collection-0",
-        "featured-collection-1",
-        "featured-collection-2"
-      ],
-      "settings": {
-        "title": "Collections",
-        "columns_desktop": 3
-      }
-    },
-    "image_slider_PDeXXz": {
+    "image_slider_crmMWR": {
       "type": "image-slider",
       "blocks": {
-        "slide_rtW7MB": {
+        "slide_zYqLz9": {
           "type": "slide",
           "settings": {
+            "image_desktop": "shopify://shop_images/banner-principa-01-v2-desktop.jpg",
             "link": ""
           }
         },
-        "slide_mPUd68": {
-          "type": "slide",
+        "button_4nc8Gx": {
+          "type": "button",
           "settings": {
-            "link": ""
+            "button_text": "Saiba mais",
+            "button_link": ""
           }
         }
       },
       "block_order": [
-        "slide_rtW7MB",
-        "slide_mPUd68"
+        "slide_zYqLz9",
+        "button_4nc8Gx"
       ],
       "name": "Slider Principal",
       "settings": {
@@ -79,11 +41,169 @@
         "height_type": "auto",
         "custom_height": 500
       }
+    },
+    "double_text_ixkWQA": {
+      "type": "double-text",
+      "blocks": {
+        "heading_e3V3Jh": {
+          "type": "heading",
+          "settings": {
+            "heading_text": "<p>Tecnologia funcional com resultados terapêuticos.</p>",
+            "heading_size": 48,
+            "heading_line_height": 1.2,
+            "heading_color": "linear-gradient(135deg, rgba(102, 126, 234, 1), rgba(118, 75, 162, 1) 100%)"
+          }
+        },
+        "paragraph_JqcNX4": {
+          "type": "paragraph",
+          "settings": {
+            "paragraph_text": "<p>Dispositivos que asseguram resultados precisos e cientificamente validados, otimizando a aplicação em protocolos estéticos e fisioterapêuticos.</p>",
+            "paragraph_size": 16,
+            "paragraph_line_height": 1.6,
+            "paragraph_color": "#374151"
+          }
+        }
+      },
+      "block_order": [
+        "heading_e3V3Jh",
+        "paragraph_JqcNX4"
+      ],
+      "name": "Texto Duplo",
+      "settings": {
+        "padding_top": 128,
+        "padding_bottom": 128,
+        "border_gradient": "linear-gradient(180deg, rgba(229, 231, 235, 1), rgba(119, 88, 179, 1) 50%, rgba(229, 231, 235, 1) 100%)",
+        "border_spacing_right": 32,
+        "border_spacing_left": 32
+      }
+    },
+    "product_showcase_nYLDGP": {
+      "type": "product-showcase",
+      "name": "Produtos Showcase",
+      "settings": {
+        "collection": "pressoterapia",
+        "products_limit": 6,
+        "autoplay_delay": 50,
+        "show_navigation": true,
+        "show_dots": true,
+        "heading_gradient": "linear-gradient(135deg, rgba(102, 126, 234, 1), rgba(118, 75, 162, 1) 100%)",
+        "subtitle_color": "#6b7280",
+        "results_title": "<p>Resultados mais rápidos e eficazes</p>",
+        "show_product_button": true,
+        "button_text": "Ver produto"
+      }
+    },
+    "marquee_qLd6jq": {
+      "type": "marquee",
+      "blocks": {
+        "collection_AcBwQf": {
+          "type": "collection",
+          "settings": {
+            "heading": "Teste",
+            "collection": ""
+          }
+        },
+        "collection_HQcL7G": {
+          "type": "collection",
+          "settings": {
+            "heading": "Teste",
+            "collection": ""
+          }
+        },
+        "collection_EPFm96": {
+          "type": "collection",
+          "settings": {
+            "heading": "Teste",
+            "collection": ""
+          }
+        },
+        "collection_knpqyN": {
+          "type": "collection",
+          "settings": {
+            "heading": "Teste",
+            "collection": ""
+          }
+        }
+      },
+      "block_order": [
+        "collection_AcBwQf",
+        "collection_HQcL7G",
+        "collection_EPFm96",
+        "collection_knpqyN"
+      ],
+      "name": "Marquee",
+      "settings": {
+        "links-time-duration": 15,
+        "links-spaces": "128",
+        "links-text-size": 60
+      }
+    },
+    "featured_blog_BLThWD": {
+      "type": "featured-blog",
+      "name": "Blog Posts",
+      "settings": {
+        "title": "Acompanhe nosso Blog",
+        "heading_gradient": "linear-gradient(135deg, rgba(102, 126, 234, 1), rgba(118, 75, 162, 1) 100%)",
+        "description": "",
+        "blog": "novidades",
+        "posts_count": 3,
+        "show_view_all_button": true
+      }
+    },
+    "testimonials_Dfa894": {
+      "type": "testimonials",
+      "blocks": {
+        "testimonial_ziyrnt": {
+          "type": "testimonial",
+          "settings": {
+            "testimonial_text": "Sempre tenho uma experiência muito boa com a CECBRA, nunca vi um pós venda tao excelente assim, os produtos entregam resultados, tem minha admiração e respeito.",
+            "author_name": "Dr. Alexandre Gomes Dourado"
+          }
+        },
+        "testimonial_ULfbjn": {
+          "type": "testimonial",
+          "settings": {
+            "testimonial_text": "A cecbra é uma das melhores marcas de equipamentos do Brasil. Sou profissional e pesquisadora. Eles estão sempre preocupados em manter a qualidade dos pacientes. Preços acessíveis.",
+            "author_name": "Roseane Debora"
+          }
+        },
+        "testimonial_Yyzgw9": {
+          "type": "testimonial",
+          "settings": {
+            "testimonial_text": "Sempre tenho uma experiência muito boa com a CECBRA, nunca vi um pós venda tao excelente assim, os produtos entregam resultados, tem minha admiração e respeito.",
+            "author_name": "Dr. Alexandre Gomes Dourado"
+          }
+        },
+        "testimonial_N9jJM8": {
+          "type": "testimonial",
+          "settings": {
+            "testimonial_text": "A cecbra é uma das melhores marcas de equipamentos do Brasil. Sou profissional e pesquisadora. Eles estão sempre preocupados em manter a qualidade dos pacientes. Preços acessíveis.",
+            "author_name": "Roseane Debora"
+          }
+        }
+      },
+      "block_order": [
+        "testimonial_ziyrnt",
+        "testimonial_ULfbjn",
+        "testimonial_Yyzgw9",
+        "testimonial_N9jJM8"
+      ],
+      "name": "Testimonials",
+      "settings": {
+        "title": "Depoimentos de Clientes",
+        "title_color": "#111827",
+        "testimonial_text_color": "#374151",
+        "autoplay_delay": 50,
+        "show_navigation": true
+      }
     }
   },
   "order": [
-    "image_slider_PDeXXz",
-    "featured_collection",
-    "collection_list"
+    "image_slider_crmMWR",
+    "double_text_ixkWQA",
+    "product_showcase_nYLDGP",
+    "marquee_qLd6jq",
+    "featured_blog_BLThWD",
+    "testimonials_Dfa894"
   ]
 }

@@ -1,11 +1,11 @@
 {% if section.settings.title != blank or section.blocks.size > 0 %}
   <section class="bg-[#F5F3FA] py-16">
     <div class="testimonials-wrapper">
-      <div class="mx-auto max-w-[1600px]">
+      <div class="mx-auto max-w-[1600px] px-4 pb-16 sm:px-8 lg:px-8">
         {% if section.settings.title != blank %}
           <h2
-            class="mb-12 text-left text-3xl font-bold"
-            style="color: {{ section.settings.title_color | default: '#111827' }};"
+            class="mb-12 mt-12 text-center text-5xl font-normal md:text-left"
+            style="background: {{ section.settings.title_color }}; -webkit-background-clip: text; -webkit-text-fill-color: transparent;"
           >
             {{ section.settings.title }}
           </h2>
@@ -26,7 +26,7 @@
                       <div class="testimonial">
                         {% if block.settings.testimonial_text != blank %}
                           <blockquote>
-                            <p style="color: {{ section.settings.testimonial_text_color | default: '#374151' }};">
+                            <p style="background: {{ section.settings.testimonial_text_color }}; -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
                               "{{ block.settings.testimonial_text }}"
                             </p>
                           </blockquote>
@@ -41,6 +41,8 @@
                                 | image_tag: alt: block.settings.author_name
                               }}
                             </div>
+                          {% else %}
+                            <div class="author__image placeholder"></div>
                           {% endif %}
 
                           {% if block.settings.author_name != blank %}
@@ -77,25 +79,25 @@
 
 {% schema %}
 {
-  "name": "Testimonials",
+  "name": "Depoimentos",
   "settings": [
     {
       "type": "text",
       "id": "title",
-      "label": "Title",
-      "default": "What Our Customers Say"
+      "label": "Título da Sessão",
+      "default": "Depoimentos de Clientes"
     },
     {
-      "type": "color",
+      "type": "color_background",
       "id": "title_color",
-      "label": "Title Color",
-      "default": "#111827"
+      "label": "Cor do título",
+      "default": "linear-gradient(135deg, #667eea 0%, #764ba2 100%)"
     },
     {
-      "type": "color",
+      "type": "color_background",
       "id": "testimonial_text_color",
-      "label": "Testimonial Text Color",
-      "default": "#374151"
+      "label": "Cor do depoimento",
+      "default": "linear-gradient(135deg, #667eea 0%, #764ba2 100%)"
     },
     {
       "type": "range",
@@ -104,56 +106,56 @@
       "max": 100,
       "step": 10,
       "unit": "s",
-      "label": "Autoplay Delay (3-10 seconds)",
-      "default": 50,
-      "info": "Controls the autoplay timing: 30=3s, 40=4s, 50=5s, 60=6s, 70=7s, 80=8s, 90=9s, 100=10s"
+      "label": "Transição",
+      "default": 50
     },
     {
       "type": "checkbox",
       "id": "show_navigation",
-      "label": "Show Navigation",
+      "label": "Exibir setas",
       "default": true
     }
   ],
   "blocks": [
     {
-      "type": "testimonial",
-      "name": "Testimonial",
+      "type": "depoimento",
+      "name": "Depoimento",
       "settings": [
-        {
-          "type": "textarea",
-          "id": "testimonial_text",
-          "label": "Text"
-        },
         {
           "type": "text",
           "id": "author_name",
-          "label": "Name"
+          "label": "Autor"
+        },
+        {
+          "type": "textarea",
+          "id": "testimonial_text",
+          "label": "Depoimento"
         },
         {
           "type": "image_picker",
           "id": "author_image",
-          "label": "Photo"
+          "label": "Foto"
         }
       ]
     }
   ],
   "presets": [
     {
-      "name": "Testimonials",
+      "name": "Depoimentos",
+      "category": "Sessões",
       "blocks": [
         {
-          "type": "testimonial",
+          "type": "depoimento",
           "settings": {
-            "testimonial_text": "Amazing product! Exceeded all my expectations.",
-            "author_name": "Sarah Johnson"
+            "testimonial_text": "Exemplo de depoimento",
+            "author_name": "Autor do Depoimento"
           }
         },
         {
-          "type": "testimonial",
+          "type": "depoimento",
           "settings": {
-            "testimonial_text": "Great quality and excellent service.",
-            "author_name": "Mike Chen"
+            "testimonial_text": "Exemplo de depoimento",
+            "author_name": "Autor do Depoimento"
           }
         }
       ]

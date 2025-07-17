@@ -8,6 +8,12 @@
   --slide-size: 100%;
 }
 
+@media (max-width: 1780px) and (min-width: 768px) {
+  .testimonials {
+    padding: 0 80px;
+  }
+}
+
 @media (min-width: 768px) {
   .testimonials {
     --slide-size: 50%;
@@ -27,6 +33,7 @@
   flex: 0 0 var(--slide-size);
   min-width: 0;
   padding-left: var(--slide-spacing);
+  padding-bottom: 5px;
   position: relative;
 }
 
@@ -52,7 +59,7 @@
 }
 
 .testimonial blockquote p {
-  font-size: 1.125rem;
+  font-size: 1.5rem;
   line-height: 1.6;
   color: #374151;
   font-style: italic;
@@ -66,11 +73,25 @@
 }
 
 .author__image {
-  width: 60px;
-  height: 60px;
+  width: 30px;
+  height: 30px;
   border-radius: 50%;
   overflow: hidden;
   flex-shrink: 0;
+}
+
+.author__image.placeholder {
+  width: 30px;
+  height: 30px;
+  overflow: hidden;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: #7758b3;
+  background: linear-gradient(
+    322deg,
+    rgba(119, 88, 179, 1) 0%,
+    rgba(95, 123, 219, 1) 100%
+  );
 }
 
 .author__image img {
@@ -80,9 +101,8 @@
 }
 
 .author__name {
-  font-weight: 600;
-  color: #111827;
-  font-style: normal;
+  font-weight: 400;
+  color: #564f6c;
 }
 
 .testimonials__navigation {
@@ -94,8 +114,7 @@
   top: 50%;
   left: 50%;
   transform: translateX(-50%) translateY(-50%);
-  width: 100vw;
-  max-width: 1800px;
+  width: calc(100% - 50px);
   display: flex;
   justify-content: space-between;
   pointer-events: none;
@@ -130,11 +149,6 @@
     padding: 1.5rem;
   }
 
-  .testimonials__button {
-    width: 40px;
-    height: 40px;
-  }
-
   .testimonials__button svg {
     width: 16px;
     height: 16px;
@@ -142,7 +156,7 @@
 
   .testimonials__buttons {
     position: absolute;
-    top: 100%;
+    top: -80px;
     margin-top: 1rem;
     width: calc(100% - 2rem);
     max-width: none;
