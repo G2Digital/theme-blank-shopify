@@ -3,16 +3,19 @@
     <div class="grid grid-cols-1 md:grid-cols-{{ section.blocks.size }} items-start gap-8 md:gap-12">
       {% for block in section.blocks limit: 3 %}
         <div
-          class="flex flex-col items-center {% if forloop.first %}md:items-start text-center md:text-left{% elsif forloop.last %}md:items-end text-center md:text-right{% else %}text-center{% endif %} group {% unless forloop.first %}mt-8 md:mt-0{% endunless %} {% if forloop.index == 3 %}mt-16 md:mt-0{% endif %}"
+          class="flex items-center gap-8"
           {{ block.shopify_attributes }}
         >
           <div class="relative mb-6">
-            <div class="flex h-16 w-16 items-center justify-center rounded-full bg-white shadow-lg transition-shadow duration-300 group-hover:shadow-xl">
-              {% render 'feature-icon', icon_type: block.settings.icon_type %}
+            <div class="flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-bl from-[white] to-[#7758B3]/20 p-3.5 shadow-sm">
+              {% render 'differential-icons', icon_type: block.settings.icon_type %}
             </div>
           </div>
           <div class="space-y-3">
-            <h3 class="text-xl font-semibold text-purple-700">
+            <h3
+              class="text-xl font-semibold"
+              style="background: linear-gradient(135deg, rgba(102, 126, 234, 1), rgba(118, 75, 162, 1) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;"
+            >
               {{ block.settings.title | default: 'Título do Bloco' }}
             </h3>
             <p class="text-sm leading-relaxed text-gray-600">
@@ -58,27 +61,15 @@
               "label": "Escudo"
             },
             {
-              "value": "medal",
-              "label": "Medalha"
+              "value": "garantia",
+              "label": "Garandia"
             },
             {
               "value": "headset",
               "label": "Fone"
-            },
-            {
-              "value": "star",
-              "label": "Estrela"
-            },
-            {
-              "value": "heart",
-              "label": "Coração"
-            },
-            {
-              "value": "check",
-              "label": "Check"
             }
           ],
-          "default": "check"
+          "default": "shield"
         }
       ]
     }
@@ -100,7 +91,7 @@
           "settings": {
             "title": "Garantia de 2 Anos",
             "description": "Mais tranquilidade com cobertura estendida e suporte confiável.",
-            "icon_type": "medal"
+            "icon_type": "garantia"
           }
         },
         {
