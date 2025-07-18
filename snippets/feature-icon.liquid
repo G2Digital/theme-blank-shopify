@@ -1,0 +1,36 @@
+{% comment %}
+  Snippet para renderizar ícones de features/diferenciais
+
+  Parâmetros:
+  - icon_type: string - tipo do ícone (shield, medal, headset, star, heart, check)
+
+  Uso:
+  {% render 'feature-icon', icon_type: 'shield' %}
+{% endcomment %}
+
+{% case icon_type %}
+  {% when 'shield' %}
+    <svg width="51" height="62" viewBox="0 0 51 62" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="m16 31 6.25 5.625 12.5-11.25m15 8.62c0 14.998-10.664 22.497-23.34 26.846a3.1 3.1 0 0 1-2.04-.03C11.664 56.492 1 48.993 1 33.996V12.999c0-.795.321-1.558.892-2.12a3.07 3.07 0 0 1 2.155-.88c6.094 0 13.71-3.599 19.012-8.158A3.6 3.6 0 0 1 25.375 1a3.6 3.6 0 0 1 2.316.841C33.023 6.431 40.609 10 46.703 10c.808 0 1.583.316 2.155.878s.892 1.326.892 2.121z" stroke="url(#a)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><defs><linearGradient id="a" x1="30.856" y1="32.619" x2="16.053" y2="32.619" gradientUnits="userSpaceOnUse"><stop stop-color="#7758B3"/><stop offset="1" stop-color="#5F7BDB"/></linearGradient></defs>
+    </svg>
+
+  {% when 'medal' %}
+
+  {% when 'headset' %}
+
+  {% when 'star' %}
+
+  {% when 'heart' %}
+
+  {% when 'check' %}
+
+  {% else %}
+    <svg class="h-8 w-8 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        d="M5 13l4 4L19 7"
+      />
+    </svg>
+{% endcase %}
