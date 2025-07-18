@@ -150,49 +150,34 @@
         "show_view_all_button": true
       }
     },
-    "testimonials_Dfa894": {
+    "testimonials_fpJH69": {
       "type": "testimonials",
       "blocks": {
-        "testimonial_ziyrnt": {
-          "type": "testimonial",
+        "depoimento_67wRai": {
+          "type": "depoimento",
           "settings": {
+            "author_name": "Dr. Alexandre Gomes Dourado",
             "testimonial_text": "Sempre tenho uma experiência muito boa com a CECBRA, nunca vi um pós venda tao excelente assim, os produtos entregam resultados, tem minha admiração e respeito.",
-            "author_name": "Dr. Alexandre Gomes Dourado"
+            "author_image": "shopify://shop_images/IMG_2249.jpg"
           }
         },
-        "testimonial_ULfbjn": {
-          "type": "testimonial",
+        "depoimento_fBXQHY": {
+          "type": "depoimento",
           "settings": {
-            "testimonial_text": "A cecbra é uma das melhores marcas de equipamentos do Brasil. Sou profissional e pesquisadora. Eles estão sempre preocupados em manter a qualidade dos pacientes. Preços acessíveis.",
-            "author_name": "Roseane Debora"
-          }
-        },
-        "testimonial_Yyzgw9": {
-          "type": "testimonial",
-          "settings": {
-            "testimonial_text": "Sempre tenho uma experiência muito boa com a CECBRA, nunca vi um pós venda tao excelente assim, os produtos entregam resultados, tem minha admiração e respeito.",
-            "author_name": "Dr. Alexandre Gomes Dourado"
-          }
-        },
-        "testimonial_N9jJM8": {
-          "type": "testimonial",
-          "settings": {
-            "testimonial_text": "A cecbra é uma das melhores marcas de equipamentos do Brasil. Sou profissional e pesquisadora. Eles estão sempre preocupados em manter a qualidade dos pacientes. Preços acessíveis.",
-            "author_name": "Roseane Debora"
+            "author_name": "Roseane Debora",
+            "testimonial_text": "A cecbra é uma das melhores marcas de equipamentos do Brasil. Sou profissional e pesquisadora. Eles estão sempre preocupados em manter a qualidade dos pacientes. Preços acessíveis."
           }
         }
       },
       "block_order": [
-        "testimonial_ziyrnt",
-        "testimonial_ULfbjn",
-        "testimonial_Yyzgw9",
-        "testimonial_N9jJM8"
+        "depoimento_67wRai",
+        "depoimento_fBXQHY"
       ],
-      "name": "Testimonials",
+      "name": "Depoimentos",
       "settings": {
         "title": "Depoimentos de Clientes",
-        "title_color": "#111827",
-        "testimonial_text_color": "#374151",
+        "title_color": "linear-gradient(135deg, rgba(102, 126, 234, 1), rgba(118, 75, 162, 1) 100%)",
+        "testimonial_text_color": "linear-gradient(135deg, rgba(102, 126, 234, 1), rgba(118, 75, 162, 1) 100%)",
         "autoplay_delay": 50,
         "show_navigation": true
       }
@@ -204,6 +189,6 @@
     "product_showcase_nYLDGP",
     "marquee_qLd6jq",
     "featured_blog_BLThWD",
-    "testimonials_Dfa894"
+    "testimonials_fpJH69"
   ]
 }
