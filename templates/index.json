@@ -181,6 +181,42 @@
         "autoplay_delay": 50,
         "show_navigation": true
       }
+    },
+    "differential_WEypQa": {
+      "type": "differential",
+      "blocks": {
+        "feature_block_HJqGTz": {
+          "type": "feature_block",
+          "settings": {
+            "title": "Excelência Comprovada",
+            "description": "Certificações ISO 9001 e ISO 13485, Inmetro e Anvisa.",
+            "icon_type": "shield"
+          }
+        },
+        "feature_block_cGV4PD": {
+          "type": "feature_block",
+          "settings": {
+            "title": "Garantia de 2 Anos",
+            "description": "Mais tranquilidade com cobertura estendida e suporte confiável.",
+            "icon_type": "garantia"
+          }
+        },
+        "feature_block_Wq3fNG": {
+          "type": "feature_block",
+          "settings": {
+            "title": "Atendimento Especializado",
+            "description": "Suporte técnico de ponta a ponta, com foco total nas suas necessidades.",
+            "icon_type": "headset"
+          }
+        }
+      },
+      "block_order": [
+        "feature_block_HJqGTz",
+        "feature_block_cGV4PD",
+        "feature_block_Wq3fNG"
+      ],
+      "name": "Diferenciais",
+      "settings": {}
     }
   },
   "order": [
@@ -189,6 +225,7 @@
     "product_showcase_nYLDGP",
     "marquee_qLd6jq",
     "featured_blog_BLThWD",
-    "testimonials_fpJH69"
+    "testimonials_fpJH69",
+    "differential_WEypQa"
   ]
 }

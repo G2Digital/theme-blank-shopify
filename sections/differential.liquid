@@ -1,6 +1,6 @@
-<section class="bg-[#F5F3FA] py-16">
-  <div class="mx-auto max-w-[1600px] px-4 pb-16 sm:px-8 lg:px-8">
-    <div class="grid grid-cols-1 md:grid-cols-{{ section.blocks.size }} items-start gap-8 md:gap-12">
+<section class="bg-[#F5F3FA]">
+  <div class="relative mx-auto max-w-[1600px] px-4 pb-96 sm:px-8 lg:px-8">
+    <div class="relative z-10 grid grid-cols-1 md:grid-cols-{{ section.blocks.size }} items-start gap-8 md:gap-12">
       {% for block in section.blocks limit: 3 %}
         <div
           class="flex items-center gap-8"
@@ -24,6 +24,39 @@
           </div>
         </div>
       {% endfor %}
+    </div>
+
+    <div class="bottom-26 absolute left-16 z-0 lg:w-1/2">
+      <svg width="603" height="298" viewBox="0 0 603 298" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <mask id="path-1-inside-1_258_51" fill="white">
+        <path d="M0 0L603 9.17279e-05V9.17279e-05C603 164.581 469.581 298 305 298L298 298C133.419 298 -2.88247e-05 164.581 0 0V0Z"/>
+        </mask>
+        <path d="M0 0L603 9.17279e-05L0 0ZM604 1.00009C604 166.133 470.133 300 305 300L298 300C132.314 300 -2.00003 165.685 -2 -3.04239e-07L2 3.04239e-07C1.99997 163.476 134.524 296 298 296L305 296C469.029 296 602 163.476 602 9.15758e-05L604 1.00009ZM298 300C132.314 300 -2.00003 165.685 -2 -3.04239e-07L2 3.04239e-07C1.99997 163.476 134.524 296 298 296L298 300ZM604 9.188e-05L604 1.00009C604 166.133 470.133 300 305 300L305 296C469.029 296 602 163.476 602 9.15758e-05L604 9.188e-05Z" fill="url(#paint0_linear_258_51)" mask="url(#path-1-inside-1_258_51)"/>
+        <defs>
+        <linearGradient id="paint0_linear_258_51" x1="571.24" y1="130.187" x2="14.2516" y2="-39.898" gradientUnits="userSpaceOnUse">
+        <stop stop-color="#F5F3FA"/>
+        <stop offset="0.198709" stop-color="#7758B3"/>
+        <stop offset="0.9" stop-color="#5F7BDB"/>
+        <stop offset="1" stop-color="#F5F3FA"/>
+        </linearGradient>
+        </defs>
+      </svg>
+    </div>
+    <div class="absolute right-48 top-0 z-0 lg:w-1/2">
+      <svg width="603" height="298" viewBox="0 0 603 298" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <mask id="path-1-inside-1_258_52" fill="white">
+        <path d="M603 298L6.10352e-05 298V298C4.02468e-05 133.419 133.419 -2.5319e-05 298 -3.7837e-05L305 -3.83694e-05C469.581 -5.08873e-05 603 133.419 603 298V298Z"/>
+        </mask>
+        <path d="M603 298L6.10352e-05 298L603 298ZM-0.999939 297C-0.99996 131.867 132.867 -2.00003 298 -2.00004L305 -2.00004C470.685 -2.00005 605 132.315 605 298L601 298C601 134.524 468.476 1.99995 305 1.99996L298 1.99996C133.971 1.99997 1.00004 134.524 1.00006 298L-0.999939 297ZM305 -2.00004C470.685 -2.00005 605 132.315 605 298L601 298C601 134.524 468.476 1.99995 305 1.99996L305 -2.00004ZM-0.999939 298L-0.999939 297C-0.99996 131.867 132.867 -2.00003 298 -2.00004L298 1.99996C133.971 1.99997 1.00004 134.524 1.00006 298L-0.999939 298Z" fill="url(#paint0_linear_258_52)" mask="url(#path-1-inside-1_258_52)"/>
+        <defs>
+        <linearGradient id="paint0_linear_258_52" x1="31.7604" y1="167.813" x2="588.748" y2="337.898" gradientUnits="userSpaceOnUse">
+        <stop stop-color="#F5F3FA"/>
+        <stop offset="0.198709" stop-color="#7758B3"/>
+        <stop offset="0.9" stop-color="#5F7BDB"/>
+        <stop offset="1" stop-color="#F5F3FA"/>
+        </linearGradient>
+        </defs>
+      </svg>
     </div>
   </div>
 </section>
