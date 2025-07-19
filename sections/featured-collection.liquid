@@ -1,46 +1,178 @@
-<div class="grid w-full gap-4 py-6 md:gap-8 md:py-8 lg:py-12">
-  <h2 class="font-heading text-lead font-heading-weight px-6 md:px-8 lg:px-12">
+<div class="w-full py-6 md:py-8 lg:py-12">
+  <h2 class="mb-6 px-6 text-2xl font-bold md:px-8 lg:px-12">
     {{ section.settings.title | escape }}
   </h2>
-  <div class="swimlane hidden-scroll md:scroll-px-8 md:px-8 md:pb-8 lg:scroll-px-12 lg:px-12">
-    {%- for product in section.settings.collection.products limit: section.settings.products_to_show -%}
-      {%- render 'card-product', card_product: product, wrapper_class: 'w-80' -%}
-    {%- else -%}
-      {%- for i in (1..4) -%}
-        {% render 'card-product', wrapper_class: 'w-80' %}
-      {%- endfor -%}
-    {%- endfor -%}
+
+  <div class="relative px-6 md:px-8 lg:px-12">
+    {%- liquid
+      # Definir classes de colunas baseadas nas configurações
+      assign columns_mobile = section.settings.columns_mobile | default: '2'
+      assign columns_desktop = section.settings.columns_desktop | default: '4'
+
+      # Mapear para classes Tailwind
+      case columns_mobile
+        when '1'
+          assign mobile_class = 'w-full'
+        when '2'
+          assign mobile_class = 'w-1/2'
+      endcase
+
+      case columns_desktop
+        when '1'
+          assign desktop_class = 'lg:w-full'
+        when '2'
+          assign desktop_class = 'lg:w-1/2'
+        when '4'
+          assign desktop_class = 'lg:w-1/4'
+        when '6'
+          assign desktop_class = 'lg:w-1/6'
+      endcase
+
+      assign slide_class = 'featured-collection__slide flex-none ' | append: mobile_class | append: ' ' | append: desktop_class | append: ' pl-4'
+    -%}
+
+    <div
+      class="featured-collection-carousel"
+      data-products-count="{{ section.settings.collection.products.size | default: 4 }}"
+      data-columns-mobile="{{ columns_mobile }}"
+      data-columns-desktop="{{ columns_desktop }}"
+    >
+      <div class="featured-collection__viewport overflow-hidden">
+        <div class="featured-collection__container -ml-4 flex">
+          {%- for product in section.settings.collection.products limit: section.settings.products_to_show -%}
+            <div class="{{ slide_class }}">
+              {%- render 'card-product', card_product: product, new_product_days: section.settings.new_product_days -%}
+            </div>
+          {%- else -%}
+            {%- for i in (1..4) -%}
+              <div class="{{ slide_class }}">
+                {% render 'card-product', new_product_days: section.settings.new_product_days %}
+              </div>
+            {%- endfor -%}
+          {%- endfor -%}
+        </div>
+      </div>
+
+      <!-- Navigation Arrows -->
+      <button
+        type="button"
+        class="featured-collection__button featured-collection__button--prev absolute left-0 top-1/2 z-10 -translate-y-1/2 transform rounded-full bg-white p-3 shadow-lg transition-all duration-200 hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-50"
+        aria-label="Previous products"
+      >
+        <svg
+          width="20"
+          height="20"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <polyline points="15,18 9,12 15,6"></polyline>
+        </svg>
+      </button>
+
+      <button
+        type="button"
+        class="featured-collection__button featured-collection__button--next absolute right-0 top-1/2 z-10 -translate-y-1/2 transform rounded-full bg-white p-3 shadow-lg transition-all duration-200 hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-50"
+        aria-label="Next products"
+      >
+        <svg
+          width="20"
+          height="20"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <polyline points="9,18 15,12 9,6"></polyline>
+        </svg>
+      </button>
+    </div>
   </div>
 </div>
 
 {% schema %}
 {
-  "name": "Featured collection",
+  "name": "Carrossel de produtos",
   "settings": [
     {
       "type": "text",
       "id": "title",
-      "label": "Heading",
-      "default": "Featured collection"
+      "label": "Título",
+      "default": "Mais produtos"
     },
     {
       "type": "collection",
       "id": "collection",
-      "label": "Collection"
+      "label": "Coleção"
+    },
+    {
+      "type": "select",
+      "id": "columns_desktop",
+      "label": "Colunas no desktop",
+      "default": "4",
+      "options": [
+        {
+          "value": "1",
+          "label": "1"
+        },
+        {
+          "value": "2",
+          "label": "2"
+        },
+        {
+          "value": "4",
+          "label": "4"
+        },
+        {
+          "value": "6",
+          "label": "6"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "columns_mobile",
+      "label": "Colunas no mobile",
+      "default": "2",
+      "options": [
+        {
+          "value": "1",
+          "label": "1"
+        },
+        {
+          "value": "2",
+          "label": "2"
+        }
+      ]
     },
     {
       "type": "range",
       "id": "products_to_show",
-      "label": "Maximum products to show",
-      "default": 5,
-      "min": 5,
-      "max": 15,
+      "label": "Quantidade de produtos",
+      "default": 8,
+      "min": 1,
+      "max": 32,
+      "step": 1
+    },
+    {
+      "type": "range",
+      "id": "new_product_days",
+      "label": "Produtos Novo",
+      "default": 15,
+      "unit": "D",
+      "min": 1,
+      "max": 30,
       "step": 1
     }
   ],
   "presets": [
     {
-      "name": "Featured collection"
+      "name": "Carrossel de produtos"
     }
   ]
 }

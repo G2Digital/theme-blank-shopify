@@ -217,6 +217,18 @@
       ],
       "name": "Diferenciais",
       "settings": {}
+    },
+    "featured_collection_HFjrB9": {
+      "type": "featured-collection",
+      "name": "Carrossel de produtos",
+      "settings": {
+        "title": "Mais produtos",
+        "collection": "todos",
+        "columns_desktop": "4",
+        "columns_mobile": "2",
+        "products_to_show": 16,
+        "new_product_days": 15
+      }
     }
   },
   "order": [
@@ -226,6 +238,7 @@
     "marquee_qLd6jq",
     "featured_blog_BLThWD",
     "testimonials_fpJH69",
-    "differential_WEypQa"
+    "differential_WEypQa",
+    "featured_collection_HFjrB9"
   ]
 }

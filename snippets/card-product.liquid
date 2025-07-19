@@ -4,85 +4,155 @@
   Accepts:
   - card_product: {Object} Product Liquid object (optional)
   - lazy_load: {Boolean} Image should be lazy loaded. Default: true (optional)
-  - wrapper_class: {String} Wrapper class for card (optional)
+  - new_product_days: {Number} Days to consider product as new (optional)
 
   Usage:
-  {% render 'card-product', card_product: product %}
+  {% render 'card-product', card_product: product, new_product_days: 30 %}
 {% endcomment %}
 
 {%- if card_product and card_product != empty -%}
   {%- liquid
-    assign ratio = 1
-    if card_product.featured_media and media_aspect_ratio == 'portrait'
-      assign ratio = 0.8
-    elsif card_product.featured_media and media_aspect_ratio == 'adapt'
-      assign ratio = card_product.featured_media.aspect_ratio
+    # Check if product is new
+    assign is_new = false
+    assign new_days = new_product_days | default: 30
+    assign now_timestamp = 'now' | date: '%s'
+    assign product_timestamp = card_product.created_at | date: '%s'
+    assign product_age = now_timestamp | minus: product_timestamp | divided_by: 86400
+    if product_age <= new_days
+      assign is_new = true
     endif
-    if ratio == 0 or ratio == null
-      assign ratio = 1
+
+    # Calculate discount percentage
+    assign has_discount = false
+    assign discount_percentage = 0
+    assign original_price = card_product.price
+    assign compare_price = card_product.compare_at_price
+
+    if compare_price and compare_price > 0 and compare_price > original_price
+      assign has_discount = true
+      assign discount_amount = compare_price | minus: original_price
+      assign discount_percentage = discount_amount | times: 100.0 | divided_by: compare_price | round
     endif
   -%}
-  <div class="relative">
-    <div class="grid snap-start gap-6 {% if wrapper_class != blank %} {{ wrapper_class }}{% endif %}">
-      <div class="aspect-[4/5] overflow-hidden rounded bg-primary/5">
-        {%- if card_product.featured_media -%}
-          {% comment %}theme-check-disable ImgLazyLoading{% endcomment %}
-          <img
-            srcset="
-              {%- if card_product.featured_media.width >= 165 -%}{{ card_product.featured_media | image_url: width: 165 }} 165w,{%- endif -%}
-              {%- if card_product.featured_media.width >= 360 -%}{{ card_product.featured_media | image_url: width: 360 }} 360w,{%- endif -%}
-              {%- if card_product.featured_media.width >= 533 -%}{{ card_product.featured_media | image_url: width: 533 }} 533w,{%- endif -%}
-              {%- if card_product.featured_media.width >= 720 -%}{{ card_product.featured_media | image_url: width: 720 }} 720w,{%- endif -%}
-              {%- if card_product.featured_media.width >= 940 -%}{{ card_product.featured_media | image_url: width: 940 }} 940w,{%- endif -%}
-              {%- if card_product.featured_media.width >= 1066 -%}{{ card_product.featured_media | image_url: width: 1066 }} 1066w,{%- endif -%}
-              {{ card_product.featured_media | image_url }} {{ card_product.featured_media.width }}w
-            "
-            src="{{ card_product.featured_media | image_url: width: 533 }}"
-            sizes="320px"
-            alt="{{ card_product.featured_media.alt | escape }}"
-            class="aspect-[inherit] h-full w-full object-cover object-center"
-            {% unless lazy_load == false %}
-              loading="lazy"
-            {% endunless %}
-            width="{{ card_product.featured_media.width }}"
-            height="{{ card_product.featured_media.height }}"
-          >
-          {% comment %}theme-check-enable ImgLazyLoading{% endcomment %}
+
+  <div class="group relative cursor-pointer overflow-hidden rounded-lg bg-white">
+    <div class="relative h-80 w-full overflow-hidden bg-gray-100">
+      {%- if card_product.featured_media -%}
+        <img
+          srcset="
+            {%- if card_product.featured_media.width >= 165 -%}{{ card_product.featured_media | image_url: width: 165 }} 165w,{%- endif -%}
+            {%- if card_product.featured_media.width >= 360 -%}{{ card_product.featured_media | image_url: width: 360 }} 360w,{%- endif -%}
+            {%- if card_product.featured_media.width >= 533 -%}{{ card_product.featured_media | image_url: width: 533 }} 533w,{%- endif -%}
+            {%- if card_product.featured_media.width >= 720 -%}{{ card_product.featured_media | image_url: width: 720 }} 720w,{%- endif -%}
+            {{ card_product.featured_media | image_url }} {{ card_product.featured_media.width }}w
+          "
+          src="{{ card_product.featured_media | image_url: width: 533 }}"
+          sizes="320px"
+          alt="{{ card_product.featured_media.alt | escape }}"
+          class="h-full w-full object-cover object-center transition-transform duration-300 group-hover:scale-105"
+          {% unless lazy_load == false %}
+            loading="lazy"
+          {% endunless %}
+          width="{{ card_product.featured_media.width }}"
+          height="{{ card_product.featured_media.height }}"
+        >
+      {%- else -%}
+        <div class="flex h-full w-full items-center justify-center bg-gray-200">
+          <svg class="h-12 w-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+          </svg>
+        </div>
+      {%- endif -%}
+
+      <!-- Product Tags -->
+      <div class="absolute left-3 top-3 flex flex-col space-y-2">
+        {%- if is_new -%}
+          <span class="inline-flex items-center rounded-full bg-green-100 px-2 py-1 text-xs font-medium text-green-800">
+            Novo
+          </span>
+        {%- endif -%}
+
+        {%- if has_discount -%}
+          <span class="inline-flex items-center rounded-full bg-red-500 px-2 py-1 text-xs font-bold text-white shadow-sm">
+            {{ discount_percentage }}% OFF
+          </span>
         {%- endif -%}
       </div>
-      <div class="grid gap-1">
-        <h3
-          class="text-copy"
-          {% if card_product.featured_media %}
-            id="title-{{ section_id }}-{{ card_product.id }}"
-          {% endif %}
-        >
-          <a
-            href="{{ card_product.url }}"
-            id="CardLink-{{ section_id }}-{{ card_product.id }}"
-            class="after:absolute after:inset-0 after:z-10 after:content-['']"
-          >
-            {{ card_product.title | escape }}
-          </a>
-        </h3>
 
-        {%- render 'price', product: card_product -%}
+      <!-- Quick View Button -->
+      <div class="backdrop-blur-xs absolute inset-0 flex items-center justify-center bg-white/50 bg-opacity-20 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+        <a
+          href="{{ card_product.url }}"
+          class="button secondary font-normal hover:text-white"
+        >
+          Ver produto
+        </a>
       </div>
     </div>
+
+    <div class="py-4">
+      <h3 class="mb-2 line-clamp-2 text-sm font-medium text-gray-900">
+        <a
+          href="{{ card_product.url }}"
+          class="transition-colors duration-200 hover:text-blue-600"
+        >
+          {{ card_product.title | escape }}
+        </a>
+      </h3>
+
+      <!-- Price Display -->
+      <div class="items-left mb-2 flex flex-col space-x-2">
+        {%- if has_discount -%}
+          <span class="text-lg font-bold text-red-600">
+            {{ card_product.price | money_without_trailing_zeros }}
+          </span>
+          <span class="text-sm text-gray-500 line-through">
+            {{ card_product.compare_at_price | money_without_trailing_zeros }}
+          </span>
+          <span class="rounded bg-red-100 px-2 py-1 text-xs text-red-800">
+            Economize {{ card_product.compare_at_price | minus: card_product.price | money_without_trailing_zeros }}
+          </span>
+        {%- else -%}
+          <span class="text-lg font-bold text-gray-900">
+            {{ card_product.price | money_without_trailing_zeros }}
+          </span>
+          <span class=""> 6x {{ card_product.price | divided_by: 6 | money }} </span>
+        {%- endif -%}
+      </div>
+
+      <!-- Variant Colors Preview -->
+      {%- if card_product.options.size > 0 -%}
+        {%- for option in card_product.options limit: 1 -%}
+          {%- assign option_name = option | downcase -%}
+          {%- if option_name contains 'color' or option_name contains 'cor' -%}
+            {%- assign color_option = card_product.options_with_values | where: 'name', option | first -%}
+            {%- if color_option and color_option.values.size > 1 -%}
+              <div class="flex items-center space-x-1">
+                {%- for value in color_option.values limit: 4 -%}
+                  <div
+                    class="h-4 w-4 rounded-full border border-gray-300"
+                    style="background-color: {{ value | handle | replace: '-', '' }};"
+                    title="{{ value }}"
+                  ></div>
+                {%- endfor -%}
+                {%- if color_option.values.size > 4 -%}
+                  <span class="text-xs text-gray-500">+{{ color_option.values.size | minus: 4 }}</span>
+                {%- endif -%}
+              </div>
+            {%- endif -%}
+          {%- endif -%}
+        {%- endfor -%}
+      {%- endif -%}
+    </div>
   </div>
+
 {%- else -%}
-  <div class="relative">
-    <div class="grid w-80 snap-start gap-6">
-      <div class="aspect-[4/5] overflow-hidden rounded bg-primary/5"></div>
-      <div class="grid gap-1">
-        <h3 class="text-copy">
-          <a role="link" aria-disabled="true">
-            {{ 'onboarding.product_title' | t }}
-          </a>
-        </h3>
-        <div class="relative z-0 flex gap-4 text-copy">
-          <span>{{ 1999 | money_without_trailing_zeros }}</span>
-        </div>
+  <div class="overflow-hidden">
+    <div class="h-80 w-full animate-pulse bg-[#F5F3FA]"></div>
+    <div class="p-4">
+      <h3 class="mb-2 text-sm font-medium text-gray-500">Produto Indisponível</h3>
+      <div class="text-lg font-bold text-gray-500">
+        {{ 100000 | money_without_trailing_zeros }}
       </div>
     </div>
   </div>
