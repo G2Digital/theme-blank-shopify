@@ -1,13 +1,14 @@
-<div class="w-full py-6 md:py-8 lg:py-12">
+<div class="featured-collection relative w-full pt-32">
   <h2 class="mb-6 px-6 text-2xl font-bold md:px-8 lg:px-12">
     {{ section.settings.title | escape }}
   </h2>
 
-  <div class="relative px-6 md:px-8 lg:px-12">
+  <div class="relative">
     {%- liquid
       # Definir classes de colunas baseadas nas configurações
       assign columns_mobile = section.settings.columns_mobile | default: '2'
       assign columns_desktop = section.settings.columns_desktop | default: '4'
+      assign gap_size = section.settings.gap_size | default: '4'
 
       # Mapear para classes Tailwind
       case columns_mobile
@@ -28,7 +29,29 @@
           assign desktop_class = 'lg:w-1/6'
       endcase
 
-      assign slide_class = 'featured-collection__slide flex-none ' | append: mobile_class | append: ' ' | append: desktop_class | append: ' pl-4'
+      # Mapear gap para classes Tailwind
+      case gap_size
+        when '2'
+          assign gap_class = 'gap-2'
+          assign slide_gap_class = 'pl-2'
+        when '4'
+          assign gap_class = 'gap-4'
+          assign slide_gap_class = 'pl-4'
+        when '6'
+          assign gap_class = 'gap-6'
+          assign slide_gap_class = 'pl-6'
+        when '8'
+          assign gap_class = 'gap-8'
+          assign slide_gap_class = 'pl-8'
+        when '12'
+          assign gap_class = 'gap-12'
+          assign slide_gap_class = 'pl-12'
+        else
+          assign gap_class = 'gap-4'
+          assign slide_gap_class = 'pl-4'
+      endcase
+
+      assign slide_class = 'featured-collection__slide flex-none ' | append: mobile_class | append: ' ' | append: desktop_class | append: ' ' | append: slide_gap_class
     -%}
 
     <div
@@ -36,17 +59,25 @@
       data-products-count="{{ section.settings.collection.products.size | default: 4 }}"
       data-columns-mobile="{{ columns_mobile }}"
       data-columns-desktop="{{ columns_desktop }}"
+      data-gap-size="{{ gap_size }}"
     >
       <div class="featured-collection__viewport overflow-hidden">
-        <div class="featured-collection__container -ml-4 flex">
+        <div class="featured-collection__container flex {{ gap_class }}">
           {%- for product in section.settings.collection.products limit: section.settings.products_to_show -%}
             <div class="{{ slide_class }}">
-              {%- render 'card-product', card_product: product, new_product_days: section.settings.new_product_days -%}
+              <div class="h-full w-full">
+                {%- render 'card-product',
+                  card_product: product,
+                  new_product_days: section.settings.new_product_days
+                -%}
+              </div>
             </div>
           {%- else -%}
             {%- for i in (1..4) -%}
               <div class="{{ slide_class }}">
-                {% render 'card-product', new_product_days: section.settings.new_product_days %}
+                <div class="h-full w-full">
+                  {% render 'card-product', new_product_days: section.settings.new_product_days %}
+                </div>
               </div>
             {%- endfor -%}
           {%- endfor -%}
@@ -56,7 +87,7 @@
       <!-- Navigation Arrows -->
       <button
         type="button"
-        class="featured-collection__button featured-collection__button--prev absolute left-0 top-1/2 z-10 -translate-y-1/2 transform rounded-full bg-white p-3 shadow-lg transition-all duration-200 hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-50"
+        class="featured-collection__button featured-collection__button--prev absolute left-4 top-1/2 z-10 -translate-y-1/2 transform rounded-full bg-white p-3 shadow-lg transition-all duration-200 hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-50 md:left-8 lg:left-12"
         aria-label="Previous products"
       >
         <svg
@@ -75,7 +106,7 @@
 
       <button
         type="button"
-        class="featured-collection__button featured-collection__button--next absolute right-0 top-1/2 z-10 -translate-y-1/2 transform rounded-full bg-white p-3 shadow-lg transition-all duration-200 hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-50"
+        class="featured-collection__button featured-collection__button--next absolute right-4 top-1/2 z-10 -translate-y-1/2 transform rounded-full bg-white p-3 shadow-lg transition-all duration-200 hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-50 md:right-8 lg:right-12"
         aria-label="Next products"
       >
         <svg
@@ -147,6 +178,34 @@
         {
           "value": "2",
           "label": "2"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "gap_size",
+      "label": "Espaçamento entre produtos",
+      "default": "4",
+      "options": [
+        {
+          "value": "2",
+          "label": "Pequeno (8px)"
+        },
+        {
+          "value": "4",
+          "label": "Médio (16px)"
+        },
+        {
+          "value": "6",
+          "label": "Grande (24px)"
+        },
+        {
+          "value": "8",
+          "label": "Extra Grande (32px)"
+        },
+        {
+          "value": "12",
+          "label": "Muito Grande (48px)"
         }
       ]
     },

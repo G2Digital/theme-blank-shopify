@@ -35,8 +35,8 @@
     endif
   -%}
 
-  <div class="group relative cursor-pointer overflow-hidden rounded-lg bg-white">
-    <div class="relative h-80 w-full overflow-hidden bg-gray-100">
+  <div class="group relative h-full cursor-pointer select-none overflow-hidden">
+    <div class="relative aspect-square w-full overflow-hidden bg-gray-100">
       {%- if card_product.featured_media -%}
         <img
           srcset="
@@ -47,7 +47,7 @@
             {{ card_product.featured_media | image_url }} {{ card_product.featured_media.width }}w
           "
           src="{{ card_product.featured_media | image_url: width: 533 }}"
-          sizes="320px"
+          sizes="(max-width: 768px) 50vw, (max-width: 1024px) 25vw, 16vw"
           alt="{{ card_product.featured_media.alt | escape }}"
           class="h-full w-full object-cover object-center transition-transform duration-300 group-hover:scale-105"
           {% unless lazy_load == false %}
@@ -90,7 +90,7 @@
       </div>
     </div>
 
-    <div class="py-4">
+    <div class="flex flex-col justify-between p-4">
       <h3 class="mb-2 line-clamp-2 text-sm font-medium text-gray-900">
         <a
           href="{{ card_product.url }}"
@@ -101,7 +101,7 @@
       </h3>
 
       <!-- Price Display -->
-      <div class="items-left mb-2 flex flex-col space-x-2">
+      <div class="items-left mb-2 flex flex-col space-y-1">
         {%- if has_discount -%}
           <span class="text-lg font-bold text-red-600">
             {{ card_product.price | money_without_trailing_zeros }}
@@ -116,7 +116,7 @@
           <span class="text-lg font-bold text-gray-900">
             {{ card_product.price | money_without_trailing_zeros }}
           </span>
-          <span class=""> 6x {{ card_product.price | divided_by: 6 | money }} </span>
+          <span class="text-sm text-gray-600">6x {{ card_product.price | divided_by: 6 | money }}</span>
         {%- endif -%}
       </div>
 
@@ -147,8 +147,8 @@
   </div>
 
 {%- else -%}
-  <div class="overflow-hidden">
-    <div class="h-80 w-full animate-pulse bg-[#F5F3FA]"></div>
+  <div class="h-full overflow-hidden rounded-lg bg-white shadow-sm">
+    <div class="aspect-square w-full animate-pulse bg-[#F5F3FA]"></div>
     <div class="p-4">
       <h3 class="mb-2 text-sm font-medium text-gray-500">Produto Indisponível</h3>
       <div class="text-lg font-bold text-gray-500">
