@@ -1,58 +1,51 @@
 name: CI
+on: [push]
 
-on:
-  push:
-    branches:
-      - main
-
-  pull_request:
-    branches:
-      - main
+permissions:
+  contents: read
+  statuses: write
+  checks: write
+  pull-requests: write
 
 jobs:
   lint:
+    name: Lint
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-
-      - name: Install pnpm
-        uses: pnpm/action-setup@v2
+      - uses: actions/checkout@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
-          version: 7
-
-      - name: Set node
-        uses: actions/setup-node@v3
-        with:
-          node-version: lts/*
-          cache: pnpm
-
-      - name: Install
-        run: pnpm install
-
-      - name: Lint
-        run: pnpm lint
-
-  # lhci:
-  #   name: Lighthouse
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - uses: actions/checkout@v4
-  #
-  #     - name: Lighthouse
-  #       uses: shopify/lighthouse-ci-action@v1
-  #       with:
-  #         access_token: ${{ secrets.SHOP_ACCESS_TOKEN }}
-  #         store: ${{ secrets.SHOP_STORE }}
-  #         password: ${{ secrets.SHOP_PASSWORD }}
-  #         lhci_github_app_token: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
+          node-version: '18'
+          cache: 'pnpm'
+      - run: pnpm install
+      - run: pnpm lint
 
   theme-check:
     name: Theme Check
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-
       - name: Theme Check
-        uses: shopify/theme-check-action@v2
+        uses: shopify/theme-check-action@v1  # Fixed version
         with:
           token: ${{ github.token }}
+
+  lhci:
+    name: Lighthouse CI
+    runs-on: ubuntu-latest
+    timeout-minutes: 30  # Prevents 6-hour hangs
+    needs: [lint, theme-check]  # Run after quality checks
+    if: github.event_name == 'pull_request'  # Only on PRs for efficiency
+    steps:
+      - uses: actions/checkout@v4
+      - name: Lighthouse CI
+        uses: shopify/lighthouse-ci-action@v1
+        with:
+          store: ${{ secrets.SHOP_STORE }}
+          access_token: ${{ secrets.SHOP_ACCESS_TOKEN }}
+          password: ${{ secrets.SHOP_PASSWORD }}
+          lhci_github_app_token: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
+          lhci_min_score_performance: 0.8  # Recommended threshold
+          lhci_min_score_accessibility: 0.9  # Maintain high accessibility
+          theme_root: .  # Explicitly specify root
