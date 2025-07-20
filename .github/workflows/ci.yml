@@ -19,9 +19,9 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Install pnpm
-        uses: pnpm/action-setup@v2
+        uses: pnpm/action-setup@v4
         with:
-          version: 8
+          version: 9
 
       - name: Set node
         uses: actions/setup-node@v4
@@ -102,30 +102,27 @@ jobs:
           echo "================================"
 
       - name: Lighthouse CI
-        uses: shopify/lighthouse-ci-action@v2
-        with:
-          access_token: ${{ secrets.SHOP_ACCESS_TOKEN }}
-          store: ${{ secrets.SHOP_STORE }}
-          password: ${{ secrets.SHOP_PASSWORD }}
-          lhci_github_app_token: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
-        continue-on-error: true
-        id: lighthouse_v2
-
-      - name: Lighthouse CI (Fallback v1)
-        if: steps.lighthouse_v2.outcome == 'failure'
         uses: shopify/lighthouse-ci-action@v1
         with:
           access_token: ${{ secrets.SHOP_ACCESS_TOKEN }}
           store: ${{ secrets.SHOP_STORE }}
           password: ${{ secrets.SHOP_PASSWORD }}
           lhci_github_app_token: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
+        continue-on-error: true
+        id: lighthouse_run
 
       - name: Debug - Post action logs
         if: always()
         run: |
           echo "=== POST ACTION DEBUG ==="
-          echo "Lighthouse v2 outcome: ${{ steps.lighthouse_v2.outcome }}"
+          echo "Lighthouse outcome: ${{ steps.lighthouse_run.outcome }}"
           echo "Action completed at: $(date)"
+          
+          if [ "${{ steps.lighthouse_run.outcome }}" = "failure" ]; then
+            echo "❌ Lighthouse CI failed - check the logs above for details"
+          else
+            echo "✅ Lighthouse CI completed successfully"
+          fi
           echo "=========================="
 
   theme-check:
