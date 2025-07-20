@@ -1,3 +1,6 @@
+# CI/CD Pipeline para Shopify Theme com Debug
+# Este arquivo inclui debug extensivo para diagnosticar problemas do Lighthouse CI
+
 name: CI
 
 on:
@@ -13,15 +16,15 @@ jobs:
   lint:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Install pnpm
         uses: pnpm/action-setup@v2
         with:
-          version: 7
+          version: 8
 
       - name: Set node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: lts/*
           cache: pnpm
@@ -38,13 +41,92 @@ jobs:
     steps:
       - uses: actions/checkout@v4
   
-      - name: Lighthouse
+      - name: Debug - Check secrets
+        run: |
+          echo "=== DEBUG SECRETS ==="
+          echo "Store name: ${{ secrets.SHOP_STORE }}"
+          echo "Access token exists: ${{ secrets.SHOP_ACCESS_TOKEN != '' }}"
+          echo "Password exists: ${{ secrets.SHOP_PASSWORD != '' }}"
+          echo "LHCI token exists: ${{ secrets.LHCI_GITHUB_APP_TOKEN != '' }}"
+          echo "Store length: ${#SHOP_STORE}"
+          
+          # Check for common issues
+          if [[ "${{ secrets.SHOP_STORE }}" == *".myshopify.com"* ]]; then
+            echo "⚠️  WARNING: SHOP_STORE contains .myshopify.com - should be just the store name!"
+          fi
+          
+          if [[ "${{ secrets.SHOP_STORE }}" == *"https://"* ]]; then
+            echo "⚠️  WARNING: SHOP_STORE contains https:// - should be just the store name!"
+          fi
+          
+          echo "===================="
+        env:
+          SHOP_STORE: ${{ secrets.SHOP_STORE }}
+
+      - name: Debug - Test store connectivity
+        run: |
+          echo "=== TESTING CONNECTIVITY ==="
+          if [ -n "${{ secrets.SHOP_STORE }}" ]; then
+            STORE_URL="https://${{ secrets.SHOP_STORE }}.myshopify.com"
+            echo "Testing URL: $STORE_URL"
+            
+            # Test basic connectivity
+            echo "Testing basic connectivity..."
+            curl -I "$STORE_URL" -m 10 --connect-timeout 5 || echo "Store not accessible via HTTP"
+            
+            # Test with user agent
+            echo "Testing with user agent..."
+            curl -I "$STORE_URL" -H "User-Agent: Mozilla/5.0" -m 10 --connect-timeout 5 || echo "Store not accessible with user agent"
+            
+          else
+            echo "❌ SHOP_STORE is empty or not set!"
+            exit 1
+          fi
+          echo "=============================="
+
+      - name: Debug - Validate environment
+        run: |
+          echo "=== ENVIRONMENT VALIDATION ==="
+          echo "GitHub Actor: $GITHUB_ACTOR"
+          echo "GitHub Repository: $GITHUB_REPOSITORY"
+          echo "GitHub Event: $GITHUB_EVENT_NAME"
+          echo "Runner OS: $RUNNER_OS"
+          
+          # Check if we can resolve DNS
+          echo "Testing DNS resolution..."
+          nslookup google.com || echo "DNS issues detected"
+          
+          # Check docker
+          echo "Docker version:"
+          docker --version
+          echo "================================"
+
+      - name: Lighthouse CI
+        uses: shopify/lighthouse-ci-action@v2
+        with:
+          access_token: ${{ secrets.SHOP_ACCESS_TOKEN }}
+          store: ${{ secrets.SHOP_STORE }}
+          password: ${{ secrets.SHOP_PASSWORD }}
+          lhci_github_app_token: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
+        continue-on-error: true
+        id: lighthouse_v2
+
+      - name: Lighthouse CI (Fallback v1)
+        if: steps.lighthouse_v2.outcome == 'failure'
         uses: shopify/lighthouse-ci-action@v1
         with:
           access_token: ${{ secrets.SHOP_ACCESS_TOKEN }}
           store: ${{ secrets.SHOP_STORE }}
           password: ${{ secrets.SHOP_PASSWORD }}
           lhci_github_app_token: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
+
+      - name: Debug - Post action logs
+        if: always()
+        run: |
+          echo "=== POST ACTION DEBUG ==="
+          echo "Lighthouse v2 outcome: ${{ steps.lighthouse_v2.outcome }}"
+          echo "Action completed at: $(date)"
+          echo "=========================="
 
   theme-check:
     name: Theme Check
