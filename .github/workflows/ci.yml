@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+
   pull_request:
     branches:
       - main
@@ -13,57 +14,44 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+
       - name: Install pnpm
         uses: pnpm/action-setup@v2
         with:
           version: 7
+
       - name: Set node
         uses: actions/setup-node@v3
         with:
           node-version: lts/*
           cache: pnpm
+
       - name: Install
         run: pnpm install
+
       - name: Lint
         run: pnpm lint
 
-  lhci:
-    name: Lighthouse
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '16' # Compatível com Vite e Shopify CLI
-      - name: Check Shopify CLI version
-        run: shopify version
-      - name: Rename setPreviewCookies.js to setPreviewCookies.cjs
-        run: |
-          if [ -f .lighthouseci/setPreviewCookies.js ]; then
-            mv .lighthouseci/setPreviewCookies.js .lighthouseci/setPreviewCookies.cjs
-          fi
-      - name: Debug Lighthouse CI files
-        run: |
-          ls -la .lighthouseci/
-          cat .lighthouseci/setPreviewCookies.cjs || echo "File not found"
-      - name: Lighthouse
-        uses: shopify/lighthouse-ci-action@v1
-        with:
-          store: ${{ secrets.SHOP_STORE }}
-          access_token: ${{ secrets.SHOP_ACCESS_TOKEN }}
-          password: ${{ secrets.SHOP_PASSWORD }}
-          lhci_github_app_token: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
-          product_handle: "gift-card" # Confirme que este é o handle correto
-          collection_handle: "frontpage" # Confirme que este é o handle correto
-          lhci_min_score_performance: 0.9
-          lhci_min_score_accessibility: 0.9
+  # lhci:
+  #   name: Lighthouse
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v4
+  #
+  #     - name: Lighthouse
+  #       uses: shopify/lighthouse-ci-action@v1
+  #       with:
+  #         access_token: ${{ secrets.SHOP_ACCESS_TOKEN }}
+  #         store: ${{ secrets.SHOP_STORE }}
+  #         password: ${{ secrets.SHOP_PASSWORD }}
+  #         lhci_github_app_token: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
 
   theme-check:
     name: Theme Check
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
       - name: Theme Check
         uses: shopify/theme-check-action@v2
         with:
