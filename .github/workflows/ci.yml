@@ -1,35 +1,62 @@
 name: CI
-on: [push]
 
-permissions:
-  contents: read
-  statuses: write
-  checks: write
-  pull-requests: write
+on:
+  push:
+    branches:
+      - main
+
+  pull_request:
+    branches:
+      - main
 
 jobs:
   lint:
-    name: Lint
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
+      - uses: actions/checkout@v3
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
         with:
-          node-version: '18'
-          cache: 'pnpm'
-      - run: pnpm install
-      - run: pnpm lint
+          version: 7
+
+      - name: Set node
+        uses: actions/setup-node@v3
+        with:
+          node-version: lts/*
+          cache: pnpm
+
+      - name: Install
+        run: pnpm install
+
+      - name: Lint
+        run: pnpm lint
+
+  # lhci:
+  #   name: Lighthouse
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v4
+  #
+  #     - name: Lighthouse
+  #       uses: shopify/lighthouse-ci-action@v1
+  #       with:
+  #         access_token: ${{ secrets.SHOP_ACCESS_TOKEN }}
+  #         store: ${{ secrets.SHOP_STORE }}
+  #         password: ${{ secrets.SHOP_PASSWORD }}
+  #         lhci_github_app_token: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
 
   theme-check:
     name: Theme Check
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
       - name: Theme Check
-        uses: shopify/theme-check-action@v1  # Fixed version
+        uses: shopify/theme-check-action@v2
         with:
           token: ${{ github.token }}
+
 
   lhci:
     name: Lighthouse CI
