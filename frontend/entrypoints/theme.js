@@ -1,10 +1,6 @@
 import 'vite/modulepreload-polyfill'
 import { initDisclosureWidgets } from '@/lib/a11y'
 import { revive, islands } from '@/lib/revive.js'
-import { initSliders } from '@/lib/slider.js'
-import { initShowcaseSliders } from '@/lib/showcase.js'
-import { initTestimonials } from '@/lib/testimonials.js'
-import { initFeaturedCollection } from '@/lib/featured-collection.js'
 
 document.addEventListener('DOMContentLoaded', () => {
   const summaries = document.querySelectorAll('[id^="Details-"] summary')
@@ -18,10 +14,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   revive(islands)
   initDisclosureWidgets(summaries)
-  initSliders()
-  initShowcaseSliders()
-  initTestimonials()
-  initFeaturedCollection()
 
   const toggleSidebarClass = () => {
     const cartDrawer = document.querySelector('cart-drawer')

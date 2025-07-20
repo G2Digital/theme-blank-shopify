@@ -7,11 +7,6 @@
   padding: 20px 0;
   white-space: nowrap;
   overflow: hidden;
-  background: rgb(var(--color-button))
-    linear-gradient(
-      rgba(var(--color-button), 0.04),
-      rgba(var(--color-button), 0.04)
-    );
 }
 
 .rotate-content {

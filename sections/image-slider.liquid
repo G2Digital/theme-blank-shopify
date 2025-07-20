@@ -1,3 +1,6 @@
+{% render 'vite-tag' with 'sections/slider.css' %}
+   {% render 'vite-tag' with 'sections/slider.js' %}
+
 <div
   class="image-slider{% if section.settings.border_radius_bottom %} rounded-bl-[50px] rounded-br-[50px]{% endif %}"
   data-delay="{{ section.settings.slide_delay }}"

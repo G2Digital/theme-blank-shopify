@@ -1,3 +1,5 @@
+{% render 'vite-tag' with 'sections/showcase.css' %}
+{% render 'vite-tag' with 'sections/showcase.js' %}
 {%- if section.settings.collection != blank -%}
   {%- assign collection = collections[section.settings.collection] -%}
   {%- assign products_limit = section.settings.products_limit | default: 6 -%}

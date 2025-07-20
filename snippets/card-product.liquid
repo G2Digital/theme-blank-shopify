@@ -12,7 +12,6 @@
 
 {%- if card_product and card_product != empty -%}
   {%- liquid
-    # Check if product is new
     assign is_new = false
     assign new_days = new_product_days | default: 30
     assign now_timestamp = 'now' | date: '%s'
@@ -22,7 +21,6 @@
       assign is_new = true
     endif
 
-    # Calculate discount percentage
     assign has_discount = false
     assign discount_percentage = 0
     assign original_price = card_product.price
@@ -64,7 +62,6 @@
         </div>
       {%- endif -%}
 
-      <!-- Product Tags -->
       <div class="absolute left-3 top-3 flex flex-col space-y-2">
         {%- if is_new -%}
           <span class="inline-flex items-center rounded-full bg-green-100 px-2 py-1 text-xs font-medium text-green-800">
@@ -79,7 +76,6 @@
         {%- endif -%}
       </div>
 
-      <!-- Quick View Button -->
       <div class="backdrop-blur-xs absolute inset-0 flex items-center justify-center bg-white/50 bg-opacity-20 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
         <a
           href="{{ card_product.url }}"
@@ -91,16 +87,15 @@
     </div>
 
     <div class="flex flex-col justify-between p-4">
-      <h3 class="mb-2 line-clamp-2 text-sm font-medium text-gray-900">
+      <h3 class="mb-2 line-clamp-2 text-sm font-normal text-[#564F6C]">
         <a
           href="{{ card_product.url }}"
-          class="transition-colors duration-200 hover:text-blue-600"
+          class="transition-colors duration-200 hover:text-[blue-600]"
         >
           {{ card_product.title | escape }}
         </a>
       </h3>
 
-      <!-- Price Display -->
       <div class="items-left mb-2 flex flex-col space-y-1">
         {%- if has_discount -%}
           <span class="text-lg font-bold text-red-600">
@@ -120,7 +115,6 @@
         {%- endif -%}
       </div>
 
-      <!-- Variant Colors Preview -->
       {%- if card_product.options.size > 0 -%}
         {%- for option in card_product.options limit: 1 -%}
           {%- assign option_name = option | downcase -%}

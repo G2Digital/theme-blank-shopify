@@ -1,7 +1,42 @@
 {
+  "_embla-carousel-autoplay.esm.CjDxzJE7.min.js": {
+    "file": "embla-carousel-autoplay.esm.CjDxzJE7.min.js",
+    "name": "embla-carousel-autoplay.esm"
+  },
+  "_embla-carousel.esm.CMPFBS9o.min.js": {
+    "file": "embla-carousel.esm.CMPFBS9o.min.js",
+    "name": "embla-carousel.esm"
+  },
+  "_featured-collection.VxLwO48v.min.js": {
+    "file": "featured-collection.VxLwO48v.min.js",
+    "name": "featured-collection",
+    "imports": [
+      "_embla-carousel.esm.CMPFBS9o.min.js"
+    ]
+  },
   "_modulepreload-polyfill.ylYzXbQE.min.js": {
     "file": "modulepreload-polyfill.ylYzXbQE.min.js",
     "name": "modulepreload-polyfill"
+  },
+  "_showcase.BNCNPZer.min.js": {
+    "file": "showcase.BNCNPZer.min.js",
+    "name": "showcase"
+  },
+  "_slider.CBnEDslX.min.js": {
+    "file": "slider.CBnEDslX.min.js",
+    "name": "slider",
+    "imports": [
+      "_embla-carousel.esm.CMPFBS9o.min.js",
+      "_embla-carousel-autoplay.esm.CjDxzJE7.min.js"
+    ]
+  },
+  "_testimonials.FFCzeEbB.min.js": {
+    "file": "testimonials.FFCzeEbB.min.js",
+    "name": "testimonials",
+    "imports": [
+      "_embla-carousel.esm.CMPFBS9o.min.js",
+      "_embla-carousel-autoplay.esm.CjDxzJE7.min.js"
+    ]
   },
   "_utils.yhNUuzph.min.js": {
     "file": "utils.yhNUuzph.min.js",
@@ -20,13 +55,88 @@
       "frontend/lib/customer-address.js"
     ]
   },
+  "frontend/entrypoints/sections/featured-collection.js": {
+    "file": "featured-collection.Xhq3GdcZ.min.js",
+    "name": "featured-collection",
+    "src": "frontend/entrypoints/sections/featured-collection.js",
+    "isEntry": true,
+    "imports": [
+      "_featured-collection.VxLwO48v.min.js",
+      "_embla-carousel.esm.CMPFBS9o.min.js"
+    ]
+  },
+  "frontend/entrypoints/sections/marquee.css": {
+    "file": "marquee.Cz49zSJr.min.css",
+    "src": "frontend/entrypoints/sections/marquee.css",
+    "isEntry": true
+  },
+  "frontend/entrypoints/sections/sections.js": {
+    "file": "sections.D1elGTin.min.js",
+    "name": "sections",
+    "src": "frontend/entrypoints/sections/sections.js",
+    "isEntry": true,
+    "imports": [
+      "_slider.CBnEDslX.min.js",
+      "_showcase.BNCNPZer.min.js",
+      "_testimonials.FFCzeEbB.min.js",
+      "_featured-collection.VxLwO48v.min.js",
+      "_embla-carousel.esm.CMPFBS9o.min.js",
+      "_embla-carousel-autoplay.esm.CjDxzJE7.min.js"
+    ]
+  },
+  "frontend/entrypoints/sections/showcase.css": {
+    "file": "showcase.CnoDoRxE.min.css",
+    "src": "frontend/entrypoints/sections/showcase.css",
+    "isEntry": true
+  },
+  "frontend/entrypoints/sections/showcase.js": {
+    "file": "showcase.B4WKT8JK.min.js",
+    "name": "showcase",
+    "src": "frontend/entrypoints/sections/showcase.js",
+    "isEntry": true,
+    "imports": [
+      "_showcase.BNCNPZer.min.js"
+    ]
+  },
+  "frontend/entrypoints/sections/slider.css": {
+    "file": "slider.Cs_HhNMM.min.css",
+    "src": "frontend/entrypoints/sections/slider.css",
+    "isEntry": true
+  },
+  "frontend/entrypoints/sections/slider.js": {
+    "file": "slider.WTn6EEeu.min.js",
+    "name": "slider",
+    "src": "frontend/entrypoints/sections/slider.js",
+    "isEntry": true,
+    "imports": [
+      "_slider.CBnEDslX.min.js",
+      "_embla-carousel.esm.CMPFBS9o.min.js",
+      "_embla-carousel-autoplay.esm.CjDxzJE7.min.js"
+    ]
+  },
+  "frontend/entrypoints/sections/testimonials.css": {
+    "file": "testimonials.D-atA-AO.min.css",
+    "src": "frontend/entrypoints/sections/testimonials.css",
+    "isEntry": true
+  },
+  "frontend/entrypoints/sections/testimonials.js": {
+    "file": "testimonials.g0Np1Ig6.min.js",
+    "name": "testimonials",
+    "src": "frontend/entrypoints/sections/testimonials.js",
+    "isEntry": true,
+    "imports": [
+      "_testimonials.FFCzeEbB.min.js",
+      "_embla-carousel.esm.CMPFBS9o.min.js",
+      "_embla-carousel-autoplay.esm.CjDxzJE7.min.js"
+    ]
+  },
   "frontend/entrypoints/theme.css": {
-    "file": "theme.D40lqusa.min.css",
+    "file": "theme.CzB_qkud.min.css",
     "src": "frontend/entrypoints/theme.css",
     "isEntry": true
   },
   "frontend/entrypoints/theme.js": {
-    "file": "theme.BJPNTABx.min.js",
+    "file": "theme.CuqAh-UD.min.js",
     "name": "theme",
     "src": "frontend/entrypoints/theme.js",
     "isEntry": true,
@@ -53,7 +163,7 @@
     ]
   },
   "frontend/islands/cart-drawer-items.js": {
-    "file": "cart-drawer-items.DembBtNS.min.js",
+    "file": "cart-drawer-items.DYBb8Nyy.min.js",
     "name": "cart-drawer-items",
     "src": "frontend/islands/cart-drawer-items.js",
     "isDynamicEntry": true,
@@ -65,7 +175,7 @@
     ]
   },
   "frontend/islands/cart-drawer.js": {
-    "file": "cart-drawer.CuSnsFar.min.js",
+    "file": "cart-drawer.D3goNkpT.min.js",
     "name": "cart-drawer",
     "src": "frontend/islands/cart-drawer.js",
     "isDynamicEntry": true,
@@ -75,7 +185,7 @@
     ]
   },
   "frontend/islands/cart-items.js": {
-    "file": "cart-items.Wn8Jyn66.min.js",
+    "file": "cart-items.DYA4QyYl.min.js",
     "name": "cart-items",
     "src": "frontend/islands/cart-items.js",
     "isDynamicEntry": true,
@@ -107,7 +217,7 @@
     "isDynamicEntry": true
   },
   "frontend/islands/details-modal.js": {
-    "file": "details-modal._HbT_d3T.min.js",
+    "file": "details-modal.Bqg4sOhU.min.js",
     "name": "details-modal",
     "src": "frontend/islands/details-modal.js",
     "isDynamicEntry": true,
@@ -117,7 +227,7 @@
     ]
   },
   "frontend/islands/header-drawer.js": {
-    "file": "header-drawer.DXeSq7ol.min.js",
+    "file": "header-drawer.DWsdP_g-.min.js",
     "name": "header-drawer",
     "src": "frontend/islands/header-drawer.js",
     "isDynamicEntry": true,
@@ -134,7 +244,7 @@
     "isDynamicEntry": true
   },
   "frontend/islands/password-modal.js": {
-    "file": "password-modal.BgEpBcnZ.min.js",
+    "file": "password-modal.oWjYX5KV.min.js",
     "name": "password-modal",
     "src": "frontend/islands/password-modal.js",
     "isDynamicEntry": true,
