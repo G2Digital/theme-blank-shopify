@@ -1,16 +1,17 @@
 <div class="featured-collection relative w-full pt-32">
-  <h2 class="mb-6 px-6 text-2xl font-bold md:px-8 lg:px-12">
+  <h2
+    class="mx-auto max-w-[1600px] px-4 pb-16 text-center text-4xl font-normal sm:px-8 md:text-left md:text-5xl lg:px-8"
+    style="background: linear-gradient(135deg, rgba(102, 126, 234, 1), rgba(118, 75, 162, 1) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;"
+  >
     {{ section.settings.title | escape }}
   </h2>
 
   <div class="relative">
     {%- liquid
-      # Definir classes de colunas baseadas nas configurações
       assign columns_mobile = section.settings.columns_mobile | default: '2'
       assign columns_desktop = section.settings.columns_desktop | default: '4'
       assign gap_size = section.settings.gap_size | default: '4'
 
-      # Mapear para classes Tailwind
       case columns_mobile
         when '1'
           assign mobile_class = 'w-full'
@@ -29,7 +30,6 @@
           assign desktop_class = 'lg:w-1/6'
       endcase
 
-      # Mapear gap para classes Tailwind
       case gap_size
         when '2'
           assign gap_class = 'gap-2'
@@ -40,12 +40,6 @@
         when '6'
           assign gap_class = 'gap-6'
           assign slide_gap_class = 'pl-6'
-        when '8'
-          assign gap_class = 'gap-8'
-          assign slide_gap_class = 'pl-8'
-        when '12'
-          assign gap_class = 'gap-12'
-          assign slide_gap_class = 'pl-12'
         else
           assign gap_class = 'gap-4'
           assign slide_gap_class = 'pl-4'
@@ -84,10 +78,9 @@
         </div>
       </div>
 
-      <!-- Navigation Arrows -->
       <button
         type="button"
-        class="featured-collection__button featured-collection__button--prev absolute left-4 top-1/2 z-10 -translate-y-1/2 transform rounded-full bg-white p-3 shadow-lg transition-all duration-200 hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-50 md:left-8 lg:left-12"
+        class="button secondary featured-collection__button featured-collection__button--prev -top-22 absolute left-4 z-10 -translate-y-1/2 hover:text-white disabled:cursor-not-allowed disabled:opacity-50 md:left-8 lg:left-12"
         aria-label="Previous products"
       >
         <svg
@@ -106,7 +99,7 @@
 
       <button
         type="button"
-        class="featured-collection__button featured-collection__button--next absolute right-4 top-1/2 z-10 -translate-y-1/2 transform rounded-full bg-white p-3 shadow-lg transition-all duration-200 hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-50 md:right-8 lg:right-12"
+        class="button secondary featured-collection__button featured-collection__button--next -top-22 absolute right-4 z-10 -translate-y-1/2 hover:text-white disabled:cursor-not-allowed disabled:opacity-50 md:right-8 lg:right-12"
         aria-label="Next products"
       >
         <svg
@@ -189,23 +182,15 @@
       "options": [
         {
           "value": "2",
-          "label": "Pequeno (8px)"
+          "label": "Pequeno"
         },
         {
           "value": "4",
-          "label": "Médio (16px)"
+          "label": "Médio"
         },
         {
           "value": "6",
-          "label": "Grande (24px)"
-        },
-        {
-          "value": "8",
-          "label": "Extra Grande (32px)"
-        },
-        {
-          "value": "12",
-          "label": "Muito Grande (48px)"
+          "label": "Grande"
         }
       ]
     },
