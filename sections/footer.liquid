@@ -1,27 +1,323 @@
 {%- liquid
-  assign container_class = 'border-none'
+  assign container_class = 'mx-auto max-w-[1600px] px-4 sm:px-8 lg:px-8 pt-38'
+  assign columns = section.settings.footer_columns | default: 4
+
+  if columns == '3'
+    assign grid_class = 'lg:grid-cols-3 lg:gap-16 footer-grid-3'
+    assign grid_style = 'grid-template-columns: repeat(3, 1fr);'
+  else
+    assign grid_class = 'lg:grid-cols-4 lg:gap-12 footer-grid-4'
+    assign grid_style = 'grid-template-columns: repeat(4, 1fr);'
+  endif
 -%}
+
+<style>
+  @media (min-width: 1024px) {
+    .footer-grid-3 {
+      display: grid !important;
+      grid-template-columns: repeat(3, 1fr) !important;
+      gap: 4rem !important;
+      width: 100%;
+    }
+    .footer-grid-4 {
+      display: grid !important;
+      grid-template-columns: repeat(4, 1fr) !important;
+      gap: 3rem !important;
+      width: 100%;
+    }
+    .footer-block {
+      min-width: 0;
+      flex: 1;
+    }
+  }
+
+  @media (min-width: 768px) and (max-width: 1023px) {
+    footer[role='contentinfo'] {
+      grid-template-columns: repeat(2, 1fr) !important;
+    }
+  }
+</style>
 
 <footer
   role="contentinfo"
-  class="{{ container_class }} relative min-h-[25rem] w-full grid-cols-1 border-b bg-[#6863B4] px-6 py-8 pt-48 text-white md:grid md:grid-flow-row md:grid-cols-2 md:items-start md:gap-8 md:px-8 lg:grid-cols-[repeat(auto-fill,minmax(260px,1fr))] lg:gap-12 lg:px-12"
+  class="relative min-h-[25rem] w-full grid-cols-1 border-b bg-[#6863B4]"
 >
-  {%- content_for 'blocks' -%}
-  {%- content_for 'block', type: '_footer-country-selector', id: 'footer-country-selector' -%}
-  <div class="self-end pt-14 opacity-50 md:col-span-2 md:pt-8 lg:col-span-full">
-    &copy; {{ 'now' | date: '%Y' }}, {{ shop.name | link_to: routes.root_url }}
-    {{ powered_by_link }}
+  <div class="{{ container_class }} text-white md:grid md:grid-flow-row md:grid-cols-2 md:items-start md:gap-8 {{ grid_class }}">
+    {%- for block in section.blocks -%}
+      <div class="footer-block" {{ block.shopify_attributes }}>
+        {%- case block.type -%}
+          {%- when 'menu' -%}
+            <h3 class="mb-4 text-lg font-semibold">{{ block.settings.menu_title }}</h3>
+            {%- if block.settings.menu != blank -%}
+              <ul class="space-y-2">
+                {%- for link in linklists[block.settings.menu].links -%}
+                  <li>
+                    <a href="{{ link.url }}" class="text-white/80 transition-colors hover:text-white">
+                      {{ link.title }}
+                    </a>
+                  </li>
+                {%- endfor -%}
+              </ul>
+            {%- endif -%}
+
+          {%- when 'newsletter' -%}
+            <h3 class="mb-4 text-lg font-semibold">{{ block.settings.newsletter_title | default: 'Newsletter' }}</h3>
+            <p class="mb-4 text-sm text-white/80">
+              {{ block.settings.newsletter_description | default: 'Inscreva-se para receber novidades!' }}
+            </p>
+
+            <form class="newsletter-form" data-newsletter-form>
+              <div class="flex flex-col gap-3 sm:flex-row">
+                <input
+                  type="email"
+                  name="contact[email]"
+                  placeholder="{{ block.settings.email_placeholder | default: 'Digite seu e-mail' }}"
+                  required
+                  class="flex-1 rounded-md border border-white/20 bg-white/10 px-4 py-2 text-white placeholder-white/60 focus:border-white focus:outline-none focus:ring-1 focus:ring-white"
+                >
+                <input type="hidden" name="contact[tags]" value="newsletter_footer">
+                <input type="hidden" name="contact[accepts_marketing]" value="1">
+                <button
+                  type="submit"
+                  class="rounded-md bg-white px-6 py-2 font-medium text-[#6863B4] transition-colors hover:bg-white/90 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-[#6863B4]"
+                >
+                  {{ block.settings.button_text | default: 'Inscrever' }}
+                </button>
+              </div>
+              <div class="newsletter-message mt-3 hidden"></div>
+            </form>
+
+          {%- when 'social' -%}
+            <h3 class="mb-4 text-lg font-semibold">{{ block.settings.social_title | default: 'Redes Sociais' }}</h3>
+            <div class="flex gap-4">
+              {%- if block.settings.facebook_url != blank -%}
+                <a
+                  href="{{ block.settings.facebook_url }}"
+                  target="_blank"
+                  class="text-white/80 transition-colors hover:text-white"
+                >
+                  <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                  </svg>
+                </a>
+              {%- endif -%}
+              {%- if block.settings.instagram_url != blank -%}
+                <a
+                  href="{{ block.settings.instagram_url }}"
+                  target="_blank"
+                  class="text-white/80 transition-colors hover:text-white"
+                >
+                  <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                  </svg>
+                </a>
+              {%- endif -%}
+              {%- if block.settings.twitter_url != blank -%}
+                <a
+                  href="{{ block.settings.twitter_url }}"
+                  target="_blank"
+                  class="text-white/80 transition-colors hover:text-white"
+                >
+                  <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
+                  </svg>
+                </a>
+              {%- endif -%}
+            </div>
+
+          {%- when 'custom' -%}
+            {%- if block.settings.custom_title != blank -%}
+              <h3 class="mb-4 text-lg font-semibold">{{ block.settings.custom_title }}</h3>
+            {%- endif -%}
+            {%- if block.settings.custom_content != blank -%}
+              <div class="prose prose-sm prose-invert text-white/80">
+                {{ block.settings.custom_content }}
+              </div>
+            {%- endif -%}
+        {%- endcase -%}
+      </div>
+    {%- endfor -%}
+
+    <div class="self-end pt-14 opacity-50 md:col-span-2 {% if columns == '3' %}lg:col-span-3{% else %}lg:col-span-4{% endif %}">
+      &copy; {{ 'now' | date: '%Y' }}, {{ shop.name | link_to: routes.root_url }}
+      {{ powered_by_link }}
+    </div>
   </div>
 </footer>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const newsletterForms = document.querySelectorAll('[data-newsletter-form]')
+
+    newsletterForms.forEach(function (form) {
+      form.addEventListener('submit', function (e) {
+        e.preventDefault()
+
+        const formData = new FormData(form)
+        const messageDiv = form.querySelector('.newsletter-message')
+        const submitButton = form.querySelector('button[type="submit"]')
+        const originalButtonText = submitButton.textContent
+
+        // Loading state
+        submitButton.disabled = true
+        submitButton.textContent = 'Enviando...'
+        messageDiv.classList.add('hidden')
+
+        fetch('{{ routes.root_url }}contact', {
+          method: 'POST',
+          body: formData,
+          headers: {
+            'X-Requested-With': 'XMLHttpRequest'
+          }
+        })
+          .then(function (response) {
+            return response.text()
+          })
+          .then(function (data) {
+            if (data.includes('form posted successfully') || !data.includes('error')) {
+              messageDiv.innerHTML = '<div class="text-green-300 text-sm">✓ Inscrição realizada com sucesso!</div>'
+              form.reset()
+            } else {
+              messageDiv.innerHTML = '<div class="text-red-300 text-sm">✗ Erro ao inscrever. Tente novamente.</div>'
+            }
+            messageDiv.classList.remove('hidden')
+          })
+          .catch(function () {
+            messageDiv.innerHTML = '<div class="text-red-300 text-sm">✗ Erro de conexão. Tente novamente.</div>'
+            messageDiv.classList.remove('hidden')
+          })
+          .finally(function () {
+            submitButton.disabled = false
+            submitButton.textContent = originalButtonText
+          })
+      })
+    })
+  })
+</script>
 
 {% schema %}
 {
   "name": "Footer",
-  "blocks": [{ "type": "_footer-menu" }],
+  "settings": [
+    {
+      "type": "select",
+      "id": "footer_columns",
+      "label": "Número de colunas no desktop",
+      "options": [
+        {
+          "value": "3",
+          "label": "3 colunas"
+        },
+        {
+          "value": "4",
+          "label": "4 colunas"
+        }
+      ],
+      "default": "4"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "menu",
+      "name": "Menu",
+      "settings": [
+        {
+          "type": "text",
+          "id": "menu_title",
+          "label": "Título do Menu",
+          "default": "Links Rápidos"
+        },
+        {
+          "type": "link_list",
+          "id": "menu",
+          "label": "Menu"
+        }
+      ]
+    },
+    {
+      "type": "newsletter",
+      "name": "Newsletter",
+      "settings": [
+        {
+          "type": "text",
+          "id": "newsletter_title",
+          "label": "Título da Newsletter",
+          "default": "Newsletter"
+        },
+        {
+          "type": "textarea",
+          "id": "newsletter_description",
+          "label": "Descrição",
+          "default": "Inscreva-se para receber novidades!"
+        },
+        {
+          "type": "text",
+          "id": "email_placeholder",
+          "label": "Placeholder do E-mail",
+          "default": "Digite seu e-mail"
+        },
+        {
+          "type": "text",
+          "id": "button_text",
+          "label": "Texto do Botão",
+          "default": "Inscrever"
+        }
+      ]
+    },
+    {
+      "type": "social",
+      "name": "Redes Sociais",
+      "settings": [
+        {
+          "type": "text",
+          "id": "social_title",
+          "label": "Título",
+          "default": "Siga-nos"
+        },
+        {
+          "type": "url",
+          "id": "facebook_url",
+          "label": "Facebook"
+        },
+        {
+          "type": "url",
+          "id": "instagram_url",
+          "label": "Instagram"
+        },
+        {
+          "type": "url",
+          "id": "twitter_url",
+          "label": "Twitter"
+        }
+      ]
+    },
+    {
+      "type": "custom",
+      "name": "Conteúdo Personalizado",
+      "settings": [
+        {
+          "type": "text",
+          "id": "custom_title",
+          "label": "Título"
+        },
+        {
+          "type": "richtext",
+          "id": "custom_content",
+          "label": "Conteúdo"
+        }
+      ]
+    }
+  ],
   "default": {
     "blocks": [
       {
-        "type": "_footer-menu"
+        "type": "menu"
+      },
+      {
+        "type": "newsletter"
+      },
+      {
+        "type": "social"
       }
     ]
   }
