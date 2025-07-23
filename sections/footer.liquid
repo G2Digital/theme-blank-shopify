@@ -1,5 +1,7 @@
+{% render 'vite-tag' with 'sections/newsletter.js' %}
+
 {%- liquid
-  assign container_class = 'mx-auto max-w-[1600px] px-4 sm:px-8 lg:px-8 pt-38'
+  assign container_class = 'mx-auto max-w-[1800px] px-4 sm:px-8 lg:px-8 pt-38'
   assign columns = section.settings.footer_columns | default: 4
 
   if columns == '3'
@@ -86,114 +88,107 @@
               </div>
               <div class="newsletter-message mt-3 hidden"></div>
             </form>
-
-          {%- when 'social' -%}
-            <h3 class="mb-4 text-lg font-semibold">{{ block.settings.social_title | default: 'Redes Sociais' }}</h3>
-            <div class="flex gap-4">
-              {%- if block.settings.facebook_url != blank -%}
-                <a
-                  href="{{ block.settings.facebook_url }}"
-                  target="_blank"
-                  class="text-white/80 transition-colors hover:text-white"
-                >
-                  <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
-                  </svg>
-                </a>
-              {%- endif -%}
-              {%- if block.settings.instagram_url != blank -%}
-                <a
-                  href="{{ block.settings.instagram_url }}"
-                  target="_blank"
-                  class="text-white/80 transition-colors hover:text-white"
-                >
-                  <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
-                  </svg>
-                </a>
-              {%- endif -%}
-              {%- if block.settings.twitter_url != blank -%}
-                <a
-                  href="{{ block.settings.twitter_url }}"
-                  target="_blank"
-                  class="text-white/80 transition-colors hover:text-white"
-                >
-                  <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
-                  </svg>
-                </a>
-              {%- endif -%}
-            </div>
-
-          {%- when 'custom' -%}
-            {%- if block.settings.custom_title != blank -%}
-              <h3 class="mb-4 text-lg font-semibold">{{ block.settings.custom_title }}</h3>
-            {%- endif -%}
-            {%- if block.settings.custom_content != blank -%}
-              <div class="prose prose-sm prose-invert text-white/80">
-                {{ block.settings.custom_content }}
+            {% if block.settings.show_social_icons %}
+              <div class="newsletter-social-icons mt-6 flex flex-col items-start gap-2">
+                <span class="mb-1 text-base font-normal">Siga-nos nas redes sociais</span>
+                <div class="mt-2 flex gap-6">
+                  {% if settings.social_instagram_link != blank %}
+                    <a
+                      href="{{ settings.social_instagram_link }}"
+                      target="_blank"
+                      rel="noopener"
+                      aria-label="Instagram"
+                    >
+                      {%- render 'icon-instagram' -%}
+                    </a>
+                  {% endif %}
+                  {% if settings.social_facebook_link != blank %}
+                    <a href="{{ settings.social_facebook_link }}" target="_blank" rel="noopener" aria-label="Facebook">
+                      {%- render 'icon-facebook' -%}
+                    </a>
+                  {% endif %}
+                  {% if settings.social_twitter_link != blank %}
+                    <a href="{{ settings.social_twitter_link }}" target="_blank" rel="noopener" aria-label="Twitter">
+                      {%- render 'icon-twitter' -%}
+                    </a>
+                  {% endif %}
+                  {% if settings.social_tiktok_link != blank %}
+                    <a href="{{ settings.social_tiktok_link }}" target="_blank" rel="noopener" aria-label="TikTok">
+                      {%- render 'icon-tiktok' -%}
+                    </a>
+                  {% endif %}
+                  {% if settings.social_youtube_link != blank %}
+                    <a href="{{ settings.social_youtube_link }}" target="_blank" rel="noopener" aria-label="YouTube">
+                      {%- render 'icon-youtube' -%}
+                    </a>
+                  {% endif %}
+                </div>
               </div>
-            {%- endif -%}
+            {% endif %}
+            {% if block.settings.security_logo_1 or block.settings.security_logo_2 %}
+              <div class="newsletter-security-logos mt-4 flex gap-4">
+                {% if block.settings.security_logo_1 %}
+                  <img
+                    src="{{ block.settings.security_logo_1 | image_url: width: 80 }}"
+                    alt="Logo de Segurança 1"
+                    class="h-10 w-auto object-contain"
+                    loading="lazy"
+                  >
+                {% endif %}
+                {% if block.settings.security_logo_2 %}
+                  <img
+                    src="{{ block.settings.security_logo_2 | image_url: width: 80 }}"
+                    alt="Logo de Segurança 2"
+                    class="h-10 w-auto object-contain"
+                    loading="lazy"
+                  >
+                {% endif %}
+              </div>
+            {% endif %}
         {%- endcase -%}
       </div>
     {%- endfor -%}
 
-    <div class="self-end pt-14 opacity-50 md:col-span-2 {% if columns == '3' %}lg:col-span-3{% else %}lg:col-span-4{% endif %}">
-      &copy; {{ 'now' | date: '%Y' }}, {{ shop.name | link_to: routes.root_url }}
-      {{ powered_by_link }}
+    <div class="col-span-full flex w-full flex-col items-center justify-between gap-8 border-t border-white/10 py-16 md:flex-row">
+      <div class="flex flex-1 items-center justify-start gap-3">
+        {% for type in shop.enabled_payment_types %}
+          {{ type | payment_type_svg_tag: class: 'h-7 w-auto' }}
+        {% endfor %}
+      </div>
+      <div class="flex flex-[2] items-center justify-center text-center text-[14px] opacity-50">
+        <p>
+          &copy; {{ 'now' | date: '%Y' }}
+          {{ shop.name | link_to: routes.root_url }} INDUSTRIA DE EQUIPAMENTOS ELETROMEDICOS LTDA • CNPJ:
+          11.857.412/0001-69<br>
+          Rua João Carlos Stein 205, Jaraguá Esquerdo - CEP: 89.253-350 - Jaraguá do Sul, SC.
+        </p>
+      </div>
+      <div class="flex flex-1 items-center justify-end">
+        <div class="g2digital">
+          <a href="https://www.g2digital.com.br/" target="_blank"
+            ><img
+              width="70px"
+              height="51px"
+              alt="Desenvolvido por G2Digital"
+              src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4NCjwhLS0gR2VuZXJhdG9yOiBBZG9iZSBJbGx1c3RyYXRvciAyNC4yLjEsIFNWRyBFeHBvcnQgUGx1Zy1JbiAuIFNWRyBWZXJzaW9uOiA2LjAwIEJ1aWxkIDApICAtLT4NCjxzdmcgdmVyc2lvbj0iMS4xIiBpZD0iQ2FtYWRhXzEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4Ig0KCSB2aWV3Qm94PSIwIDAgNDU2LjUgMzQyLjIiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDQ1Ni41IDM0Mi4yOyIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+DQo8c3R5bGUgdHlwZT0idGV4dC9jc3MiPg0KCS5zdDB7ZmlsbDojRkZGRkZGO30NCjwvc3R5bGU+DQo8Zz4NCgk8Zz4NCgkJPGc+DQoJCQk8Zz4NCgkJCQk8ZyBpZD0iWE1MSURfMTI2XyI+DQoJCQkJCTxwYXRoIGlkPSJYTUxJRF8xNDBfIiBjbGFzcz0ic3QwIiBkPSJNMjIuMywyOTUuOGM1LjQsMCwxMS41LDEuNCwxNS4zLDUuNWMyLjksMy4zLDQuMSw3LjgsNC4yLDEyLjhjMCw5LjQtMy41LDE5LjUtMTMuNSwyNC41DQoJCQkJCQljLTQuNywyLjQtOSwyLjgtMTIuMSwyLjhIMGw4LjItNDUuN0wyMi4zLDI5NS44TDIyLjMsMjk1Ljh6IE02LjQsMzM2LjVoOC43YzMuMywwLDcuOC0wLjYsMTEuOS0zLjNjNi40LTQuMSw5LjEtMTIsOS4xLTE4LjQNCgkJCQkJCWMwLTMuMi0wLjctNy0yLjgtOS41Yy0yLjgtMy4yLTcuNy00LjQtMTIuNy00LjRoLTcuOEw2LjQsMzM2LjV6Ii8+DQoJCQkJCTxwYXRoIGlkPSJYTUxJRF8xMzhfIiBjbGFzcz0ic3QwIiBkPSJNODcuMiwyOTUuOGwtOC4yLDQ1LjdoLTUuNWw4LjItNDUuN0g4Ny4yeiIvPg0KCQkJCQk8cGF0aCBpZD0iWE1MSURfMTM2XyIgY2xhc3M9InN0MCIgZD0iTTE2Mi41LDI5OS4ybC0yLjgsNGMtMy42LTIuMi05LjUtMy4xLTEzLjItMy4xYy0xMy42LDAtMjEuOSwxMC4zLTIxLjksMjAuOQ0KCQkJCQkJYzAsOC45LDUuOCwxNi4zLDE1LjksMTYuM2M1LDAsOS4zLTEuMiwxNC00LjVsMS44LTkuOWgtMTIuN2wwLjgtNC40aDE3LjdsLTIuOSwxNi4xYy01LjgsNS42LTEyLjYsNy42LTE5LjMsNy42DQoJCQkJCQljLTExLjcsMC0yMS04LjUtMjEtMjEuMmMwLTE0LjEsMTEuNy0yNS44LDI4LjEtMjUuOEMxNTEuOSwyOTUuMiwxNTcuOCwyOTYuMSwxNjIuNSwyOTkuMnoiLz4NCgkJCQkJPHBhdGggaWQ9IlhNTElEXzEzNF8iIGNsYXNzPSJzdDAiIGQ9Ik0yMDcuOSwyOTUuOGwtOC4yLDQ1LjdoLTUuNWw4LjItNDUuN0gyMDcuOXoiLz4NCgkJCQkJPHBhdGggaWQ9IlhNTElEXzEzMl8iIGNsYXNzPSJzdDAiIGQ9Ik0yNzguMywyOTUuOGwtMSw1LjFoLTE1LjZsLTcuMyw0MC42aC01LjVsNy4zLTQwLjZoLTE1LjdsMS01LjFMMjc4LjMsMjk1LjhMMjc4LjMsMjk1Ljh6DQoJCQkJCQkiLz4NCgkJCQkJPHBhdGggaWQ9IlhNTElEXzEyOV8iIGNsYXNzPSJzdDAiIGQ9Ik0zMjUuNiwyOTUuMmw5LjEsNDYuNGgtNS40bC0yLjUtMTIuNWgtMTkuNGwtNi44LDEyLjVoLTYuMWwyNS41LTQ2LjRIMzI1LjZ6DQoJCQkJCQkgTTMwOS42LDMyNC42aDE2LjZsLTQuMi0yNEwzMDkuNiwzMjQuNnoiLz4NCgkJCQkJPHBhdGggaWQ9IlhNTElEXzEyN18iIGNsYXNzPSJzdDAiIGQ9Ik0zODEuNSwyOTUuOGwtNy4yLDQwLjRoMjQuN2wtMSw1LjNoLTMwLjJsOC4yLTQ1LjdIMzgxLjV6Ii8+DQoJCQkJPC9nPg0KCQkJPC9nPg0KCQk8L2c+DQoJCTxnIGlkPSJYTUxJRF80NF8iPg0KCQkJPGc+DQoJCQkJPHBhdGggaWQ9IlhNTElEXzE5XyIgY2xhc3M9InN0MCIgZD0iTTQ0Ny4zLDExOC43bDktNDMuM2MxLjMtNi0zLjMtMTEuNy05LjUtMTEuN2gtNDQuMkgyNzIuN2MtNC42LDAtOC41LDMuMi05LjUsNy43bC03LjQsMzUuNQ0KCQkJCQljLTEuMyw2LDMuMywxMS43LDkuNSwxMS43aDExMy45YzYuMSwwLDEwLjcsNS43LDkuNSwxMS43bDAsMGMtMC45LDQuNS00LjksNy43LTkuNSw3LjdoLTczLjhoLTQ4LjJjLTQuNiwwLTguNiwzLjItOS41LDcuNw0KCQkJCQlsLTEzLjksNjYuNmwwLDBsLTYuNiwzMS45bC0xLjksOS4ybDAsMGwtMC40LDIuMWMtMS4zLDYsMy4zLDExLjcsOS41LDExLjdoMTc0YzQuNiwwLDguNS0zLjIsOS41LTcuN2w3LjQtMzUuNQ0KCQkJCQljMS4zLTYtMy4zLTExLjctOS41LTExLjdIMzAxLjljLTYuMSwwLTEwLjctNS42LTkuNS0xMS43bDAsMGMwLjktNC41LDQuOS03LjcsOS41LTcuN2gxMjJjNC42LDAsOC41LTMuMiw5LjUtNy43bDMuMi0xNS4zDQoJCQkJCUw0NDcuMywxMTguN0w0NDcuMywxMTguN3oiLz4NCgkJCQk8cGF0aCBpZD0iWE1MSURfMThfIiBjbGFzcz0ic3QwIiBkPSJNMjIxLjgsMTkzbDktNDMuM2MxLjMtNi0zLjMtMTEuNy05LjUtMTEuN2gtNDQuMmgtNTRjLTQuNiwwLTguNiwzLjItOS41LDcuN2wtNy40LDM1LjUNCgkJCQkJYy0xLjMsNiwzLjMsMTEuNyw5LjUsMTEuN2gzOGM2LjEsMCwxMC43LDUuNiw5LjUsMTEuN2wwLDBjLTAuOSw0LjUtNC45LDcuNy05LjUsNy43SDkxLjljLTYuMiwwLTEwLjctNS42LTkuNS0xMS43bDEuNi03LjcNCgkJCQkJbDExLjQtNTQuOWwyLjQtMTEuN2MwLjktNC41LDQuOS03LjcsOS41LTcuN2gxMjJjNC42LDAsOC42LTMuMiw5LjUtNy43bDcuNC0zNS41YzEuMy02LTMuMy0xMS43LTkuNS0xMS43SDExMUg2Mi44DQoJCQkJCWMtNC42LDAtOC41LDMuMi05LjUsNy43bC0xMy45LDY2LjZsLTMuNSwxNi42bC0yMC42LDk4LjhsLTAuNCwyLjFjLTEuMyw2LDMuMywxMS43LDkuNSwxMS43aDE3NGM0LjYsMCw4LjYtMy4yLDkuNS03LjcNCgkJCQkJbDMuMi0xNS4zTDIyMS44LDE5M0wyMjEuOCwxOTN6Ii8+DQoJCQk8L2c+DQoJCTwvZz4NCgk8L2c+DQoJPGc+DQoJCTxwYXRoIGNsYXNzPSJzdDAiIGQ9Ik02Mi45LDMxLjFjLTIuMy0xLjEtNC0yLjctNS4zLTQuN2MtMS4yLTItMS44LTQuNC0xLjgtNy4xYzAtMy42LDAuOC02LjgsMi40LTkuOGMxLjYtMi45LDMuOS01LjMsNi45LTcNCgkJCWMzLTEuNyw2LjQtMi42LDEwLjMtMi42YzIuNywwLDUsMC40LDcuMSwxLjNjMiwwLjksMy42LDIuMSw0LjcsMy43bC0zLjMsMi44Yy0xLjktMi41LTQuOS0zLjgtOC44LTMuOGMtMywwLTUuNiwwLjctNy44LDINCgkJCWMtMi4yLDEuMy0zLjksMy4yLTUuMiw1LjRjLTEuMiwyLjMtMS44LDQuOC0xLjgsNy41YzAsMywxLDUuMywyLjksNy4xYzEuOSwxLjgsNC42LDIuNiw4LjIsMi42YzMuOSwwLDcuMi0xLjMsOS43LTMuOGwyLjcsMw0KCQkJYy0xLjUsMS42LTMuMywyLjgtNS41LDMuNmMtMi4yLDAuOC00LjYsMS4yLTcuMiwxLjJDNjgsMzIuOCw2NS4yLDMyLjIsNjIuOSwzMS4xeiIvPg0KCQk8cGF0aCBjbGFzcz0ic3QwIiBkPSJNMTI3LjIsMTcuNmMtMS43LDIuMS00LDMuNi03LjEsNC40bDUuOSwxMC40aC00LjlsLTUuNi05LjhoLTAuOWgtOC42bC0xLjksOS44aC00LjZMMTA2LDAuNGgxMg0KCQkJYzMuOCwwLDYuNywwLjgsOC43LDIuNWMyLjEsMS42LDMuMSwzLjksMy4xLDYuOUMxMjkuNywxMi45LDEyOC45LDE1LjUsMTI3LjIsMTcuNnogTTEyMi41LDE2LjVjMS44LTEuNSwyLjctMy42LDIuNy02LjQNCgkJCWMwLTEuOS0wLjctMy40LTItNC40Yy0xLjMtMS0zLjItMS41LTUuNy0xLjVoLTcuN2wtMi45LDE0LjRoNy45QzExOC4xLDE4LjcsMTIwLjcsMTgsMTIyLjUsMTYuNXoiLz4NCgkJPHBhdGggY2xhc3M9InN0MCIgZD0iTTE1NCw0LjRsLTIsOS44aDE2LjFsLTAuOCwzLjloLTE2LjFsLTIuMSwxMC4zaDE4LjdsLTAuOCw0aC0yMy4zbDYuNC0zMi4xaDIyLjZsLTAuOCw0SDE1NHoiLz4NCgkJPHBhdGggY2xhc3M9InN0MCIgZD0iTTIwNy44LDI0LjRoLTE3LjFsLTUuMSw4aC00LjlsMjEtMzIuMWg0LjVsOC4xLDMyLjFoLTQuNUwyMDcuOCwyNC40eiBNMjA2LjksMjAuN2wtMy44LTE1LjhMMTkzLDIwLjdIMjA2Ljl6DQoJCQkiLz4NCgkJPHBhdGggY2xhc3M9InN0MCIgZD0iTTI0MC40LDQuNGgtMTAuOWwwLjgtNGgyNi41bC0wLjgsNEgyNDVsLTUuNiwyOC4xaC00LjVMMjQwLjQsNC40eiIvPg0KCQk8cGF0aCBjbGFzcz0ic3QwIiBkPSJNMjc2LjUsNC40bC0yLDkuOGgxNi4xbC0wLjgsMy45aC0xNi4xbC0yLjEsMTAuM2gxOC43bC0wLjgsNGgtMjMuM2w2LjQtMzIuMWgyMi42bC0wLjgsNEgyNzYuNXoiLz4NCgkJPHBhdGggY2xhc3M9InN0MCIgZD0iTTMxNC40LDAuNGgxMi41YzMuMiwwLDYsMC41LDguMywxLjZjMi4zLDEuMSw0LjEsMi42LDUuMyw0LjZjMS4yLDIsMS44LDQuMywxLjgsNi45YzAsMy43LTAuOCw3LTIuNSw5LjkNCgkJCWMtMS43LDIuOS00LDUuMS03LDYuN2MtMywxLjYtNi41LDIuNC0xMC41LDIuNEgzMDhMMzE0LjQsMC40eiBNMzIyLjQsMjguNGMzLjEsMCw1LjgtMC42LDguMS0xLjljMi4zLTEuMyw0LjEtMyw1LjMtNS4yDQoJCQljMS4yLTIuMiwxLjktNC43LDEuOS03LjZjMC0zLTAuOS01LjMtMi44LTYuOWMtMS45LTEuNy00LjctMi41LTguMy0yLjVoLTguM2wtNC44LDI0LjFIMzIyLjR6Ii8+DQoJCTxwYXRoIGNsYXNzPSJzdDAiIGQ9Ik00MDguMiwxOC4zYzAuOCwxLjEsMS4yLDIuNSwxLjIsNC4xYzAsMy4yLTEuMiw1LjctMy43LDcuNGMtMi41LDEuNy01LjksMi42LTEwLjIsMi42aC0xNS40bDYuNC0zMi4xaDE0LjINCgkJCWMzLjIsMCw1LjcsMC42LDcuNSwxLjhjMS44LDEuMiwyLjYsMywyLjYsNS4yYzAsMi4xLTAuNSwzLjgtMS42LDUuM2MtMS4xLDEuNS0yLjUsMi41LTQuMywzLjJDNDA2LjMsMTYuNCw0MDcuNSwxNy4yLDQwOC4yLDE4LjN6DQoJCQkgTTQwMi41LDI3LjFjMS42LTEuMSwyLjQtMi42LDIuNC00LjZjMC0xLjYtMC42LTIuNy0xLjctMy40Yy0xLjEtMC43LTIuOC0xLTUtMWgtMTAuN2wtMi4xLDEwLjdoMTAuNA0KCQkJQzM5OC43LDI4LjcsNDAxLDI4LjIsNDAyLjUsMjcuMXogTTM5MC4zLDQuMWwtMi4xLDEwLjNoOS40YzIuNiwwLDQuNi0wLjUsNi4yLTEuNmMxLjUtMS4xLDIuMy0yLjYsMi4zLTQuNmMwLTEuNC0wLjUtMi40LTEuNi0zLjENCgkJCWMtMS4xLTAuNy0yLjYtMS00LjctMUgzOTAuM3oiLz4NCgkJPHBhdGggY2xhc3M9InN0MCIgZD0iTTQzOS41LDIxLjVsLTIuMiwxMC45aC00LjZsMi4yLTExLjJsLTguNS0yMC44aDQuNWw2LjksMTdsMTMuNy0xN2g0LjlMNDM5LjUsMjEuNXoiLz4NCgk8L2c+DQo8L2c+DQo8L3N2Zz4NCg=="
+          ></a>
+        </div>
+      </div>
     </div>
+    {%- for block in section.blocks -%}
+      {%- if block.type == 'logo_extra' and block.settings.footer_extra_logo != blank -%}
+        <div class="flex w-full justify-center py-6">
+          <img
+            src="{{ block.settings.footer_extra_logo | image_url: width: 200 }}"
+            alt="Logo Extra do Rodapé"
+            class="h-16 w-auto object-contain"
+            loading="lazy"
+          >
+        </div>
+      {%- endif -%}
+    {%- endfor -%}
   </div>
 </footer>
-
-<script>
-  document.addEventListener('DOMContentLoaded', function () {
-    const newsletterForms = document.querySelectorAll('[data-newsletter-form]')
-
-    newsletterForms.forEach(function (form) {
-      form.addEventListener('submit', function (e) {
-        e.preventDefault()
-
-        const formData = new FormData(form)
-        const messageDiv = form.querySelector('.newsletter-message')
-        const submitButton = form.querySelector('button[type="submit"]')
-        const originalButtonText = submitButton.textContent
-
-        // Loading state
-        submitButton.disabled = true
-        submitButton.textContent = 'Enviando...'
-        messageDiv.classList.add('hidden')
-
-        fetch('{{ routes.root_url }}contact', {
-          method: 'POST',
-          body: formData,
-          headers: {
-            'X-Requested-With': 'XMLHttpRequest'
-          }
-        })
-          .then(function (response) {
-            return response.text()
-          })
-          .then(function (data) {
-            if (data.includes('form posted successfully') || !data.includes('error')) {
-              messageDiv.innerHTML = '<div class="text-green-300 text-sm">✓ Inscrição realizada com sucesso!</div>'
-              form.reset()
-            } else {
-              messageDiv.innerHTML = '<div class="text-red-300 text-sm">✗ Erro ao inscrever. Tente novamente.</div>'
-            }
-            messageDiv.classList.remove('hidden')
-          })
-          .catch(function () {
-            messageDiv.innerHTML = '<div class="text-red-300 text-sm">✗ Erro de conexão. Tente novamente.</div>'
-            messageDiv.classList.remove('hidden')
-          })
-          .finally(function () {
-            submitButton.disabled = false
-            submitButton.textContent = originalButtonText
-          })
-      })
-    })
-  })
-</script>
 
 {% schema %}
 {
@@ -206,11 +201,11 @@
       "options": [
         {
           "value": "3",
-          "label": "3 colunas"
+          "label": "3"
         },
         {
           "value": "4",
-          "label": "4 colunas"
+          "label": "4"
         }
       ],
       "default": "4"
@@ -261,65 +256,36 @@
           "id": "button_text",
           "label": "Texto do Botão",
           "default": "Inscrever"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_social_icons",
+          "label": "Exibir ícones das redes sociais",
+          "default": true
+        },
+        {
+          "type": "image_picker",
+          "id": "security_logo_1",
+          "label": "Logo de Segurança 1"
+        },
+        {
+          "type": "image_picker",
+          "id": "security_logo_2",
+          "label": "Logo de Segurança 2"
         }
       ]
     },
     {
-      "type": "social",
-      "name": "Redes Sociais",
+      "type": "logo_extra",
+      "name": "Logo Extra (Rodapé)",
       "settings": [
         {
-          "type": "text",
-          "id": "social_title",
-          "label": "Título",
-          "default": "Siga-nos"
-        },
-        {
-          "type": "url",
-          "id": "facebook_url",
-          "label": "Facebook"
-        },
-        {
-          "type": "url",
-          "id": "instagram_url",
-          "label": "Instagram"
-        },
-        {
-          "type": "url",
-          "id": "twitter_url",
-          "label": "Twitter"
-        }
-      ]
-    },
-    {
-      "type": "custom",
-      "name": "Conteúdo Personalizado",
-      "settings": [
-        {
-          "type": "text",
-          "id": "custom_title",
-          "label": "Título"
-        },
-        {
-          "type": "richtext",
-          "id": "custom_content",
-          "label": "Conteúdo"
+          "type": "image_picker",
+          "id": "footer_extra_logo",
+          "label": "Logo Extra do Rodapé"
         }
       ]
     }
-  ],
-  "default": {
-    "blocks": [
-      {
-        "type": "menu"
-      },
-      {
-        "type": "newsletter"
-      },
-      {
-        "type": "social"
-      }
-    ]
-  }
+  ]
 }
 {% endschema %}

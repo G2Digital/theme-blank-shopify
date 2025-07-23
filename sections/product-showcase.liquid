@@ -1,5 +1,6 @@
 {% render 'vite-tag' with 'sections/showcase.css' %}
 {% render 'vite-tag' with 'sections/showcase.js' %}
+
 {%- if section.settings.collection != blank -%}
   {%- assign collection = collections[section.settings.collection] -%}
   {%- assign products_limit = section.settings.products_limit | default: 6 -%}
@@ -13,7 +14,7 @@
   {%- assign autoplay_delay = section.settings.autoplay_delay | times: 100 -%}
 
   <section class="product-showcase relative bg-[#F5F3FA] pb-16 pt-36">
-    <div class="mx-auto max-w-[1600px]">
+    <div class="mx-auto max-w-[1800px]">
       <div id="product-title-container" class="mb-8 text-center">
         {%- for product in products -%}
           {%- if forloop.index <= products_limit -%}
