@@ -31,7 +31,7 @@
       {% assign posts_limit = section.settings.posts_count | default: 3 %}
 
       {% for article in blogs[blog_handle].articles limit: posts_limit %}
-        <article class="m-0 border-b-[1px] border-[#7758B3]/20 py-6">
+        <article class="m-0 py-6 {% unless forloop.last %}border-b-[1px] border-[#7758B3]/20{% endunless %}">
           <div class="flex flex-row items-center">
             <div class="sm:w-36 sm:flex-shrink-0">
               {% if article.image %}
