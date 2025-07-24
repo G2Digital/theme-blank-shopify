@@ -6,10 +6,8 @@
 
   if columns == '3'
     assign grid_class = 'lg:grid-cols-3 lg:gap-16 footer-grid-3'
-    assign grid_style = 'grid-template-columns: repeat(3, 1fr);'
   else
     assign grid_class = 'lg:grid-cols-4 lg:gap-12 footer-grid-4'
-    assign grid_style = 'grid-template-columns: repeat(4, 1fr);'
   endif
 -%}
 
@@ -187,6 +185,8 @@
             alt="Logo Extra do Rodapé"
             class="h-16 w-auto object-contain"
             loading="lazy"
+            width="200"
+            height="64"
           >
         </div>
       {%- endif -%}
