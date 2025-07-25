@@ -1,7 +1,53 @@
 import 'vite/modulepreload-polyfill'
 import { initDisclosureWidgets } from '@/lib/a11y'
 import { revive, islands } from '@/lib/revive.js'
+function initSmoothScrollButton() {
+  const scrollButton = document.querySelector('[data-scroll-to-next-section]')
 
+  if (!scrollButton) {
+    return
+  }
+
+  const smoothScrollTo = (targetY, duration = 1000) => {
+    const startY = window.pageYOffset
+    const distance = targetY - startY
+    let startTime = null
+
+    // Easing function: easeInOutQuad
+    // t: current time, b: beginning value, c: change in value, d: duration
+    const ease = (t, b, c, d) => {
+      t /= d / 2
+      if (t < 1) return (c / 2) * t * t + b
+      t--
+      return (-c / 2) * (t * (t - 2) - 1) + b
+    }
+
+    const animation = (currentTime) => {
+      if (startTime === null) startTime = currentTime
+      const timeElapsed = currentTime - startTime
+      window.scrollTo(0, ease(timeElapsed, startY, distance, duration))
+      if (timeElapsed < duration) {
+        requestAnimationFrame(animation)
+      }
+    }
+
+    requestAnimationFrame(animation)
+  }
+
+  scrollButton.addEventListener('click', function (event) {
+    event.preventDefault()
+    const currentSection = this.closest('.shopify-section')
+    const nextSection = currentSection
+      ? currentSection.nextElementSibling
+      : null
+    if (nextSection) {
+      const header = document.getElementById('shopify-section-header')
+      const headerHeight = header ? header.offsetHeight : 0
+      const targetPosition = nextSection.offsetTop - headerHeight
+      smoothScrollTo(targetPosition, 1000) // A duração é em milissegundos (1000ms = 1 segundo)
+    }
+  })
+}
 document.addEventListener('DOMContentLoaded', () => {
   const summaries = document.querySelectorAll('[id^="Details-"] summary')
 
@@ -14,6 +60,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   revive(islands)
   initDisclosureWidgets(summaries)
+  initSmoothScrollButton()
 
   const toggleSidebarClass = () => {
     const cartDrawer = document.querySelector('cart-drawer')
