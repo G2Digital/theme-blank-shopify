@@ -20,41 +20,35 @@ export function initProductCarousel() {
     })
 
     if (prevBtn) {
-      prevBtn.addEventListener('click', () => embla.scrollPrev())
+      prevBtn.addEventListener('click', (e) => {
+        e.preventDefault()
+        e.stopPropagation()
+        embla.scrollPrev()
+      })
     }
 
     if (nextBtn) {
-      nextBtn.addEventListener('click', () => embla.scrollNext())
+      nextBtn.addEventListener('click', (e) => {
+        e.preventDefault()
+        e.stopPropagation()
+        embla.scrollNext()
+      })
     }
 
     const toggleButtons = () => {
-      if (prevBtn) {
-        prevBtn.disabled = !embla.canScrollPrev()
-      }
-      if (nextBtn) {
-        nextBtn.disabled = !embla.canScrollNext()
-      }
+      if (prevBtn) prevBtn.disabled = false
+      if (nextBtn) nextBtn.disabled = false
     }
 
-    // Função para atualizar a classe ativa no slide central
     const updateActiveSlide = () => {
-      // Remove a classe is-active de todos os slides
       const allSlides = viewport.querySelectorAll('.mainProduct__slide')
-      allSlides.forEach((slide) => {
-        slide.classList.remove('is-active')
-      })
+      allSlides.forEach((slide) => slide.classList.remove('is-active'))
 
-      // Adiciona a classe is-active ao slide ativo
       const selectedIndex = embla.selectedScrollSnap()
       const activeSlide = allSlides[selectedIndex]
-
-      if (activeSlide) {
-        activeSlide.classList.add('is-active')
-        console.log(`Slide ${selectedIndex} marcado como ativo`)
-      }
+      if (activeSlide) activeSlide.classList.add('is-active')
     }
 
-    // Desabilita transições durante o scroll
     const disableTransitions = () => {
       const allSlides = viewport.querySelectorAll('.mainProduct__slide')
       allSlides.forEach((slide) => {
@@ -64,7 +58,6 @@ export function initProductCarousel() {
       })
     }
 
-    // Habilita transições após o scroll
     const enableTransitions = () => {
       const allSlides = viewport.querySelectorAll('.mainProduct__slide')
       allSlides.forEach((slide) => {
@@ -84,7 +77,6 @@ export function initProductCarousel() {
       updateActiveSlide()
     })
 
-    // Desabilita transições durante o scroll e reabilita após
     embla.on('scroll', disableTransitions)
     embla.on('settle', enableTransitions)
   })
