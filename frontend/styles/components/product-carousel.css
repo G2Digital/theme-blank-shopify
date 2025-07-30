@@ -15,13 +15,15 @@
   flex: 0 0 auto;
   min-width: 0;
   padding: 0 10px;
+  transform-origin: center;
 }
 
 .mainProduct__slide img {
   display: block;
   width: 100%;
-  height: 100%;
+  height: 650px;
   object-fit: cover;
+  border-radius: 8px;
 }
 
 .mainProduct__button {
@@ -48,4 +50,29 @@
 
 .mainProduct__button:hover:not(:disabled) {
   opacity: 0.8;
+}
+
+.mainProduct__slide.is-active {
+  transform: scale(1);
+  opacity: 1;
+  z-index: 2;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.mainProduct__slide.is-active img {
+  transform: scale(1);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.mainProduct__slide:not(.is-active) {
+  transform: scale(0.85);
+  opacity: 0.6;
+  z-index: 1;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.mainProduct__slide:not(.is-active) img {
+  transform: scale(0.7);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }

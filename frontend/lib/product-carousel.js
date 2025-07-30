@@ -36,7 +36,56 @@ export function initProductCarousel() {
       }
     }
 
-    embla.on('select', toggleButtons)
-    embla.on('init', toggleButtons)
+    // Função para atualizar a classe ativa no slide central
+    const updateActiveSlide = () => {
+      // Remove a classe is-active de todos os slides
+      const allSlides = viewport.querySelectorAll('.mainProduct__slide')
+      allSlides.forEach((slide) => {
+        slide.classList.remove('is-active')
+      })
+
+      // Adiciona a classe is-active ao slide ativo
+      const selectedIndex = embla.selectedScrollSnap()
+      const activeSlide = allSlides[selectedIndex]
+
+      if (activeSlide) {
+        activeSlide.classList.add('is-active')
+        console.log(`Slide ${selectedIndex} marcado como ativo`)
+      }
+    }
+
+    // Desabilita transições durante o scroll
+    const disableTransitions = () => {
+      const allSlides = viewport.querySelectorAll('.mainProduct__slide')
+      allSlides.forEach((slide) => {
+        slide.style.transition = 'none'
+        const img = slide.querySelector('img')
+        if (img) img.style.transition = 'none'
+      })
+    }
+
+    // Habilita transições após o scroll
+    const enableTransitions = () => {
+      const allSlides = viewport.querySelectorAll('.mainProduct__slide')
+      allSlides.forEach((slide) => {
+        slide.style.transition = ''
+        const img = slide.querySelector('img')
+        if (img) img.style.transition = ''
+      })
+    }
+
+    embla.on('select', () => {
+      toggleButtons()
+      updateActiveSlide()
+    })
+
+    embla.on('init', () => {
+      toggleButtons()
+      updateActiveSlide()
+    })
+
+    // Desabilita transições durante o scroll e reabilita após
+    embla.on('scroll', disableTransitions)
+    embla.on('settle', enableTransitions)
   })
 }
