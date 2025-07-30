@@ -8,11 +8,18 @@
   endif
 -%}
 
+{%- style -%}
+  {% if section.settings.enable_background_color %}
+      .headerPrimary{
+        background:{{ section.settings.background_color }};
+      }
+    {% endif %}
+{%- endstyle -%}
+
 <{{ header_tag }} client:idle>
   <header
     role="banner"
-    style="{% if section.settings.enable_background_color %}background: {{ section.settings.background_color }};{% endif %}"
-    class="{{ container_class }} {% if section.settings.enable_background_color %}fixed{% endif %} {% if section.settings.enable_blur_header %}backdrop-blur-lg{% endif %} h-nav flex w-full items-center justify-between gap-4 px-4 leading-none md:px-8 lg:gap-8 lg:px-12 lg:py-4"
+    class="{% if template == 'index' %}headerPrimary {% else %}headerSecondary {% endif %}{{ container_class }} {% if section.settings.enable_background_color %}fixed{% endif %} {% if section.settings.enable_blur_header %}backdrop-blur-lg{% endif %} h-nav flex w-full items-center justify-between gap-4 px-4 leading-none md:px-8 lg:gap-8 lg:px-12 lg:py-4"
   >
     <div class="flex flex-1 items-center gap-2 lg:gap-4">
       {%- content_for 'block', type: '_header-menu-mobile', id: 'header-menu-mobile' -%}

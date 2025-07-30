@@ -38,6 +38,12 @@
   border-radius: 55px;
 }
 
+@media (max-width: 768px) {
+  .mainProduct__slide img {
+    height: 450px;
+  }
+}
+
 .mainProduct__button {
   cursor: pointer;
   background: none;

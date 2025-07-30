@@ -49,12 +49,30 @@ header {
   color: var(--color-primary-header);
 }
 
+.headerSecondary {
+  background: linear-gradient(
+    135deg,
+    rgba(119, 88, 179, 1),
+    rgba(96, 121, 188, 1) 100%
+  ) !important;
+}
+
 #menu-drawer {
   color: var(--color-primary);
 }
 
 summary::before {
   z-index: 10;
+}
+
+.default__title {
+  background: linear-gradient(
+    135deg,
+    rgba(102, 126, 234, 1),
+    rgba(118, 75, 162, 1) 100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .sidebar_opened {
