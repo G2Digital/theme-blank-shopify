@@ -1,0 +1,51 @@
+.mainProduct {
+  position: relative;
+}
+
+.mainProduct__viewport {
+  overflow: hidden;
+}
+
+.mainProduct__container {
+  display: flex;
+  will-change: transform;
+}
+
+.mainProduct__slide {
+  flex: 0 0 auto;
+  min-width: 0;
+  padding: 0 10px;
+}
+
+.mainProduct__slide img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.mainProduct__button {
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 10px;
+  font-size: 1.5rem;
+  transition: opacity 0.3s ease;
+}
+
+.mainProduct__button--prev svg {
+  transform: rotate(90deg);
+}
+
+.mainProduct__button--next svg {
+  transform: rotate(-90deg);
+}
+
+.mainProduct__button:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.mainProduct__button:hover:not(:disabled) {
+  opacity: 0.8;
+}
