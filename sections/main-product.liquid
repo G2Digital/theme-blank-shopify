@@ -58,6 +58,9 @@
           >
             {{ product.title | escape }}
           </h1>
+          {% if section.settings.show_vendor %}
+            <p class="text-copy font-body-weight-bold opacity-50">{{ product.vendor }}</p>
+          {% endif %}
         </div>
         {%- for block in section.blocks -%}
           {%- case block.type -%}
@@ -318,7 +321,7 @@
       "type": "checkbox",
       "id": "show_vendor",
       "label": "Show product vendor",
-      "default": true
+      "default": false
     }
   ],
   "blocks": [
