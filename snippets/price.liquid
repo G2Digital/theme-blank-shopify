@@ -1,13 +1,15 @@
 {% comment %}
-  Renders a list of product's price (regular, sale)
+  Renders a list of product's price (regular, sale) with discount tag and new product tag
 
   Accepts:
   - product: {Object} Product Liquid object (optional)
   - use_variant: {Boolean} Renders selected or first variant price instead of overall product pricing (optional)
   - price_class: {String} Adds a price class to the price element (optional)
+  - show_discount_tag: {Boolean} Shows discount percentage tag when on sale (optional, default: true)
+  - show_new_tag: {Boolean} Shows new product tag when applicable (optional, default: true)
 
   Usage:
-  {% render 'price', product: product %}
+  {% render 'price', product: product, use_variant: true, price_class: 'mb-10' %}
 {% endcomment %}
 {%- liquid
   if use_variant
@@ -15,20 +17,68 @@
   else
     assign target = product
   endif
+
+  # Calcula o percentual de desconto
+  if target.compare_at_price > target.price
+    assign discount_amount = target.compare_at_price | minus: target.price
+    assign discount_percentage = discount_amount | times: 100.0 | divided_by: target.compare_at_price | round
+  endif
+
+  # Define se deve mostrar a tag de desconto (padrão: true)
+  if show_discount_tag == null
+    assign show_discount_tag = true
+  endif
+
+  # Define se deve mostrar a tag de novo produto (padrão: true)
+  if show_new_tag == null
+    assign show_new_tag = true
+  endif
+
+  # Calcula se o produto é novo (menos de 15 dias)
+  assign current_timestamp = 'now' | date: '%s'
+  assign product_created_timestamp = product.created_at | date: '%s'
+  assign seconds_in_day = 86400
+  assign days_difference = current_timestamp | minus: product_created_timestamp | divided_by: seconds_in_day
+  assign is_new_product = false
+  if days_difference <= 15
+    assign is_new_product = true
+  endif
 -%}
 
 <div
   class="
-    default__title relative z-0 flex gap-4 text-5xl font-medium
+    items-left relative z-0 flex flex-col gap-4
     {%- if price_class %} {{ price_class }}{% endif -%}
   "
 >
+  <!-- Tags de desconto e produto novo -->
+  <div class="flex gap-2">
+    {%- if target.compare_at_price > target.price and show_discount_tag and discount_percentage > 0 -%}
+      <span class="w-18 rounded-full bg-blue-400 text-center text-sm font-medium text-white">
+        {{ discount_percentage }}% OFF
+      </span>
+    {%- endif -%}
+
+    {%- if show_new_tag and is_new_product -%}
+      <span class="w-18 rounded-full bg-green-500 text-center text-sm font-medium text-white"> NOVO </span>
+    {%- endif -%}
+  </div>
+
   {%- if target.compare_at_price > target.price -%}
-    <span class="sr-only">{{ 'products.product.price.sale_price' | t }}</span>
-    <span>{{ target.price | money_without_trailing_zeros }}</span>
-    <span class="sr-only">{{ 'products.product.price.regular_price' | t }}</span>
-    <span class="strike opacity-50">{{ target.compare_at_price | money_without_trailing_zeros }}</span>
+    <div class="items-left gap1 tracking-tigh flex flex-col gap-1">
+      <span class="sr-only">{{ 'products.product.price.regular_price' | t }}</span>
+      <span class="text-2xl line-through decoration-[#564F6C]">
+        {{ target.compare_at_price | money_without_trailing_zeros }}
+      </span>
+
+      <span class="sr-only">{{ 'products.product.price.sale_price' | t }}</span>
+      <span class="default__title text-5xl font-medium">
+        {{- target.price | money_without_trailing_zeros -}}
+      </span>
+    </div>
+
   {%- elsif target.price_varies -%}
+    <!-- Preço com variação -->
     {%- capture formatted_min_price -%}<span>{{ target.price_min | money_without_trailing_zeros }}</span>{%- endcapture -%}
     {%- capture formatted_max_price -%}<span>{{ target.price_max | money_without_trailing_zeros }}</span>{%- endcapture -%}
     <span class="sr-only">{{ 'products.product.price.regular_price' | t }}</span>
@@ -38,8 +88,9 @@
         | t: min_price: formatted_min_price, max_price: formatted_max_price
       -}}
     </span>
+
   {%- else -%}
     <span class="sr-only">{{ 'products.product.price.regular_price' | t }}</span>
-    <span>{{ target.price | money_without_trailing_zeros }}</span>
+    <span class="default__title text-5xl font-medium">{{ target.price | money_without_trailing_zeros }}</span>
   {%- endif -%}
 </div>

@@ -97,7 +97,13 @@
                 role="status"
                 {{ block.shopify_attributes }}
               >
-                {%- render 'price', product: product, use_variant: true, price_class: 'mb-10' -%}
+                {%- render 'price',
+                  product: product,
+                  use_variant: true,
+                  price_class: 'mb-10',
+                  show_discount_tag: true,
+                  show_new_tag: true
+                -%}
               </div>
             {%- when 'variant_picker' -%}
               {%- unless product.has_only_default_variant -%}
